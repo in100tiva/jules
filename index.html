@@ -1011,6 +1011,14 @@
             z-index: 10;
         }
 
+        /* Mobile: diferentes efeitos hover baseados em touch vs mouse */
+        @media (hover: none) and (pointer: coarse) {
+            .lesson-card:hover {
+                transform: translateY(-4px) scale(1.01);
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+            }
+        }
+
         .lesson-card.locked {
             opacity: 0.6;
             cursor: not-allowed;
@@ -3245,6 +3253,8 @@
             container.innerHTML = '';
             indicatorsContainer.innerHTML = '';
 
+            // Dica mobile removida conforme solicitado
+
             lessons.forEach((lesson, index) => {
                 const isCompleted = gameState.completedLessons.includes(lesson.id);
                 const isLocked = index > 0 && !gameState.completedLessons.includes(index - 1);
@@ -3256,24 +3266,31 @@
                     lessonCard.style.cursor = 'pointer';
                     lessonCard.setAttribute('data-lesson-id', lesson.id.toString());
                     
-                    // Adicionar múltiplos tipos de eventos para garantir funcionalidade
-                    lessonCard.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        console.log(`🎯 Click event - Iniciando lição ${lesson.id}: ${lesson.title}`);
-                        startLesson(lesson.id);
-                    });
-                    
-                    // Adicionar evento de toque para mobile
-                    lessonCard.addEventListener('touchend', (e) => {
-                        // Só processar se não foi um drag
-                        if (!isCarouselDragging && !isManualDragging) {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            console.log(`📱 Touch event - Iniciando lição ${lesson.id}: ${lesson.title}`);
-                            startLesson(lesson.id);
-                        }
-                    }, { passive: false });
+                    // Sistema unificado para mobile e desktop
+                    if (isMobileDevice()) {
+                        // Mobile: Clique simples quando carrossel não está se movendo
+                        lessonCard.addEventListener('touchstart', (e) => {
+                            handleCardTouchStart(e, lesson.id);
+                        }, { passive: true });
+                        
+                        lessonCard.addEventListener('touchmove', (e) => {
+                            handleCardTouchMove(e);
+                        }, { passive: true });
+                        
+                        lessonCard.addEventListener('touchend', (e) => {
+                            handleCardTouchEnd(e, lesson.id, lesson.title);
+                        }, { passive: false });
+                    } else {
+                        // Desktop: Clique simples quando não está arrastando
+                        lessonCard.addEventListener('click', (e) => {
+                            if (!isCarouselDragging && !isManualDragging && !carouselIsMoving) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                console.log(`🖱️ Desktop click - Iniciando lição ${lesson.id}: ${lesson.title}`);
+                                startLesson(lesson.id);
+                            }
+                        });
+                    }
                 }
 
                 lessonCard.innerHTML = `
@@ -3331,6 +3348,86 @@
             updateCarouselButtons();
         }
 
+        // ==================== CARD TOUCH DETECTION ==================== 
+        function handleCardTouchStart(e, lessonId) {
+            cardTouchStartTime = Date.now();
+            hasMovedDuringTouch = false;
+            
+            const touch = e.touches[0];
+            touchStartX = touch.clientX;
+            touchStartY = touch.clientY;
+            
+            // Adicionar feedback visual sutil
+            const card = e.currentTarget;
+            card.style.transition = 'transform 0.1s ease';
+            card.style.transform = 'scale(0.98)';
+            
+            console.log(`👆 Touch start no card da lição ${lessonId}`);
+        }
+
+        function handleCardTouchMove(e) {
+            if (!hasMovedDuringTouch && e.touches.length > 0) {
+                const touch = e.touches[0];
+                const deltaX = Math.abs(touch.clientX - touchStartX);
+                const deltaY = Math.abs(touch.clientY - touchStartY);
+                
+                // Se movimento for maior que 10px, considerar como arrasto
+                if (deltaX > 10 || deltaY > 10) {
+                    hasMovedDuringTouch = true;
+                    
+                    // Remover feedback visual de clique
+                    const card = e.currentTarget;
+                    card.style.transform = 'scale(1)';
+                    
+                    console.log(`📱 Movimento detectado - cancelando clique`);
+                }
+            }
+        }
+
+        function handleCardTouchEnd(e, lessonId, lessonTitle) {
+            const card = e.currentTarget;
+            const touchDuration = Date.now() - cardTouchStartTime;
+            
+            // Restaurar visual do card
+            card.style.transform = 'scale(1)';
+            
+            // Verificar se pode abrir a lição:
+            // 1. Não houve movimento significativo durante o toque
+            // 2. Carrossel não está sendo arrastado manualmente 
+            // 3. Carrossel não está em movimento (inércia)
+            // 4. Toque foi rápido (menos de 500ms)
+            if (!hasMovedDuringTouch && 
+                !isCarouselDragging && 
+                !isManualDragging && 
+                !carouselIsMoving &&
+                touchDuration < 500) {
+                
+                e.preventDefault();
+                e.stopPropagation();
+                
+                console.log(`🎯 Clique simples detectado - Iniciando lição ${lessonId}: ${lessonTitle}`);
+                
+                // Feedback visual de sucesso
+                card.style.transition = 'transform 0.2s ease';
+                card.style.transform = 'scale(1.05)';
+                
+                setTimeout(() => {
+                    card.style.transform = 'scale(1)';
+                    startLesson(lessonId);
+                }, 150);
+                
+            } else {
+                const reason = hasMovedDuringTouch ? 'movimento' : 
+                              isCarouselDragging || isManualDragging ? 'arrasto ativo' :
+                              carouselIsMoving ? 'carrossel em movimento' :
+                              touchDuration >= 500 ? 'toque muito longo' : 'desconhecido';
+                console.log(`❌ Clique cancelado - ${reason}`);
+            }
+        }
+
+        // Remover funções de duplo toque que não são mais necessárias
+        // showDoubleTapIndicator e hideDoubleTapIndicator foram removidas
+
         function setupCarouselDragAndScroll() {
             const container = document.getElementById('lessons-container');
             if (!container) return;
@@ -3376,11 +3473,21 @@
                 container.addEventListener('selectstart', (e) => e.preventDefault());
             }
             
-            // Scroll event para atualizar indicadores com throttle otimizado
+            // Scroll event para atualizar indicadores e detectar movimento
             let scrollTimeout;
             let isScrolling = false;
             
             container.addEventListener('scroll', () => {
+                // Marcar que o carrossel está se movendo
+                carouselIsMoving = true;
+                clearTimeout(carouselMovementTimeout);
+                
+                // Resetar flag após o movimento parar
+                carouselMovementTimeout = setTimeout(() => {
+                    carouselIsMoving = false;
+                    console.log('🛑 Carrossel parou de se mover');
+                }, 100); // 100ms após parar de fazer scroll
+                
                 if (!isScrolling) {
                     isScrolling = true;
                     requestAnimationFrame(() => {
@@ -3426,18 +3533,27 @@
         let isManualDragging = false;
         let animationId = null;
 
+        // Click detection variables
+        let cardTouchStartTime = 0;
+        let hasMovedDuringTouch = false;
+        let carouselIsMoving = false;
+        let carouselMovementTimeout = null;
+
         function handleCarouselStart(e) {
             const container = document.getElementById('lessons-container');
             
-            // Verificar se o clique foi em um card de lição desbloqueado
+            // Verificar se o evento foi em um card de lição desbloqueado
             const lessonCard = e.target.closest('.lesson-card');
             if (lessonCard && !lessonCard.classList.contains('locked')) {
-                // Se for um clique simples em um card, não iniciar o drag
-                if (e.type === 'mousedown' || e.type === 'touchstart') {
-                    // Marcar para detectar se é clique ou drag
+                // Se for mobile, deixar que os eventos do card gerenciem
+                if (isMobileDevice()) {
+                    return; // Não iniciar drag se tocou em um card no mobile
+                }
+                
+                // Desktop: permitir drag, mas marcar como potencial clique
+                if (e.type === 'mousedown') {
                     const startTime = Date.now();
                     lessonCard.setAttribute('data-click-start', startTime.toString());
-                    return;
                 }
             }
             
@@ -3588,28 +3704,28 @@
         function handleCarouselEnd(e) {
             const container = document.getElementById('lessons-container');
             
-            // Verificar se foi um clique rápido em um card
+            // Verificar se foi um clique rápido em um card (apenas desktop)
             let lessonCard = null;
             if (e && e.target && typeof e.target.closest === 'function') {
                 lessonCard = e.target.closest('.lesson-card');
             }
             
-            if (lessonCard && !lessonCard.classList.contains('locked')) {
+            // Desktop: detectar clique em cards durante mouse events
+            if (lessonCard && !lessonCard.classList.contains('locked') && !isMobileDevice()) {
                 const clickStart = lessonCard.getAttribute('data-click-start');
                 if (clickStart) {
                     const clickDuration = Date.now() - parseInt(clickStart);
                     const clickDistanceX = Math.abs(lastTouchX - touchStartX);
                     const clickDistanceY = Math.abs(lastTouchY - touchStartY);
                     
-                    // Se foi um clique rápido sem movimento significativo
+                    // Se foi um clique rápido sem movimento significativo (desktop)
                     if (clickDuration < 300 && clickDistanceX < 10 && clickDistanceY < 10) {
                         lessonCard.removeAttribute('data-click-start');
-                        // Encontrar o ID da lição pelo data-lesson-id
                         const lessonId = lessonCard.getAttribute('data-lesson-id');
                         if (lessonId !== null) {
                             const parsedId = parseInt(lessonId, 10);
                             if (!isNaN(parsedId) && parsedId >= 0 && parsedId < lessons.length) {
-                                console.log(`🎯 Clique detectado no card da lição ${parsedId}`);
+                                console.log(`🖱️ Clique desktop detectado no card da lição ${parsedId}`);
                                 setTimeout(() => startLesson(parsedId), 50);
                                 return;
                             }
@@ -4648,6 +4764,9 @@
             }, 3000);
         }
 
+        // ==================== MOBILE HINTS REMOVIDAS ==================== 
+        // Funções de hint mobile removidas conforme solicitado pelo usuário
+
         // ==================== FUNÇÕES GLOBAIS ==================== 
         window.startLesson = startLesson;
         window.answerQuestion = answerQuestion;
@@ -4661,6 +4780,7 @@
         window.dismissMobileInstallBanner = dismissMobileInstallBanner;
         window.handleMobileInstall = handleMobileInstall;
         window.closeIOSInstructions = closeIOSInstructions;
+        // hideMobileHint removido
         
         // Debug functions
         window.debugGameState = () => console.log('🎮 Game State:', gameState);
@@ -5864,6 +5984,11 @@
                     showMobileInstallBanner();
                 }
             }, 3000); // Aguardar 3 segundos após o carregamento
+        }
+
+        // Função para detectar se o carrossel está parado completamente
+        function isCarouselStoppedMoving() {
+            return !carouselIsMoving && !isCarouselDragging && !isManualDragging;
         }
     </script>
 </body>
