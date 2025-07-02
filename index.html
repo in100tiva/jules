@@ -922,7 +922,8 @@
             -ms-overflow-style: none;
             cursor: grab;
             transition: scroll-behavior 0.1s ease;
-            /* Remove scroll visual mas mantém funcionalidade */
+            /* Importante: permitir que eventos passem para o parent quando necessário */
+            touch-action: pan-x pinch-zoom;
         }
 
         /* Scrollbar do carrossel - mobile invisível, desktop customizada */
@@ -1958,6 +1959,8 @@
                 -webkit-overflow-scrolling: touch;
                 /* iOS Safari bounce effect */
                 overscroll-behavior: contain;
+                /* IMPORTANTE: Permitir que o scroll funcione normalmente */
+                touch-action: pan-y pinch-zoom;
             }
 
             .container {
@@ -1973,8 +1976,8 @@
             .lesson-card {
                 min-width: 280px;
                 width: 280px;
-                /* Melhorar touch no mobile */
-                touch-action: manipulation;
+                /* IMPORTANTE: Não manipular touch-action nos cards */
+                touch-action: pan-x pan-y;
             }
 
             .carousel-controls {
@@ -1985,8 +1988,12 @@
                 margin: 0 calc(-1 * var(--spacing-4));
                 padding: var(--spacing-16) var(--spacing-8) var(--spacing-20) var(--spacing-8);
                 min-height: 550px;
-                /* Touch horizontal scroll */
-                touch-action: pan-x;
+                /* IMPORTANTE: Permitir movimento em ambas direções, mas detectar via JS */
+                touch-action: auto;
+                /* Melhor isolamento do scroll */
+                isolation: isolate;
+                /* Prevenir que eventos escapem desnecessariamente */
+                pointer-events: auto;
             }
 
             .lesson-header {
@@ -2011,6 +2018,20 @@
             .btn, .question-option, .color-option {
                 min-height: 48px;
                 touch-action: manipulation;
+            }
+            
+            /* IMPORTANTE: Garantir que áreas fora do carrossel permitam scroll vertical */
+            .main-content {
+                touch-action: pan-y pinch-zoom;
+            }
+            
+            .card {
+                touch-action: pan-y pinch-zoom;
+            }
+            
+            /* Melhorar a detecção de scroll no carrossel */
+            .lessons-carousel-container.dragging {
+                touch-action: none; /* Quando está arrastando, bloquear outros movimentos */
             }
         }
 
@@ -3193,9 +3214,9 @@
         function setupCarouselDragAndScroll() {
             const container = document.getElementById('lessons-container');
             
-            // Touch events para mobile - passivo para melhor performance
+            // Touch events para mobile - NÃO passivo para poder prevenir quando necessário
             container.addEventListener('touchstart', handleCarouselStart, { passive: true });
-            container.addEventListener('touchmove', handleCarouselMove, { passive: true });
+            container.addEventListener('touchmove', handleCarouselMove, { passive: false }); // Não passivo para poder usar preventDefault
             container.addEventListener('touchend', handleCarouselEnd, { passive: true });
             
             // Mouse events para desktop
@@ -3216,51 +3237,119 @@
                 scrollTimeout = setTimeout(updateCarouselIndicators, 50);
             }, { passive: true });
             
-            // Permitir scroll nativo no mobile
+            // Configurações específicas para mobile
             if (isMobileDevice()) {
-                container.style.touchAction = 'pan-x';
+                // Permitir pan horizontal e zoom, mas detectar direção dinamicamente
+                container.style.touchAction = 'pan-x pan-y pinch-zoom';
                 container.style.overflowX = 'scroll';
                 container.style.scrollSnapType = 'x mandatory';
+                
+                // Melhorar o scroll snap
+                container.style.scrollPadding = '0 20px';
             }
         }
 
+        let touchStartY = 0;
+        let touchStartX = 0;
+        let isVerticalScroll = false;
+        let isHorizontalScroll = false;
+        let scrollDirection = null;
+
         function handleCarouselStart(e) {
-            // No mobile, deixar o scroll nativo funcionar
-            if (isMobileDevice() && e.type.startsWith('touch')) {
-                return;
-            }
-            
-            isCarouselDragging = true;
             const container = document.getElementById('lessons-container');
-            container.classList.add('dragging');
             
-            const clientX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
-            carouselStartX = clientX;
-            carouselScrollLeft = container.scrollLeft;
-            
-            // Previne seleção de texto durante o drag apenas no desktop
-            if (!isMobileDevice()) {
+            if (e.type.startsWith('touch')) {
+                // Mobile: detectar direção do movimento
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+                isVerticalScroll = false;
+                isHorizontalScroll = false;
+                scrollDirection = null;
+                
+                // Não iniciar dragging imediatamente no mobile
+                return;
+            } else {
+                // Desktop: comportamento normal
+                isCarouselDragging = true;
+                container.classList.add('dragging');
+                
+                carouselStartX = e.clientX;
+                carouselScrollLeft = container.scrollLeft;
+                
                 container.style.userSelect = 'none';
                 container.style.cursor = 'grabbing';
             }
         }
 
         function handleCarouselMove(e) {
-            if (!isCarouselDragging || (isMobileDevice() && e.type.startsWith('touch'))) return;
-            
-            // Só prevenir default no desktop
-            if (!isMobileDevice()) {
+            if (e.type.startsWith('touch')) {
+                // Mobile: detectar direção do movimento
+                const currentX = e.touches[0].clientX;
+                const currentY = e.touches[0].clientY;
+                const deltaX = Math.abs(currentX - touchStartX);
+                const deltaY = Math.abs(currentY - touchStartY);
+                
+                // Só determinar direção após movimento mínimo
+                if (deltaX > 10 || deltaY > 10) {
+                    if (scrollDirection === null) {
+                        // Determinar direção principal do movimento
+                        if (deltaX > deltaY * 1.2) {
+                            // Movimento predominantemente horizontal (threshold menor para melhor detecção)
+                            scrollDirection = 'horizontal';
+                            isHorizontalScroll = true;
+                            isVerticalScroll = false;
+                            
+                            // Iniciar carrossel drag apenas se for movimento horizontal
+                            if (!isCarouselDragging) {
+                                isCarouselDragging = true;
+                                const container = document.getElementById('lessons-container');
+                                container.classList.add('dragging');
+                                carouselStartX = touchStartX;
+                                carouselScrollLeft = container.scrollLeft;
+                            }
+                        } else if (deltaY > deltaX * 1.2) {
+                            // Movimento predominantemente vertical - permitir scroll da página
+                            scrollDirection = 'vertical';
+                            isVerticalScroll = true;
+                            isHorizontalScroll = false;
+                            
+                            // IMPORTANTE: Garantir que não interfira no scroll vertical
+                            const container = document.getElementById('lessons-container');
+                            container.classList.remove('dragging');
+                            isCarouselDragging = false;
+                            
+                            return; // Permitir scroll vertical normal
+                        } else {
+                            // Movimento diagonal/indefinido - aguardar mais movimento para decidir
+                            return;
+                        }
+                    }
+                    
+                    // Se for scroll horizontal, mover carrossel
+                    if (isHorizontalScroll && isCarouselDragging) {
+                        e.preventDefault(); // Prevenir scroll vertical apenas no movimento horizontal
+                        
+                        const container = document.getElementById('lessons-container');
+                        const deltaX = currentX - carouselStartX;
+                        const smoothDelta = deltaX * 1.2;
+                        
+                        container.scrollLeft = carouselScrollLeft - smoothDelta;
+                    }
+                }
+                
+                return;
+            } else {
+                // Desktop: comportamento normal
+                if (!isCarouselDragging) return;
+                
                 e.preventDefault();
+                
+                const container = document.getElementById('lessons-container');
+                const deltaX = e.clientX - carouselStartX;
+                const smoothDelta = deltaX * 1.2;
+                
+                container.scrollLeft = carouselScrollLeft - smoothDelta;
             }
-            
-            const container = document.getElementById('lessons-container');
-            const clientX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
-            
-            // Movimento mais suave com multiplicador reduzido
-            const deltaX = clientX - carouselStartX;
-            const smoothDelta = deltaX * 1.2;
-            
-            container.scrollLeft = carouselScrollLeft - smoothDelta;
         }
 
         function handleCarouselEnd() {
@@ -3275,7 +3364,19 @@
                 container.style.cursor = 'grab';
                 // Adiciona momentum suave após soltar apenas no desktop
                 addMomentumScroll(container);
+            } else {
+                // Mobile: aplicar snap se houve movimento horizontal significativo
+                if (isHorizontalScroll) {
+                    addMomentumScroll(container);
+                }
             }
+            
+            // Reset das variáveis de controle
+            touchStartX = 0;
+            touchStartY = 0;
+            isVerticalScroll = false;
+            isHorizontalScroll = false;
+            scrollDirection = null;
         }
 
         function scrollCarousel(direction) {
@@ -5139,20 +5240,15 @@
         function fixMobileScrolling() {
             if (!isMobileDevice()) return;
             
-            // Prevenir bounce scroll indesejado
-            document.addEventListener('touchstart', function(e) {
-                // Permitir scroll apenas em elementos scrollable
-                const target = e.target.closest('.screen, .lessons-carousel-container, .modal-body');
-                if (!target) {
-                    return;
-                }
-            }, { passive: true });
+            // Melhorar a gestão de eventos de touch para evitar conflitos de scroll
+            const carouselContainer = document.getElementById('lessons-container');
             
-            // Prevenir zoom duplo toque
+            // Prevenir zoom duplo toque apenas em elementos específicos
             let lastTouchEnd = 0;
             document.addEventListener('touchend', function(event) {
                 const now = (new Date()).getTime();
-                if (now - lastTouchEnd <= 300) {
+                // Só prevenir duplo toque em elementos que não precisam dele
+                if (now - lastTouchEnd <= 300 && !event.target.closest('input, textarea, select, button')) {
                     event.preventDefault();
                 }
                 lastTouchEnd = now;
@@ -5165,6 +5261,12 @@
                     screen.style.webkitOverflowScrolling = 'touch';
                     screen.style.transform = 'translateZ(0)'; // Hardware acceleration
                 });
+                
+                // Configurar carrossel especificamente para iOS
+                if (carouselContainer) {
+                    carouselContainer.style.webkitOverflowScrolling = 'touch';
+                    carouselContainer.style.transform = 'translateZ(0)';
+                }
             }
             
             // Fix para viewport height em mobile
@@ -5178,6 +5280,46 @@
             window.addEventListener('orientationchange', () => {
                 setTimeout(setVH, 100);
             });
+            
+            // Melhorar comportamento de scroll em páginas com carrossel
+            let isPageScrolling = false;
+            let pageScrollTimeout;
+            
+            // Detectar quando a página está fazendo scroll
+            document.addEventListener('scroll', () => {
+                isPageScrolling = true;
+                clearTimeout(pageScrollTimeout);
+                pageScrollTimeout = setTimeout(() => {
+                    isPageScrolling = false;
+                }, 150);
+            }, { passive: true });
+            
+            // Melhorar interação entre scroll da página e carrossel
+            if (carouselContainer) {
+                let carouselScrolling = false;
+                let carouselScrollTimeout;
+                
+                carouselContainer.addEventListener('scroll', () => {
+                    carouselScrolling = true;
+                    clearTimeout(carouselScrollTimeout);
+                    carouselScrollTimeout = setTimeout(() => {
+                        carouselScrolling = false;
+                    }, 150);
+                }, { passive: true });
+                
+                // Detectar quando toque está sobre o carrossel
+                carouselContainer.addEventListener('touchstart', (e) => {
+                    // Marcar que o toque começou no carrossel
+                    carouselContainer.setAttribute('data-touch-active', 'true');
+                }, { passive: true });
+                
+                carouselContainer.addEventListener('touchend', () => {
+                    // Aguardar um pouco antes de remover o marcador
+                    setTimeout(() => {
+                        carouselContainer.removeAttribute('data-touch-active');
+                    }, 100);
+                }, { passive: true });
+            }
             
             console.log('📱 Mobile scrolling fixes aplicados');
         }
