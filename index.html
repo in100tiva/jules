@@ -913,21 +913,28 @@
             min-height: 600px;
             display: flex;
             gap: var(--spacing-4);
-            scroll-behavior: smooth;
+            scroll-behavior: auto;
             scroll-snap-type: x mandatory;
             overflow-x: auto;
             overflow-y: visible;
-            -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
             -ms-overflow-style: none;
             cursor: grab;
-            transition: scroll-behavior 0.1s ease;
             touch-action: pan-x pinch-zoom;
-            /* Performance optimizations */
-            will-change: scroll-position;
-            transform: translateZ(0); /* Hardware acceleration */
+            /* Performance optimizations para fluidez máxima */
+            will-change: scroll-position, transform;
+            transform: translateZ(0);
             backface-visibility: hidden;
             perspective: 1000px;
+            /* Propriedades para smooth scrolling natural */
+            scroll-snap-stop: normal; /* Permite snap mais fluido */
+            scroll-padding-left: var(--spacing-10);
+            scroll-padding-right: var(--spacing-10);
+            /* Melhorar responsividade touch */
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior-x: contain;
+            /* Transições suaves quando não está sendo arrastado */
+            transition: scroll-behavior 0.1s ease;
         }
 
         /* Scrollbar do carrossel - mobile invisível, desktop customizada */
@@ -939,22 +946,33 @@
 
         .lessons-carousel-container.dragging {
             scroll-behavior: auto;
-            scroll-snap-type: none;
+            scroll-snap-type: none; /* Disable snap durante o drag para movimento livre */
             cursor: grabbing;
-            /* Otimizações durante o drag */
-            pointer-events: none; /* Evita eventos desnecessários nos cards */
+            /* Otimizações para movimento fluido durante drag */
+            pointer-events: none;
+            /* Melhorar performance durante movimento */
+            will-change: scroll-position;
         }
 
         .lessons-carousel-container.dragging .lesson-card {
-            /* Desabilitar transições durante o drag para melhor performance */
+            /* Desabilitar transições durante o drag para movimento mais fluido */
             transition: none !important;
             pointer-events: none;
+            /* Manter hardware acceleration */
+            transform: translateZ(0);
         }
 
         .lessons-carousel-container.dragging .lesson-card:hover {
             /* Evitar efeitos hover durante o drag */
-            transform: none !important;
-            box-shadow: none !important;
+            transform: translateZ(0) !important;
+            box-shadow: var(--shadow-sm) !important;
+        }
+
+        /* Quando não está arrastando, aplicar snap e smooth scroll */
+        .lessons-carousel-container:not(.dragging) {
+            scroll-snap-type: x mandatory;
+            /* Transição suave apenas quando não arrastando */
+            transition: scroll-left 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .lessons-carousel-container:active {
@@ -969,17 +987,22 @@
             min-width: 320px;
             width: 320px;
             flex-shrink: 0;
-            scroll-snap-align: center;
+            scroll-snap-align: center; /* Center para snap mais preciso no meio do card */
             user-select: none;
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             z-index: 1;
-            /* Performance optimizations */
+            /* Performance optimizations para movimento fluido */
             will-change: transform;
             transform: translateZ(0);
             backface-visibility: hidden;
             contain: layout style paint;
+            /* Snap positioning */
+            scroll-margin-left: var(--spacing-10);
+            scroll-margin-right: var(--spacing-10);
+            /* Garantir que o card seja uma unidade de snap completa */
+            scroll-snap-stop: always;
         }
 
         .lesson-card:hover {
@@ -1999,8 +2022,17 @@
             .lesson-card {
                 min-width: 280px;
                 width: 280px;
-                /* IMPORTANTE: Não manipular touch-action nos cards */
-                touch-action: pan-x pan-y;
+                /* Touch otimizado para mobile */
+                touch-action: manipulation;
+                /* Snap otimizado para mobile */
+                scroll-snap-align: center;
+                scroll-margin-left: var(--spacing-8);
+                scroll-margin-right: var(--spacing-8);
+                /* Garantir posicionamento perfeito */
+                scroll-snap-stop: always;
+                /* Performance mobile */
+                will-change: transform;
+                transform: translateZ(0);
             }
 
             .carousel-controls {
@@ -2011,12 +2043,21 @@
                 margin: 0 calc(-1 * var(--spacing-4));
                 padding: var(--spacing-16) var(--spacing-8) var(--spacing-20) var(--spacing-8);
                 min-height: 550px;
-                /* IMPORTANTE: Permitir movimento em ambas direções, mas detectar via JS */
-                touch-action: auto;
+                /* Configuração específica para touch fluido */
+                touch-action: pan-x;
                 /* Melhor isolamento do scroll */
                 isolation: isolate;
-                /* Prevenir que eventos escapem desnecessariamente */
                 pointer-events: auto;
+                /* Snap behavior otimizado para mobile */
+                scroll-snap-type: x mandatory;
+                scroll-snap-stop: normal; /* Permite scroll mais fluido */
+                scroll-padding-left: var(--spacing-8);
+                scroll-padding-right: var(--spacing-8);
+                /* iOS specific optimizations */
+                -webkit-overflow-scrolling: touch;
+                overscroll-behavior-x: contain;
+                /* Momentum preservado */
+                scroll-behavior: smooth;
             }
 
             .lesson-header {
@@ -3176,7 +3217,27 @@
                 lessonCard.className = `lesson-card card ${isCompleted ? 'completed' : ''} ${isLocked ? 'locked' : ''}`;
                 
                 if (!isLocked) {
-                    lessonCard.onclick = () => startLesson(lesson.id);
+                    lessonCard.style.cursor = 'pointer';
+                    lessonCard.setAttribute('data-lesson-id', lesson.id.toString());
+                    
+                    // Adicionar múltiplos tipos de eventos para garantir funcionalidade
+                    lessonCard.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log(`🎯 Click event - Iniciando lição ${lesson.id}: ${lesson.title}`);
+                        startLesson(lesson.id);
+                    });
+                    
+                    // Adicionar evento de toque para mobile
+                    lessonCard.addEventListener('touchend', (e) => {
+                        // Só processar se não foi um drag
+                        if (!isCarouselDragging && !isManualDragging) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            console.log(`📱 Touch event - Iniciando lição ${lesson.id}: ${lesson.title}`);
+                            startLesson(lesson.id);
+                        }
+                    }, { passive: false });
                 }
 
                 lessonCard.innerHTML = `
@@ -3253,8 +3314,8 @@
                 }
             }, { passive: false });
             
-            container.addEventListener('touchend', handleCarouselEnd, { passive: true });
-            container.addEventListener('touchcancel', handleCarouselEnd, { passive: true });
+            container.addEventListener('touchend', (e) => handleCarouselEnd(e), { passive: true });
+            container.addEventListener('touchcancel', (e) => handleCarouselEnd(e), { passive: true });
             
             // Mouse events para desktop
             container.addEventListener('mousedown', handleCarouselStart);
@@ -3270,8 +3331,8 @@
                 }
             });
             
-            document.addEventListener('mouseup', handleCarouselEnd);
-            document.addEventListener('mouseleave', handleCarouselEnd);
+            document.addEventListener('mouseup', (e) => handleCarouselEnd(e));
+            document.addEventListener('mouseleave', (e) => handleCarouselEnd(e));
             
             // Previne arrastar imagens apenas no desktop
             if (!isMobileDevice()) {
@@ -3325,9 +3386,30 @@
         let isHorizontalScroll = false;
         let scrollDirection = null;
         let isDragReady = false;
+        let dragStartScrollLeft = 0;
+        let isManualDragging = false;
+        let animationId = null;
 
         function handleCarouselStart(e) {
             const container = document.getElementById('lessons-container');
+            
+            // Verificar se o clique foi em um card de lição desbloqueado
+            const lessonCard = e.target.closest('.lesson-card');
+            if (lessonCard && !lessonCard.classList.contains('locked')) {
+                // Se for um clique simples em um card, não iniciar o drag
+                if (e.type === 'mousedown' || e.type === 'touchstart') {
+                    // Marcar para detectar se é clique ou drag
+                    const startTime = Date.now();
+                    lessonCard.setAttribute('data-click-start', startTime.toString());
+                    return;
+                }
+            }
+            
+            // Cancelar qualquer animação em andamento
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+                animationId = null;
+            }
             
             if (e.type.startsWith('touch')) {
                 // Mobile: configuração inicial do touch
@@ -3345,22 +3427,28 @@
                 isDragReady = false;
                 touchVelocityX = 0;
                 touchVelocityY = 0;
+                isManualDragging = false;
+                dragStartScrollLeft = container.scrollLeft;
                 
-                // Aplicar CSS para suavizar o scroll
+                // Parar scroll nativo momentaneamente
                 container.style.scrollBehavior = 'auto';
+                container.style.overflowX = 'hidden'; // Prevenir scroll nativo durante detecção
                 
                 return;
             } else {
                 // Desktop: comportamento normal aprimorado
                 isCarouselDragging = true;
+                isManualDragging = true;
                 container.classList.add('dragging');
                 
                 carouselStartX = e.clientX;
                 carouselScrollLeft = container.scrollLeft;
+                dragStartScrollLeft = container.scrollLeft;
                 
                 container.style.userSelect = 'none';
                 container.style.cursor = 'grabbing';
                 container.style.scrollBehavior = 'auto';
+                container.style.overflowX = 'hidden';
             }
         }
 
@@ -3405,10 +3493,11 @@
                             // Iniciar dragging do carrossel
                             if (!isCarouselDragging) {
                                 isCarouselDragging = true;
+                                isManualDragging = true;
                                 const container = document.getElementById('lessons-container');
                                 container.classList.add('dragging');
                                 carouselStartX = touchStartX;
-                                carouselScrollLeft = container.scrollLeft;
+                                carouselScrollLeft = dragStartScrollLeft;
                             }
                         } else if ((deltaRatio < 0.6 && absDeltaY > 15) || velocityRatio < 0.5) {
                             // Movimento vertical
@@ -3416,36 +3505,35 @@
                             isVerticalScroll = true;
                             isHorizontalScroll = false;
                             
-                            // Garantir que carrossel não interfira
+                            // Restaurar scroll vertical normal
                             const container = document.getElementById('lessons-container');
                             container.classList.remove('dragging');
+                            container.style.overflowX = 'auto';
                             isCarouselDragging = false;
+                            isManualDragging = false;
                             
                             return; // Permitir scroll vertical
                         }
                     }
                     
-                    // Aplicar movimento horizontal suave
+                    // Aplicar movimento horizontal fluido e responsivo
                     if (isHorizontalScroll && isCarouselDragging && isDragReady) {
                         e.preventDefault();
                         
                         const container = document.getElementById('lessons-container');
                         
-                        // Aplicar easing para suavidade
-                        const easedDelta = deltaX * 0.85; // Reduzir sensibilidade para mais controle
-                        const newScrollLeft = carouselScrollLeft - easedDelta;
+                        // Movimento direto 1:1 com o dedo para máxima responsividade
+                        const directDelta = deltaX;
+                        const newScrollLeft = dragStartScrollLeft - directDelta;
                         
-                        // Aplicar limites suaves
-                        const maxScroll = container.scrollWidth - container.clientWidth;
-                        const clampedScroll = Math.max(0, Math.min(newScrollLeft, maxScroll));
-                        
-                        container.scrollLeft = clampedScroll;
+                        // Aplicar scroll suave com requestAnimationFrame
+                        smoothScrollTo(container, newScrollLeft);
                     }
                 }
                 
                 return;
             } else {
-                // Desktop: movimento aprimorado
+                // Desktop: movimento fluido e responsivo
                 if (!isCarouselDragging) return;
                 
                 e.preventDefault();
@@ -3453,37 +3541,77 @@
                 const container = document.getElementById('lessons-container');
                 const deltaX = e.clientX - carouselStartX;
                 
-                // Aplicar easing e limites
-                const easedDelta = deltaX * 0.9;
-                const newScrollLeft = carouselScrollLeft - easedDelta;
-                const maxScroll = container.scrollWidth - container.clientWidth;
-                const clampedScroll = Math.max(0, Math.min(newScrollLeft, maxScroll));
+                // Movimento direto e responsivo
+                const newScrollLeft = dragStartScrollLeft - deltaX;
                 
-                container.scrollLeft = clampedScroll;
+                // Aplicar movimento suave
+                smoothScrollTo(container, newScrollLeft);
             }
         }
 
-        function handleCarouselEnd() {
-            if (!isCarouselDragging) return;
-            isCarouselDragging = false;
-            
+        function handleCarouselEnd(e) {
             const container = document.getElementById('lessons-container');
-            container.classList.remove('dragging');
             
-            // Restaurar scroll behavior
-            container.style.scrollBehavior = 'smooth';
+            // Verificar se foi um clique rápido em um card
+            let lessonCard = null;
+            if (e && e.target && typeof e.target.closest === 'function') {
+                lessonCard = e.target.closest('.lesson-card');
+            }
+            
+            if (lessonCard && !lessonCard.classList.contains('locked')) {
+                const clickStart = lessonCard.getAttribute('data-click-start');
+                if (clickStart) {
+                    const clickDuration = Date.now() - parseInt(clickStart);
+                    const clickDistanceX = Math.abs(lastTouchX - touchStartX);
+                    const clickDistanceY = Math.abs(lastTouchY - touchStartY);
+                    
+                    // Se foi um clique rápido sem movimento significativo
+                    if (clickDuration < 300 && clickDistanceX < 10 && clickDistanceY < 10) {
+                        lessonCard.removeAttribute('data-click-start');
+                        // Encontrar o ID da lição pelo data-lesson-id
+                        const lessonId = lessonCard.getAttribute('data-lesson-id');
+                        if (lessonId !== null) {
+                            const parsedId = parseInt(lessonId, 10);
+                            if (!isNaN(parsedId) && parsedId >= 0 && parsedId < lessons.length) {
+                                console.log(`🎯 Clique detectado no card da lição ${parsedId}`);
+                                setTimeout(() => startLesson(parsedId), 50);
+                                return;
+                            }
+                        }
+                    }
+                    lessonCard.removeAttribute('data-click-start');
+                }
+            }
+            
+            if (!isCarouselDragging && !isManualDragging) {
+                // Restaurar overflow se não estava arrastando
+                container.style.overflowX = 'auto';
+                return;
+            }
+            
+            // Cancelar animações em andamento
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+                animationId = null;
+            }
+            
+            // Restaurar overflow
+            container.style.overflowX = 'auto';
+            
+            // Só aplicar snap se foi drag horizontal
+            if (isHorizontalScroll || isManualDragging) {
+                // Aplicar snap suave aos cards
+                snapToNearestCard(container, touchVelocityX);
+            }
+            
+            // Limpar estados
+            isCarouselDragging = false;
+            isManualDragging = false;
+            container.classList.remove('dragging');
             
             if (!isMobileDevice()) {
                 container.style.userSelect = '';
                 container.style.cursor = 'grab';
-                addMomentumScroll(container);
-            } else {
-                // Mobile: aplicar momentum inteligente
-                if (isHorizontalScroll && Math.abs(touchVelocityX) > 0.1) {
-                    addIntelligentMomentumScroll(container, touchVelocityX);
-                } else if (isHorizontalScroll) {
-                    addMomentumScroll(container);
-                }
             }
             
             // Reset das variáveis
@@ -3497,39 +3625,74 @@
             isHorizontalScroll = false;
             scrollDirection = null;
             isDragReady = false;
+            dragStartScrollLeft = 0;
         }
 
         function scrollCarousel(direction) {
             const container = document.getElementById('lessons-container');
-            const cardWidth = 320 + 16; // width + gap
             
+            let targetIndex;
             if (direction === 'next') {
-                currentCarouselIndex = Math.min(currentCarouselIndex + 1, lessons.length - 1);
+                targetIndex = Math.min(currentCarouselIndex + 1, lessons.length - 1);
             } else {
-                currentCarouselIndex = Math.max(currentCarouselIndex - 1, 0);
+                targetIndex = Math.max(currentCarouselIndex - 1, 0);
             }
             
-            container.scrollTo({
-                left: currentCarouselIndex * cardWidth,
-                behavior: 'smooth'
-            });
+            // Se o índice não mudou, não fazer nada
+            if (targetIndex === currentCarouselIndex) {
+                return;
+            }
             
+            // Usar o sistema de snap para movimento suave
+            const cardWidth = 320;
+            const cardGap = 16;
+            const cardWithGap = cardWidth + cardGap;
+            const containerPadding = 40;
+            
+            const targetScroll = Math.max(0, 
+                targetIndex * cardWithGap - containerPadding
+            );
+            
+            // Aplicar animação suave
+            animateScrollToPosition(container, container.scrollLeft, targetScroll, 0);
+            
+            currentCarouselIndex = targetIndex;
             updateCarouselButtons();
-            updateCarouselIndicators();
+            
+            setTimeout(() => {
+                updateCarouselIndicators();
+            }, 300);
         }
 
         function goToCarouselSlide(index) {
             const container = document.getElementById('lessons-container');
-            const cardWidth = 320 + 16; // width + gap
             
-            currentCarouselIndex = index;
-            container.scrollTo({
-                left: index * cardWidth,
-                behavior: 'smooth'
-            });
+            // Limitar aos índices válidos
+            const targetIndex = Math.max(0, Math.min(index, lessons.length - 1));
             
+            if (targetIndex === currentCarouselIndex) {
+                return;
+            }
+            
+            // Usar sistema de snap para movimento suave
+            const cardWidth = 320;
+            const cardGap = 16;
+            const cardWithGap = cardWidth + cardGap;
+            const containerPadding = 40;
+            
+            const targetScroll = Math.max(0, 
+                targetIndex * cardWithGap - containerPadding
+            );
+            
+            // Aplicar animação suave
+            animateScrollToPosition(container, container.scrollLeft, targetScroll, 0);
+            
+            currentCarouselIndex = targetIndex;
             updateCarouselButtons();
-            updateCarouselIndicators();
+            
+            setTimeout(() => {
+                updateCarouselIndicators();
+            }, 300);
         }
 
         function updateCarouselButtons() {
@@ -3540,118 +3703,247 @@
             nextBtn.disabled = currentCarouselIndex === lessons.length - 1;
         }
 
-        // Função para adicionar momentum após soltar o drag
-        function addMomentumScroll(container) {
-            const cardWidth = 320 + 16; // width + gap
+        // Função principal de snap com física natural
+        function snapToNearestCard(container, velocity = 0) {
+            const cardWidth = 320; // width do card
+            const cardGap = 16; // gap entre cards
+            const cardWithGap = cardWidth + cardGap;
+            const containerPadding = 40; // padding left do container
+            
             const currentScroll = container.scrollLeft;
-            const targetIndex = Math.round(currentScroll / cardWidth);
-            const targetScroll = Math.max(0, Math.min(targetIndex * cardWidth, container.scrollWidth - container.clientWidth));
+            const maxScroll = container.scrollWidth - container.clientWidth;
             
-            // Aplicar snap suave sempre
-            container.scrollTo({
-                left: targetScroll,
-                behavior: 'smooth'
-            });
+            // Remover qualquer elastic effect antes do snap
+            const clampedScroll = Math.max(0, Math.min(currentScroll, maxScroll));
             
-            // Atualizar indicadores
-            setTimeout(() => {
-                updateCarouselIndicators();
-            }, 300);
-        }
-
-        // Função de momentum inteligente baseada na velocidade do touch
-        function addIntelligentMomentumScroll(container, velocity) {
-            const cardWidth = 320 + 16;
-            const currentScroll = container.scrollLeft;
-            const currentIndex = Math.round(currentScroll / cardWidth);
+            // Calcular posição atual em relação aos cards
+            const scrollWithPadding = clampedScroll + containerPadding;
+            const currentCardFloat = scrollWithPadding / cardWithGap;
             
-            // Calcular direção e intensidade baseado na velocidade
-            let targetIndex = currentIndex;
-            const velocityThreshold = 0.3;
-            const strongVelocityThreshold = 0.8;
+            let targetCardIndex;
+            const velocityThreshold = 0.15; // Threshold mais baixo para melhor responsividade
+            const strongVelocityThreshold = 0.6; // Para pular múltiplos cards
             
             if (Math.abs(velocity) > velocityThreshold) {
+                // Com velocidade, aplicar momentum baseado na direção
+                const momentumFactor = Math.min(Math.abs(velocity) * 1.5, 2); // Máximo 2 cards
+                
                 if (velocity > 0) {
-                    // Swipe para direita (voltar)
-                    targetIndex = Math.max(0, currentIndex - (velocity > strongVelocityThreshold ? 2 : 1));
+                    // Movimento para direita (voltando)
+                    targetCardIndex = Math.floor(currentCardFloat - momentumFactor);
                 } else {
-                    // Swipe para esquerda (avançar)
-                    const maxIndex = Math.floor((container.scrollWidth - container.clientWidth) / cardWidth);
-                    targetIndex = Math.min(maxIndex, currentIndex + (Math.abs(velocity) > strongVelocityThreshold ? 2 : 1));
+                    // Movimento para esquerda (avançando)
+                    targetCardIndex = Math.ceil(currentCardFloat + momentumFactor);
+                }
+                
+                // Velocidade muito alta pode pular ainda mais cards
+                if (Math.abs(velocity) > strongVelocityThreshold) {
+                    const extraJump = Math.floor((Math.abs(velocity) - strongVelocityThreshold) * 2);
+                    if (velocity > 0) {
+                        targetCardIndex -= extraJump;
+                    } else {
+                        targetCardIndex += extraJump;
+                    }
+                }
+            } else {
+                // Sem velocidade suficiente, snap para o card mais próximo
+                targetCardIndex = Math.round(currentCardFloat);
+            }
+            
+            // Limitar aos cards disponíveis
+            const maxCardIndex = lessons.length - 1;
+            targetCardIndex = Math.max(0, Math.min(targetCardIndex, maxCardIndex));
+            
+            // Calcular posição final de scroll
+            const targetScroll = Math.max(0, 
+                Math.min(
+                    targetCardIndex * cardWithGap - containerPadding,
+                    maxScroll
+                )
+            );
+            
+            // Aplicar animação suave com momentum natural
+            animateScrollToPosition(container, clampedScroll, targetScroll, velocity);
+            
+            // Atualizar índice atual e indicadores
+            currentCarouselIndex = targetCardIndex;
+            updateCarouselButtons();
+            
+            // Atualizar indicadores após a animação começar
+            setTimeout(() => {
+                updateCarouselIndicators();
+            }, 100);
+        }
+
+        // Função para scroll suave durante o movimento (tempo real)
+        function smoothScrollTo(container, targetScroll) {
+            // Aplicar limites com elastic effect nas bordas
+            const maxScroll = container.scrollWidth - container.clientWidth;
+            let clampedScroll = targetScroll;
+            
+            if (targetScroll < 0) {
+                // Elastic effect na borda esquerda
+                clampedScroll = targetScroll * 0.3;
+            } else if (targetScroll > maxScroll) {
+                // Elastic effect na borda direita
+                clampedScroll = maxScroll + (targetScroll - maxScroll) * 0.3;
+            }
+            
+            // Aplicar scroll imediatamente para responsividade total
+            container.scrollLeft = clampedScroll;
+        }
+
+        // Função de animação suave para snap final (com momentum)
+        function animateScrollToPosition(container, startScroll, targetScroll, velocity = 0) {
+            const distance = Math.abs(targetScroll - startScroll);
+            
+            // Duração baseada na distância e velocidade
+            let duration = Math.max(300, Math.min(800, distance * 2));
+            
+            // Ajustar duração baseada na velocidade para momentum natural
+            if (Math.abs(velocity) > 0.3) {
+                // Velocidade alta = movimento mais longo
+                duration = Math.max(400, Math.min(1000, duration + Math.abs(velocity) * 300));
+            }
+            
+            const startTime = Date.now();
+            const initialScroll = startScroll;
+            
+            function animate() {
+                const elapsed = Date.now() - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // Easing function com desaceleração natural (ease-out quart)
+                const easedProgress = 1 - Math.pow(1 - progress, 4);
+                
+                const currentScroll = initialScroll + (targetScroll - initialScroll) * easedProgress;
+                container.scrollLeft = currentScroll;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                } else {
+                    // Garantir posição final exata
+                    container.scrollLeft = targetScroll;
+                    // Remover qualquer elastic effect residual
+                    container.style.overflowX = 'auto';
                 }
             }
             
-            // Calcular scroll final
-            const targetScroll = Math.max(0, Math.min(targetIndex * cardWidth, container.scrollWidth - container.clientWidth));
-            
-            // Aplicar animação suave com duração baseada na distância
-            const distance = Math.abs(targetScroll - currentScroll);
-            const duration = Math.min(800, Math.max(300, distance * 1.5));
-            
-            // Usar animação CSS personalizada para suavidade extra
-            container.style.transition = `scroll-left ${duration}ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`;
-            container.scrollLeft = targetScroll;
-            
-            // Remover transição depois da animação
-            setTimeout(() => {
-                container.style.transition = '';
-                updateCarouselIndicators();
-            }, duration);
+            requestAnimationFrame(animate);
         }
 
         function updateCarouselIndicators() {
             const indicators = document.querySelectorAll('.carousel-indicator');
             const container = document.getElementById('lessons-container');
-            const cardWidth = 320 + 16;
-            const newIndex = Math.round(container.scrollLeft / cardWidth);
             
+            // Calcular índice baseado na nova lógica de posicionamento
+            const cardWidth = 320;
+            const cardGap = 16;
+            const cardWithGap = cardWidth + cardGap;
+            const containerPadding = 40;
+            
+            const scrollWithPadding = container.scrollLeft + containerPadding;
+            const calculatedIndex = Math.round(scrollWithPadding / cardWithGap);
+            
+            // Limitar aos índices válidos
+            const newIndex = Math.max(0, Math.min(calculatedIndex, lessons.length - 1));
+            
+            // Só atualizar se houve mudança real
             if (newIndex !== currentCarouselIndex) {
                 currentCarouselIndex = newIndex;
                 updateCarouselButtons();
             }
             
+            // Atualizar indicadores visuais
             indicators.forEach((indicator, index) => {
                 indicator.classList.toggle('active', index === currentCarouselIndex);
             });
         }
 
         function startLesson(lessonId) {
+            console.log(`🚀 Função startLesson chamada com ID: ${lessonId}`);
+            
+            // Verificar se a lição existe
+            const lesson = lessons[lessonId];
+            if (!lesson) {
+                console.error(`❌ Lição não encontrada: ${lessonId}`);
+                return;
+            }
+            
+            console.log(`📚 Iniciando lição: ${lesson.title}`);
+            
+            // Atualizar estado do jogo
             gameState.currentLesson = lessonId;
             gameState.currentQuestion = 0;
             gameState.showFeedback = false;
             
-            const lesson = lessons[lessonId];
+            // Atualizar título da lição
             const lessonTitle = document.getElementById('current-lesson-title');
-            lessonTitle.textContent = lesson.title;
+            if (lessonTitle) {
+                lessonTitle.textContent = lesson.title;
+            }
             
+            // Mostrar tela da lição
             showScreen('lesson-screen');
-            renderQuestion();
+            
+            // Renderizar primeira questão
+            setTimeout(() => {
+                renderQuestion();
+            }, 100); // Pequeno delay para garantir que a tela mudou
         }
 
         function renderQuestion() {
+            console.log(`📝 Renderizando questão ${gameState.currentQuestion + 1}`);
+            
             const lesson = lessons[gameState.currentLesson];
+            if (!lesson) {
+                console.error(`❌ Lição não encontrada: ${gameState.currentLesson}`);
+                return;
+            }
+            
             const question = lesson.questions[gameState.currentQuestion];
+            if (!question) {
+                console.error(`❌ Questão não encontrada: ${gameState.currentQuestion}`);
+                return;
+            }
+            
+            console.log(`❓ Questão: ${question.question}`);
+            
             const questionContent = document.getElementById('question-content');
+            if (!questionContent) {
+                console.error('❌ Elemento question-content não encontrado');
+                return;
+            }
             
+            // Atualizar contador da questão
             const questionCounter = document.getElementById('question-counter');
-            questionCounter.textContent = `Questão ${gameState.currentQuestion + 1} de ${lesson.questions.length}`;
+            if (questionCounter) {
+                questionCounter.textContent = `Questão ${gameState.currentQuestion + 1} de ${lesson.questions.length}`;
+            }
             
+            // Atualizar barra de progresso
             const progressPercent = ((gameState.currentQuestion + 1) / lesson.questions.length) * 100;
             const lessonProgressFill = document.getElementById('lesson-progress-fill');
-            lessonProgressFill.style.width = `${progressPercent}%`;
+            if (lessonProgressFill) {
+                lessonProgressFill.style.width = `${progressPercent}%`;
+            }
             
+            // Esconder feedback anterior
             const feedback = document.getElementById('feedback');
-            feedback.classList.add('hidden');
+            if (feedback) {
+                feedback.classList.add('hidden');
+            }
             
+            // Renderizar questão
             questionContent.innerHTML = `
                 <h2 class="question-title">${question.question}</h2>
                 <div class="question-options ${question.type === 'color_match' ? 'grid-2' : ''}">
                     ${question.options.map((option, index) => {
                         if (question.type === 'color_match') {
-                            return `<button class="color-option" style="background-color: ${option};" onclick="answerQuestion(${index})"></button>`;
+                            return `<button class="color-option" style="background-color: ${option};" onclick="answerQuestion(${index})" data-answer="${index}"></button>`;
                         } else {
                             return `
-                                <button class="question-option" onclick="answerQuestion(${index})">
+                                <button class="question-option" onclick="answerQuestion(${index})" data-answer="${index}">
                                     <div class="option-letter">${String.fromCharCode(65 + index)}</div>
                                     <span class="font-medium">${option}</span>
                                 </button>
@@ -3660,6 +3952,8 @@
                     }).join('')}
                 </div>
             `;
+            
+            console.log(`✅ Questão renderizada com ${question.options.length} opções`);
         }
 
         function answerQuestion(answerIndex) {
@@ -4331,6 +4625,14 @@
         window.dismissMobileInstallBanner = dismissMobileInstallBanner;
         window.handleMobileInstall = handleMobileInstall;
         window.closeIOSInstructions = closeIOSInstructions;
+        
+        // Debug functions
+        window.debugGameState = () => console.log('🎮 Game State:', gameState);
+        window.debugLessons = () => console.log('📚 Lessons:', lessons);
+        window.testStartLesson = (id) => {
+            console.log(`🧪 Testando lição ${id}`);
+            startLesson(id);
+        };
 
         // ==================== PWA SERVICE WORKER ==================== 
         // Service Worker para funcionamento offline
