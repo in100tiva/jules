@@ -1,0 +1,4806 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>DesignLingo - Aprenda Design</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="Aprenda design de forma interativa e gamificada com DesignLingo">
+    <meta name="theme-color" content="#000000">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="DesignLingo">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="msapplication-tap-highlight" content="no">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="data:application/manifest+json;base64,ewogICJuYW1lIjogIkRlc2lnbkxpbmdvIC0gQXByZW5kYSBEZXNpZ24iLAogICJzaG9ydF9uYW1lIjogIkRlc2lnbkxpbmdvIiwKICAiZGVzY3JpcHRpb24iOiAiQXByZW5kYSBkZXNpZ24gZGUgZm9ybWEgaW50ZXJhdGl2YSBlIGdhbWlmaWNhZGEgY29tIERlc2lnbkxpbmdvIiwKICAic3RhcnRfdXJsIjogIi8iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJvcmllbnRhdGlvbiI6ICJwb3J0cmFpdC1wcmltYXJ5IiwKICAidGhlbWVfY29sb3IiOiAiIzAwMDAwMCIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzAwMDAwMCIsCiAgImNhdGVnb3JpZXMiOiBbImVkdWNhdGlvbiIsICJnYW1lcyIsICJwcm9kdWN0aXZpdHkiXSwKICAic2NvcGUiOiAiLyIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbCU7YmFzZTY0LFBITjJaeUJwWkQwaWFXTnZiaUlnZDJsa2RHZzlJakV5T0NJZ2FHVnBaMmgwUFNJeE1qZ2lJSFpwWlhkQ2IzZzlJakFnTUNBeE1qZ2dNVEk0SWlCbWFXeHNQU0lqTVRVNFlrWXpJaUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lQZ28gSUNBOFkybHlZMnhsSUdONFBTSTJOQ0lnWTNrOUlqWTBJaUJ5UFNJek1DSWdabWxzYkQwaUl6RmxPV1JtTVNJdlBnb2dJRHgwWlhoMElIZzlJalEwSWlCNVBTSTNNQ0lnWm1sc2JEMGlJelptWm1abUlpQm1iMjUwTFdaaGJXbHNlVDBpVzNCdmFYUmxjaTFqZFhKemIza2lJR1p2Ym5RdGMybDZaVDBpTWpaaUlpQjBaWGgwTFdGdVkyaHZjakFpUHpSTktEeDBaWGgwY0dGMGFDQmtQU0pOTkRRZ09qRXdJREk0SURNZ05EWWdNVFF0TVRNZ01URXRNeUF6TkNBeklERXdMUzh4TkNBOElpOCtDbWwwZUdaaGJXbHNlVzFoYm5WaGJIUWdMaWwwWlhoMElHTjFjbk52Y2pvZ1ptbHVaMlZ5T3lCOUNpd25ZWEJoWTJVbkxTd2dMaTUwWlhoMElIdDBkV2x0Wm1Gc2JISmNibVIyZEdsa1RtVjNjMngzWTI1cFJXbGpiaTVjY2lCUGRqQndKWEJxU2tCeGFWSnZaWGN6Tm1kalVqQnJNV2xhTG0wZ1ptd25OUzhyUjB0ak1IaGphRzlHY1hCM1UwSm5jVFl6VVZkdGJFeE1UblkwSWloTlFXeDVUa3BrUTFJMFFWSllaVEZsZEY5SWRHbGpOMHByTWpCU05sSkZabW93S2xjeFNDaHZabkJvZEU1aU5GSlhNa1F5Y0NSbGNsQXVOWFo1Wkh0amIzVnVkR1Y2YURBbUlYWk1kWEY0WW5jeVltWndOM1l6SjBKRGQyc3pWa2w1VlVVeFltZzNMQ1EyTTBGdllpUWdOVGRzZUVORFltbzFORmxtTTNOb0tsUm5aeUl2UGdvOEwzTjJaejQ9IiwKICAgICAgInNpemVzIjogIjEyOHgxMjgiLAogICAgICAidHlwZSI6ICJpbWFnZS9zdmcreG1sIiwKICAgICAgInB1cnBvc2UiOiAiYW55IG1hc2thYmxlIgogICAgfSwKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWwlM2JiYXNlNjQsUEhOMlp5QnBaRDBpYVdOdmJpSWdkMmxrZEdnOUlqVXhNaUlnYUdWcFoyaDBQU0kxTVRJaUlIWnBaWGREYjNnOUlqQWdNQ0ExTVRJZ05URXlJaUJtYVd4c1BTSWpNVFU0WWtZeklpQjRiV3h1Y3owaWFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jaVBnb2dJRHh5WldOMElIZzlJVEV5SWlCNVBTSXhNaklpSUhkcFpIUm9QU0l6T0RnaUlHaGxhV2RvZEQwaU16ZzRJaUJ5ZUQwaU1qUWlJR1pwYkd3OUlpTXdNREF3TURBaUx6NEtJQ0E4WTJseVkyeGxJR042UFNJeU5UWWlJR041UFNJeU5UWWlJSEk5SWpFeU1DSWdabWxzYkQwaUl6RmxPV1JtTVNJdlBnb2dJRHhqYVhKamJHVWdZM2c5SWpJMU5pSWdZM2s5SWpJMU5pSWdjajBpT1RZaUlHWnBiR3c5SWlOak5qQTJORFlpTHo0S0lDQThaV3hzYVhCelpTQmplRDBpTWpVMklpQmplVDBpTWpVMklpQnllRDBpTmpRaUlISjVQU0kwT0NJZ1ptbHNiRDBpSXpReU5EWTBaaUl2UGdvZ0lEeDBaWGgwSUhnOUlqSTFOaUlnZVQwaU1qazJJaUJtYVd4c1BTSWpabVptWm1abUlpQm1iMjUwTFdaaGJXbHNlVDBpVzNCdmFYUmxjaTFqZFhKemIza2lJR1p2Ym5RdGMybDZaVDBpTWpraUlpQjBaWGgwTFdGdVkyaHZjakFpUHpST0tEeDAgWlhoMGNHRjBhQ0JrUFNKTk1qUWdOek1nTlRJZ01UZ2dNell0TXpJZ05TSXZQZ280TDNSbGVIUStDaUFnUEhObGNtbG1JR1pwYkc1MklDSTFaMmg3Y1M5c1NqQWlJR1pwYkdwOUltbGNjV0ZrT0NSNWNXNTFVUzVzWnlJK1BDOXpaWEpwWmoqQ21sd2R1ZHN6WjVVM2c0YzJCMGNYZ2lQSEJoZEdnZ1pEMGlUell6SURJNElDMDBOallnUVRVdE5TNDBPRElnTlRReUlEZGhNak1nTWpNeUlEQWdNVElnTUNBek1qZFFNemt1T0NBMFlURWtVMm5GSUNsdllEUWdNemN1ZXc0cmFTeGliRzQ4TDNCaGRHZz5DbWwxWTJGZGJtbDBhWGdpS0NJb0ppZ2kzRjM4TDNOMlp6ND0iLAogICAgICAic2l6ZXMiOiAiNTEyeDUxMiIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiLAogICAgICAicHVycG9zZSI6ICJhbnkgbWFza2FibGUiCiAgICB9CiAgXSwKICAic2NyZWVuc2hvdHMiOiBbXSwKICAic2hvcnRjdXRzIjogWwogICAgeyAibmFtZSI6ICJOb3ZhIExpw6fDo28iLCAidXJsIjogIi9sZXNzb24iLCAiaWNvbnMiOiBbeyAic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbDsgQi5qMGFHSWpkM2QzM3crKy9nLzEyOGNoYWFhT2hKL0NsaUZqNGNURHFmY2ZrNkd2K0k4ODVhdmxGV0tPa3ZMQWhoNT0iLCAic2l6ZXMiOiAiNzJ4NzIiLCAidHlwZSI6ICJpbWFnZS9zdmcreG1sIiB9XSB9LAogICAgeyAibmFtZSI6ICJQcm9ncmVzc28iLCAidXJsIjogIi9wcm9ncmVzcyIsICJpY29ucyI6IFt7ICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sOyBCLmIyYUdJamQzZG4iLCAic2l6ZXMiOiAiNzJ4NzIiLCAidHlwZSI6ICJpbWFnZS9zdmcreG1sIiB9XSB9CiAgXQp9">
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyBpZD0iaWNvbiIgd2lkdGg9IjEyOCIgaGVpZ2h0PSIxMjgiIHZpZXdCb3g9IjAgMCAxMjggMTI4IiBmaWxsPSIjMTU4YkYzIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxjaXJjbGUgY3g9IjY0IiBjeT0iNjQiIHI9IjMwIiBmaWxsPSIjMWU5ZGYxIi8+CiAgPHRleHQgeD0iNDQiIHk9IjcwIiBmaWxsPSIjZmZmZmZmIiBmb250LWZhbWlseT0iW3BvaXRlci1jdXJzb3kiIGZvbnQtc2l6ZT0iMjZiIiB0ZXh0LWFuY2hvcjAiPjREKDx0ZXh0cGF0aCBkPSJNNDQgOjEwIDI4IDMgNDYgMTQtMTMgMTEtMyAzNCAgMTAtL14gOCIvPgppdGVmYW1pbHltYW51YWx0IC4tdGV4dCBjdXJzb3I6IGZpbmdlcjsgfQosJ2FwYWNlJy0sIC4udGV4dCB0dHVpbWZhbGxyZm5kdklkTmV3c2x3Y25pRWljbi5cciUgT3YwcGpKQHFpUm9ldnozNmdRR0J3a3pWSTVVRTFiZzcsLG00MjAyUjZSRWZoMCtXeDFIKG9mcGh0TmI0Ulcya0QycCRlclAuNXY1WXt7Y291bnRlckgwJh5MTXFzeXBvNzN2cjcnQkN3azNWSVk1VUUxYmc3TCQwNjNBb2JJICgwNTdseFE9LCJmdGV4OD0iPgo=">
+    <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml;base64,PHN2ZyBpZD0iaWNvbiIgd2lkdGg9IjE4MCIgaGVpZ2h0PSIxODAiIHZpZXdCb3g9IjAgMCAxODAgMTgwIiBmaWxsPSIjMTU4YkYzIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxyZWN0IHg9IjEyIiB5PSIxMiIgd2lkdGg9IjE1NiIgaGVpZ2h0PSIxNTYiIHJ4PSIyNCIgZmlsbD0iIzAwMDAwMCIvPgogIDxjaXJjbGUgY3g9IjkwIiBjeT0iOTAiIHI9IjQwIiBmaWxsPSIjMWU5ZGYxIi8+CiAgPHRleHQgeD0iNjUiIHk9IjEwNSIgZmlsbD0iI2ZmZmZmZiIgZm9udC1mYW1pbHk9IltdcG9pbnRlci1jdXJzb3kiIGZvbnQtc2l6ZT0iMzJweCIgdGV4dC1hbmNob3I6IG1pZGRsZSI+RDwvdGV4dD4KICA8cGF0aCBkPSJNNjMgMjggLTQ2NiBRNS00OTEgNTQ5IDdhMjMgMjMyIDAgMTIgMCAzMmQgMzkuOCA0YTE1VXNuSCA5aW9kNCA7cng4eSIgZmlsbD0iIzQyNDY0ZiIvPgo8L3N2Zz4=">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyBpZD0iaWNvbiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiB2aWV3Qm94PSIwIDAgMzIgMzIiIGZpbGw9IiMxNThiRjMiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iOCIgZmlsbD0iIzFlOWRmMSIvPgogIDx0ZXh0IHg9IjEwIiB5PSIyMCIgZmlsbD0iI2ZmZmZmZiIgZm9udC1mYW1pbHk9IltdcG9pbnRlci1jdXJzb3kiIGZvbnQtc2l6ZT0iOXB4IiB0ZXh0LWFuY2hvcjAiPkQ8L3RleHQ+Cjwvc3ZnPg==">
+    
+    <script src="https://unpkg.com/@phosphor-icons/web@2.0.3"></script>
+    <style>
+        /* ==================== CUSTOM DESIGN SYSTEM ==================== */
+        :root {
+            --background: #ffffff;
+            --foreground: #0f1419;
+            --card: #f7f8f8;
+            --card-foreground: #0f1419;
+            --popover: #ffffff;
+            --popover-foreground: #0f1419;
+            --primary: #1e9df1;
+            --primary-foreground: #ffffff;
+            --secondary: #0f1419;
+            --secondary-foreground: #ffffff;
+            --muted: #e5e5e6;
+            --muted-foreground: #0f1419;
+            --accent: #e3ecf6;
+            --accent-foreground: #1e9df1;
+            --destructive: #f4212e;
+            --destructive-foreground: #ffffff;
+            --border: #e1eaef;
+            --input: #f7f9fa;
+            --ring: #1da1f2;
+            --chart-1: #1e9df1;
+            --chart-2: #00b87a;
+            --chart-3: #f7b928;
+            --chart-4: #17bf63;
+            --chart-5: #e0245e;
+            --sidebar: #f7f8f8;
+            --sidebar-foreground: #0f1419;
+            --sidebar-primary: #1e9df1;
+            --sidebar-primary-foreground: #ffffff;
+            --sidebar-accent: #e3ecf6;
+            --sidebar-accent-foreground: #1e9df1;
+            --sidebar-border: #e1e8ed;
+            --sidebar-ring: #1da1f2;
+            --font-sans: Open Sans, sans-serif;
+            --font-serif: Georgia, serif;
+            --font-mono: Menlo, monospace;
+            --radius: 1.3rem;
+            --shadow-2xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
+            --shadow-xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
+            --shadow-sm: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 1px 2px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
+            --shadow: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 1px 2px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
+            --shadow-md: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 2px 4px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
+            --shadow-lg: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 4px 6px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
+            --shadow-xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 8px 10px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
+            --shadow-2xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
+            
+            /* Spacing */
+            --spacing-0: 0rem;
+            --spacing-1: 0.25rem;
+            --spacing-2: 0.5rem;
+            --spacing-3: 0.75rem;
+            --spacing-4: 1rem;
+            --spacing-5: 1.25rem;
+            --spacing-6: 1.5rem;
+            --spacing-8: 2rem;
+            --spacing-10: 2.5rem;
+            --spacing-12: 3rem;
+            --spacing-16: 4rem;
+            --spacing-20: 5rem;
+            
+            /* Success Colors */
+            --success: #17bf63;
+            --success-foreground: #ffffff;
+            --warning: #f7b928;
+            --warning-foreground: #0f1419;
+            
+            /* Animation */
+            --transition: all 150ms ease;
+            --animation-duration: 150ms;
+        }
+
+        /* PWA Specific Styles */
+        .pwa-mode {
+            overflow: hidden;
+        }
+        
+        .pwa-mode .app {
+            height: 100vh;
+            height: 100dvh; /* Dynamic viewport height for mobile */
+            overflow: hidden;
+        }
+        
+        .pwa-mode .screen {
+            height: 100%;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Better touch targets for PWA */
+        @media (hover: none) and (pointer: coarse) {
+            .btn, .lesson-card, .question-option, .color-option {
+                min-height: 44px;
+                min-width: 44px;
+            }
+            
+            .carousel-btn, .back-button {
+                min-height: 48px;
+                min-width: 48px;
+            }
+        }
+        
+        /* Prevent zoom on inputs in iOS PWA */
+        input, select, textarea, button {
+            font-size: 16px !important;
+        }
+        
+        /* Safe area support for notched devices */
+        @supports (padding: max(0px)) {
+            .pwa-mode .header {
+                padding-top: max(var(--spacing-4), env(safe-area-inset-top));
+            }
+            
+            .pwa-mode .main-content {
+                padding-bottom: max(var(--spacing-20), env(safe-area-inset-bottom));
+            }
+        }
+        
+        /* Connection status indicator */
+        body[data-connection="offline"] .header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--warning), var(--destructive));
+            animation: connectionPulse 2s infinite;
+        }
+        
+        @keyframes connectionPulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* Dark Theme - Default */
+        .dark, body {
+            --background: #000000;
+            --foreground: #e7e9ea;
+            --card: #17181c;
+            --card-foreground: #d9d9d9;
+            --popover: #000000;
+            --popover-foreground: #e7e9ea;
+            --primary: #f11e3d;
+            --primary-foreground: #ffffff;
+            --secondary: #f0f3f4;
+            --secondary-foreground: #1a0f0f;
+            --muted: #3e3838;
+            --muted-foreground: #72767a;
+            --accent: #230606;
+            --accent-foreground: #f11e1e;
+            --destructive: #f4212e;
+            --destructive-foreground: #ffffff;
+            --border: #282424;
+            --input: #3b2121;
+            --ring: #f21c1c;
+            --chart-1: #1e9df1;
+            --chart-2: #00b87a;
+            --chart-3: #f7b928;
+            --chart-4: #17bf63;
+            --chart-5: #e0245e;
+            --sidebar: #17181c;
+            --sidebar-foreground: #d9d9d9;
+            --sidebar-primary: #1da1f2;
+            --sidebar-primary-foreground: #ffffff;
+            --sidebar-accent: #061622;
+            --sidebar-accent-foreground: #1c9cf0;
+            --sidebar-border: #38444d;
+            --sidebar-ring: #1da1f2;
+            --font-sans: Open Sans, sans-serif;
+            --font-serif: Georgia, serif;
+            --font-mono: Menlo, monospace;
+            --radius: 1.3rem;
+            --shadow-2xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
+            --shadow-xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
+            --shadow-sm: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 1px 2px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
+            --shadow: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 1px 2px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
+            --shadow-md: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 2px 4px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
+            --shadow-lg: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 4px 6px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
+            --shadow-xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00), 0px 8px 10px -1px hsl(202.8169 89.1213% 53.1373% / 0.00);
+            --shadow-2xl: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0.00);
+            
+            /* Success Colors for dark theme */
+            --success: #17bf63;
+            --success-foreground: #ffffff;
+            --warning: #f7b928;
+            --warning-foreground: #000000;
+        }
+
+        @theme inline {
+            --color-background: var(--background);
+            --color-foreground: var(--foreground);
+            --color-card: var(--card);
+            --color-card-foreground: var(--card-foreground);
+            --color-popover: var(--popover);
+            --color-popover-foreground: var(--popover-foreground);
+            --color-primary: var(--primary);
+            --color-primary-foreground: var(--primary-foreground);
+            --color-secondary: var(--secondary);
+            --color-secondary-foreground: var(--secondary-foreground);
+            --color-muted: var(--muted);
+            --color-muted-foreground: var(--muted-foreground);
+            --color-accent: var(--accent);
+            --color-accent-foreground: var(--accent-foreground);
+            --color-destructive: var(--destructive);
+            --color-destructive-foreground: var(--destructive-foreground);
+            --color-border: var(--border);
+            --color-input: var(--input);
+            --color-ring: var(--ring);
+            --color-chart-1: var(--chart-1);
+            --color-chart-2: var(--chart-2);
+            --color-chart-3: var(--chart-3);
+            --color-chart-4: var(--chart-4);
+            --color-chart-5: var(--chart-5);
+            --color-sidebar: var(--sidebar);
+            --color-sidebar-foreground: var(--sidebar-foreground);
+            --color-sidebar-primary: var(--sidebar-primary);
+            --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+            --color-sidebar-accent: var(--sidebar-accent);
+            --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+            --color-sidebar-border: var(--sidebar-border);
+            --color-sidebar-ring: var(--sidebar-ring);
+
+            --font-sans: var(--font-sans);
+            --font-mono: var(--font-mono);
+            --font-serif: var(--font-serif);
+
+            --radius-sm: calc(var(--radius) - 4px);
+            --radius-md: calc(var(--radius) - 2px);
+            --radius-lg: var(--radius);
+            --radius-xl: calc(var(--radius) + 4px);
+
+            --shadow-2xs: var(--shadow-2xs);
+            --shadow-xs: var(--shadow-xs);
+            --shadow-sm: var(--shadow-sm);
+            --shadow: var(--shadow);
+            --shadow-md: var(--shadow-md);
+            --shadow-lg: var(--shadow-lg);
+            --shadow-xl: var(--shadow-xl);
+            --shadow-2xl: var(--shadow-2xl);
+        }
+
+        /* ==================== BASE STYLES ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-family: var(--font-sans);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+        }
+
+        html::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--foreground);
+            line-height: 1.5;
+            min-height: 100vh;
+            overflow-x: hidden;
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+        }
+
+        body::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+
+        /* Aplicar remoção de scrollbar globalmente */
+        * {
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+        }
+
+        *::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+
+        /* ==================== UTILITY CLASSES ==================== */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .inline-flex {
+            display: inline-flex;
+        }
+
+        .grid {
+            display: grid;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .justify-center {
+            justify-content: center;
+        }
+
+        .justify-between {
+            justify-content: space-between;
+        }
+
+        .gap-1 { gap: var(--spacing-1); }
+        .gap-2 { gap: var(--spacing-2); }
+        .gap-3 { gap: var(--spacing-3); }
+        .gap-4 { gap: var(--spacing-4); }
+        .gap-6 { gap: var(--spacing-6); }
+        .gap-8 { gap: var(--spacing-8); }
+
+        .p-1 { padding: var(--spacing-1); }
+        .p-2 { padding: var(--spacing-2); }
+        .p-3 { padding: var(--spacing-3); }
+        .p-4 { padding: var(--spacing-4); }
+        .p-6 { padding: var(--spacing-6); }
+        .p-8 { padding: var(--spacing-8); }
+
+        .px-3 { padding-left: var(--spacing-3); padding-right: var(--spacing-3); }
+        .px-4 { padding-left: var(--spacing-4); padding-right: var(--spacing-4); }
+        .py-2 { padding-top: var(--spacing-2); padding-bottom: var(--spacing-2); }
+        .py-3 { padding-top: var(--spacing-3); padding-bottom: var(--spacing-3); }
+
+        .m-4 { margin: var(--spacing-4); }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .mb-2 { margin-bottom: var(--spacing-2); }
+        .mb-4 { margin-bottom: var(--spacing-4); }
+        .mb-6 { margin-bottom: var(--spacing-6); }
+        .mb-8 { margin-bottom: var(--spacing-8); }
+        .mt-4 { margin-top: var(--spacing-4); }
+        .mt-6 { margin-top: var(--spacing-6); }
+        .mt-8 { margin-top: var(--spacing-8); }
+
+        .w-full { width: 100%; }
+        .h-full { height: 100%; }
+        .max-w-4xl { max-width: 56rem; }
+        .max-w-sm { max-width: 24rem; }
+
+        .rounded { border-radius: calc(var(--radius) - 8px); }
+        .rounded-lg { border-radius: calc(var(--radius) - 2px); }
+        .rounded-xl { border-radius: var(--radius); }
+        .rounded-full { border-radius: 50%; }
+
+        .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+        .text-base { font-size: 1rem; line-height: 1.5rem; }
+        .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+        .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+        .text-2xl { font-size: 1.5rem; line-height: 2rem; }
+        .text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+
+        .font-medium { font-weight: 500; }
+        .font-semibold { font-weight: 600; }
+        .font-bold { font-weight: 700; }
+
+        .text-center { text-align: center; }
+
+        .transition-all { transition: var(--transition); }
+
+        /* ==================== COMPONENT CLASSES ==================== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            border-radius: calc(var(--radius) - 2px);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            cursor: pointer;
+            text-decoration: none;
+            outline: none;
+            user-select: none;
+        }
+
+        .btn:focus-visible {
+            outline: 2px solid var(--ring);
+            outline-offset: 2px;
+        }
+
+        .btn:disabled {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+            padding: var(--spacing-2) var(--spacing-4);
+            height: 2.5rem;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary);
+            opacity: 0.9;
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: var(--secondary-foreground);
+            padding: var(--spacing-2) var(--spacing-4);
+            height: 2.5rem;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--secondary);
+            opacity: 0.8;
+        }
+
+        .btn-outline {
+            border: 1px solid var(--border);
+            background-color: var(--background);
+            padding: var(--spacing-2) var(--spacing-4);
+            height: 2.5rem;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--accent);
+            color: var(--accent-foreground);
+        }
+
+        .btn-ghost {
+            background-color: transparent;
+            padding: var(--spacing-2) var(--spacing-4);
+            height: 2.5rem;
+        }
+
+        .btn-ghost:hover {
+            background-color: var(--accent);
+            color: var(--accent-foreground);
+        }
+
+        .btn-sm {
+            height: 2.25rem;
+            padding: var(--spacing-1) var(--spacing-3);
+            font-size: 0.75rem;
+        }
+
+        .btn-lg {
+            height: 2.75rem;
+            padding: var(--spacing-2) var(--spacing-8);
+        }
+
+        .btn-icon {
+            height: 2.5rem;
+            width: 2.5rem;
+            padding: 0;
+        }
+
+        /* Card Component */
+        .card {
+            border-radius: calc(var(--radius) - 2px);
+            border: 1px solid var(--border);
+            background-color: var(--card);
+            color: var(--card-foreground);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card-header {
+            display: flex;
+            flex-direction: column;
+            space-y: var(--spacing-2);
+            padding: var(--spacing-6);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            line-height: 1;
+            letter-spacing: -0.025em;
+        }
+
+        .card-description {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+        }
+
+        .card-content {
+            padding: var(--spacing-6);
+            padding-top: 0;
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            padding: var(--spacing-6);
+            padding-top: 0;
+        }
+
+        /* Badge Component */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            border-radius: calc(var(--radius) - 2px);
+            padding: 0 var(--spacing-2);
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            height: 1.375rem;
+        }
+
+        .badge-default {
+            border-color: transparent;
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+        }
+
+        .badge-secondary {
+            border-color: transparent;
+            background-color: var(--muted);
+            color: var(--muted-foreground);
+        }
+
+        .badge-success {
+            border-color: transparent;
+            background-color: var(--success);
+            color: var(--success-foreground);
+        }
+
+        .badge-outline {
+            color: var(--foreground);
+            border-color: var(--border);
+        }
+
+        /* Progress Component */
+        .progress {
+            position: relative;
+            height: 1rem;
+            width: 100%;
+            overflow: hidden;
+            border-radius: calc(var(--radius) - 8px);
+            background-color: var(--muted);
+        }
+
+        .progress-indicator {
+            height: 100%;
+            width: 100%;
+            flex: 1;
+            background-color: var(--primary);
+            transition: all 0.2s ease;
+        }
+
+        /* Avatar Component */
+        .avatar {
+            position: relative;
+            display: inline-flex;
+            height: 2.5rem;
+            width: 2.5rem;
+            align-items: center;
+            justify-content: center;
+            border-radius: calc(var(--radius) - 8px);
+            background-color: var(--muted);
+            color: var(--muted-foreground);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .avatar-lg {
+            height: 4rem;
+            width: 4rem;
+            font-size: 1.5rem;
+        }
+
+        /* ==================== LAYOUT ==================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-4);
+            overflow: visible;
+        }
+
+        .app {
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+        }
+
+        .app::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+
+        .screen {
+            display: none;
+            overflow-x: hidden;
+            overflow-y: auto;
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+        }
+
+        .screen::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+
+        .screen.active {
+            display: block;
+            overflow-x: hidden;
+            overflow-y: auto;
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+        }
+
+        .screen.active::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+
+        /* ==================== SPECIFIC COMPONENTS ==================== */
+        .header {
+            border-bottom: 1px solid var(--border);
+            background-color: var(--background);
+            backdrop-filter: blur(8px);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            position: relative;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: var(--spacing-4) 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--foreground);
+            text-decoration: none;
+        }
+
+        .stats-container {
+            display: flex;
+            gap: var(--spacing-2);
+        }
+
+        .stat-badge {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-2);
+            padding: var(--spacing-2) var(--spacing-3);
+            border-radius: calc(var(--radius) - 8px);
+            background-color: var(--muted);
+            color: var(--muted-foreground);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .stat-badge i {
+            font-size: 1rem;
+        }
+
+        .main-content {
+            padding: var(--spacing-8) 0 var(--spacing-20) 0;
+            overflow-x: hidden;
+            overflow-y: visible;
+            min-height: 100vh;
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+        }
+
+        .main-content::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+
+        /* Lessons Carousel */
+        .lessons-carousel-container {
+            position: relative;
+            overflow: visible;
+            border-radius: calc(var(--radius) - 2px);
+            margin: 0 calc(-1 * var(--spacing-4));
+            padding: var(--spacing-20) var(--spacing-10) var(--spacing-20) var(--spacing-10);
+            z-index: 5;
+            min-height: 600px;
+            display: flex;
+            gap: var(--spacing-4);
+            scroll-behavior: smooth;
+            scroll-snap-type: x mandatory;
+            overflow-x: auto;
+            overflow-y: visible;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+            cursor: grab;
+            transition: scroll-behavior 0.1s ease;
+        }
+
+        .lessons-carousel-container::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+            background: transparent !important;
+        }
+
+        .lessons-carousel-container::-webkit-scrollbar-track {
+            display: none !important;
+            background: transparent !important;
+        }
+
+        .lessons-carousel-container::-webkit-scrollbar-thumb {
+            display: none !important;
+            background: transparent !important;
+        }
+
+        .lessons-carousel-container::-webkit-scrollbar-corner {
+            display: none !important;
+            background: transparent !important;
+        }
+
+        .lessons-carousel-container.dragging {
+            scroll-behavior: auto;
+            scroll-snap-type: none;
+            cursor: grabbing;
+        }
+
+        .lessons-carousel-container:active {
+            cursor: grabbing;
+        }
+
+        .lesson-card {
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            overflow: hidden;
+            min-width: 320px;
+            width: 320px;
+            flex-shrink: 0;
+            scroll-snap-align: center;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            z-index: 1;
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+
+        .lesson-card.locked {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .lesson-card.locked:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .lesson-card.completed {
+            border-color: var(--success);
+            box-shadow: 0 4px 20px rgba(23, 191, 99, 0.15);
+        }
+
+        .lesson-card.completed:hover {
+            box-shadow: 0 20px 40px rgba(23, 191, 99, 0.25);
+        }
+
+        /* Carousel Navigation */
+        .carousel-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-6);
+            position: relative;
+            z-index: 1;
+        }
+
+        .carousel-nav h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .carousel-controls {
+            display: flex;
+            gap: var(--spacing-2);
+        }
+
+        .carousel-btn {
+            width: 2.5rem;
+            height: 2.5rem;
+            border: 1px solid var(--border);
+            background-color: var(--background);
+            color: var(--foreground);
+            border-radius: calc(var(--radius) - 8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            font-size: 1rem;
+        }
+
+        .carousel-btn:hover {
+            background-color: var(--accent);
+            color: var(--accent-foreground);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .carousel-btn:active {
+            transform: translateY(0);
+        }
+
+        .carousel-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .carousel-btn:disabled:hover {
+            background-color: var(--background);
+            color: var(--foreground);
+        }
+
+        /* Carousel Indicators */
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-2);
+            margin-top: var(--spacing-6);
+            position: relative;
+            z-index: 1;
+        }
+
+        .carousel-indicator {
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+            background-color: var(--muted);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+        }
+
+        .carousel-indicator.active {
+            background-color: var(--primary);
+            transform: scale(1.2);
+        }
+
+        .carousel-indicator:hover {
+            background-color: var(--accent-foreground);
+            transform: scale(1.1);
+        }
+
+        .lesson-card-header {
+            position: relative;
+        }
+
+        .lesson-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 4rem;
+            height: 4rem;
+            border-radius: calc(var(--radius) - 8px);
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+            font-size: 1.75rem;
+            margin-bottom: var(--spacing-4);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lesson-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .lesson-card:hover .lesson-icon::before {
+            left: 100%;
+        }
+
+        .lesson-icon i {
+            font-size: 1.75rem;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .lesson-card:hover .lesson-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .lesson-card:hover .lesson-icon i {
+            transform: scale(1.1);
+        }
+
+        .lesson-card.completed .lesson-icon {
+            background-color: var(--success);
+        }
+
+        .lesson-card.locked .lesson-icon {
+            background-color: var(--muted);
+            color: var(--muted-foreground);
+        }
+
+        .lesson-card.locked:hover .lesson-icon {
+            transform: scale(1.05);
+        }
+
+        .lesson-status {
+            position: absolute;
+            top: var(--spacing-2);
+            right: var(--spacing-2);
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: calc(var(--radius) - 10px);
+            background-color: var(--success);
+            color: var(--success-foreground);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .lesson-meta {
+            display: flex;
+            gap: var(--spacing-2);
+            margin-bottom: var(--spacing-4);
+        }
+
+        .lesson-progress-dots {
+            display: flex;
+            gap: var(--spacing-1);
+            margin-top: var(--spacing-4);
+        }
+
+        .progress-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 50%;
+            background-color: var(--primary);
+        }
+
+        .progress-dot.inactive {
+            background-color: var(--muted);
+        }
+
+        /* Question Card */
+        .question-card {
+            margin-bottom: var(--spacing-8);
+        }
+
+        .question-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: var(--spacing-8);
+        }
+
+        .question-options {
+            display: grid;
+            gap: var(--spacing-4);
+        }
+
+        .question-options.grid-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .question-option {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-3);
+            padding: var(--spacing-4);
+            border: 2px solid var(--border);
+            border-radius: calc(var(--radius) - 8px);
+            background-color: var(--card);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            text-align: left;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            transform: translateY(0);
+        }
+
+        .question-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .question-option:hover {
+            border-color: var(--primary);
+            background-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-option:hover::before {
+            left: 100%;
+        }
+
+        .question-option:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .question-option.selected {
+            border-color: var(--primary);
+            background-color: var(--primary);
+            color: var(--primary-foreground);
+            transform: scale(1.02);
+            animation: pulseGlow 0.6s ease-out;
+        }
+
+        .question-option.selected .option-letter {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: var(--primary-foreground);
+        }
+
+        .question-option.correct {
+            border-color: var(--success);
+            background-color: var(--success);
+            color: var(--success-foreground);
+            animation: correctPulse 0.8s ease-out;
+        }
+
+        .question-option.correct .option-letter {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: var(--success-foreground);
+        }
+
+        .question-option.incorrect {
+            border-color: var(--destructive);
+            background-color: var(--destructive);
+            color: var(--destructive-foreground);
+            animation: incorrectShake 0.6s ease-out;
+        }
+
+        .question-option.incorrect .option-letter {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: var(--destructive-foreground);
+        }
+
+        .question-option.disabled {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 var(--primary); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(30, 157, 241, 0.4); }
+            100% { transform: scale(1.02); box-shadow: 0 0 0 0 transparent; }
+        }
+
+        @keyframes correctPulse {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.05); box-shadow: 0 0 0 0 var(--success); }
+            50% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(23, 191, 99, 0.4); }
+            75% { transform: scale(1.05); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 transparent; }
+        }
+
+        @keyframes incorrectShake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+            20%, 40%, 60%, 80% { transform: translateX(8px); }
+        }
+
+        .option-letter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: calc(var(--radius) - 10px);
+            background-color: var(--muted);
+            color: var(--muted-foreground);
+            font-size: 0.75rem;
+            font-weight: 600;
+            flex-shrink: 0;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .color-option {
+            height: 4rem;
+            border: 3px solid var(--border);
+            border-radius: calc(var(--radius) - 8px);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+            transform: scale(1);
+        }
+
+        .color-option::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .color-option:hover {
+            border-color: var(--primary);
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .color-option:hover::before {
+            width: 100%;
+            height: 100%;
+        }
+
+        .color-option:active {
+            transform: scale(0.95);
+        }
+
+        .color-option.selected {
+            border-color: var(--primary);
+            transform: scale(1.08);
+            animation: colorPulse 0.6s ease-out;
+        }
+
+        .color-option.correct {
+            border-color: var(--success);
+            animation: colorCorrect 0.8s ease-out;
+        }
+
+        .color-option.incorrect {
+            border-color: var(--destructive);
+            animation: colorIncorrect 0.6s ease-out;
+        }
+
+        @keyframes colorPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); box-shadow: 0 0 0 8px rgba(30, 157, 241, 0.4); }
+            100% { transform: scale(1.08); }
+        }
+
+        @keyframes colorCorrect {
+            0% { transform: scale(1.08); }
+            25% { transform: scale(1.2) rotate(5deg); }
+            50% { transform: scale(1.15) rotate(-3deg); box-shadow: 0 0 0 12px rgba(23, 191, 99, 0.4); }
+            75% { transform: scale(1.18) rotate(2deg); }
+            100% { transform: scale(1.1) rotate(0deg); }
+        }
+
+        @keyframes colorIncorrect {
+            0%, 100% { transform: scale(1.08) rotate(0deg); }
+            25% { transform: scale(1.15) rotate(-5deg); }
+            50% { transform: scale(1.05) rotate(5deg); }
+            75% { transform: scale(1.12) rotate(-3deg); }
+        }
+
+        /* Feedback */
+        .feedback {
+            margin-top: var(--spacing-6);
+            padding: var(--spacing-6);
+            border-radius: calc(var(--radius) - 4px);
+            border: 2px solid;
+            position: relative;
+            overflow: hidden;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: feedbackSlideIn 0.5s ease-out forwards;
+        }
+
+        @keyframes feedbackSlideIn {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .feedback::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: feedbackShimmer 1s ease-out 0.3s;
+        }
+
+        @keyframes feedbackShimmer {
+            to { left: 100%; }
+        }
+
+        .feedback.correct {
+            border-color: var(--success);
+            background: linear-gradient(135deg, rgba(23, 191, 99, 0.1), rgba(23, 191, 99, 0.05));
+            box-shadow: 0 8px 32px rgba(23, 191, 99, 0.2);
+        }
+
+        .feedback.correct::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--success), transparent, var(--success));
+            border-radius: calc(var(--radius) - 4px);
+            z-index: -1;
+            animation: correctGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes correctGlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        .feedback.incorrect {
+            border-color: var(--destructive);
+            background: linear-gradient(135deg, rgba(244, 33, 46, 0.1), rgba(244, 33, 46, 0.05));
+            box-shadow: 0 8px 32px rgba(244, 33, 46, 0.2);
+            animation: feedbackSlideIn 0.5s ease-out forwards, incorrectVibrate 0.3s ease-out 0.5s;
+        }
+
+        @keyframes incorrectVibrate {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(0) translateX(-2px); }
+            75% { transform: translateY(0) translateX(2px); }
+        }
+
+        .feedback-header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-4);
+            margin-bottom: var(--spacing-3);
+        }
+
+        .feedback-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 600;
+            position: relative;
+            animation: iconPop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.3s both;
+        }
+
+        @keyframes iconPop {
+            0% { transform: scale(0) rotate(-180deg); }
+            50% { transform: scale(1.2) rotate(-90deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        .feedback.correct .feedback-icon {
+            background: linear-gradient(135deg, var(--success), #20d570);
+            color: var(--success-foreground);
+            box-shadow: 0 4px 15px rgba(23, 191, 99, 0.4);
+        }
+
+        .feedback.correct .feedback-icon::before {
+            content: '✓';
+            font-size: 1.5rem;
+            animation: checkMark 0.6s ease-out 0.6s both;
+        }
+
+        @keyframes checkMark {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        .feedback.incorrect .feedback-icon {
+            background: linear-gradient(135deg, var(--destructive), #ff4757);
+            color: var(--destructive-foreground);
+            box-shadow: 0 4px 15px rgba(244, 33, 46, 0.4);
+        }
+
+        .feedback.incorrect .feedback-icon::before {
+            content: '✗';
+            font-size: 1.5rem;
+            animation: xMark 0.6s ease-out 0.6s both;
+        }
+
+        @keyframes xMark {
+            0% { transform: scale(0) rotate(-180deg); }
+            50% { transform: scale(1.3) rotate(-90deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        .feedback h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0;
+            animation: textSlide 0.5s ease-out 0.4s both;
+        }
+
+        .feedback p {
+            animation: textSlide 0.5s ease-out 0.6s both;
+            line-height: 1.6;
+        }
+
+        @keyframes textSlide {
+            from {
+                transform: translateX(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .feedback.correct h3 {
+            color: var(--success);
+        }
+
+        .feedback.incorrect h3 {
+            color: var(--destructive);
+        }
+
+        /* Complete Screen */
+        .complete-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .complete-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(247, 185, 40, 0.1) 0%, transparent 70%);
+            animation: celebrationGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes celebrationGlow {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.3; }
+            50% { transform: scale(1.1) rotate(180deg); opacity: 0.6; }
+        }
+
+        .complete-card {
+            max-width: 32rem;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            transform: translateY(50px);
+            opacity: 0;
+            animation: completeCardSlideIn 1s ease-out 0.5s forwards;
+        }
+
+        @keyframes completeCardSlideIn {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .complete-card .card {
+            background: linear-gradient(135deg, var(--card), rgba(247, 185, 40, 0.05));
+            border: 2px solid var(--warning);
+            box-shadow: 0 20px 60px rgba(247, 185, 40, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .complete-card .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(247, 185, 40, 0.2), transparent);
+            animation: cardShimmer 2s ease-in-out 1.5s;
+        }
+
+        @keyframes cardShimmer {
+            to { left: 100%; }
+        }
+
+        .trophy-icon {
+            width: 6rem;
+            height: 6rem;
+            margin: 0 auto var(--spacing-6);
+            background: linear-gradient(135deg, var(--warning), #ffd700);
+            color: var(--warning-foreground);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            position: relative;
+            transform: scale(0) rotate(-180deg);
+            animation: trophyPop 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) 1s forwards;
+            box-shadow: 0 10px 30px rgba(247, 185, 40, 0.5);
+        }
+
+        @keyframes trophyPop {
+            0% { transform: scale(0) rotate(-180deg); }
+            70% { transform: scale(1.2) rotate(-20deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        .trophy-icon::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, transparent, rgba(247, 185, 40, 0.4), transparent);
+            animation: trophyGlow 2s ease-in-out infinite 2s;
+        }
+
+        @keyframes trophyGlow {
+            0%, 100% { transform: rotate(0deg); opacity: 0.5; }
+            50% { transform: rotate(180deg); opacity: 0.8; }
+        }
+
+        .trophy-icon i {
+            font-size: 3rem;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+            animation: trophyFloat 3s ease-in-out infinite 2.5s;
+        }
+
+        @keyframes trophyFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .complete-title {
+            transform: translateY(30px);
+            opacity: 0;
+            animation: titleSlideIn 0.8s ease-out 1.5s forwards;
+        }
+
+        @keyframes titleSlideIn {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .points-card {
+            transform: scale(0.8);
+            opacity: 0;
+            animation: pointsCardPop 0.6s ease-out 2s forwards;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes pointsCardPop {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .points-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(23, 191, 99, 0.3), transparent);
+            animation: pointsShimmer 1s ease-out 2.5s;
+        }
+
+        @keyframes pointsShimmer {
+            to { left: 100%; }
+        }
+
+        .points-earned {
+            background: linear-gradient(135deg, var(--success), #20d570);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: pointsGlow 2s ease-in-out infinite 3s;
+        }
+
+        @keyframes pointsGlow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-4);
+            margin: var(--spacing-6) 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: var(--spacing-5);
+            border: 2px solid var(--border);
+            border-radius: calc(var(--radius) - 4px);
+            background-color: var(--card);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateY(40px);
+            opacity: 0;
+        }
+
+        .stat-card:nth-child(1) { animation: statCardSlideIn 0.6s ease-out 2.2s forwards; }
+        .stat-card:nth-child(2) { animation: statCardSlideIn 0.6s ease-out 2.4s forwards; }
+        .stat-card:nth-child(3) { animation: statCardSlideIn 0.6s ease-out 2.6s forwards; }
+
+        @keyframes statCardSlideIn {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px) scale(1.05);
+            border-color: var(--primary);
+            box-shadow: 0 15px 40px rgba(30, 157, 241, 0.2);
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
+        }
+
+        .stat-card:nth-child(1):hover {
+            border-color: var(--warning);
+            box-shadow: 0 15px 40px rgba(247, 185, 40, 0.3);
+        }
+
+        .stat-card:nth-child(2):hover {
+            border-color: var(--destructive);
+            box-shadow: 0 15px 40px rgba(244, 33, 46, 0.3);
+        }
+
+        .stat-card:nth-child(3):hover {
+            border-color: var(--success);
+            box-shadow: 0 15px 40px rgba(23, 191, 99, 0.3);
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-3);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+        }
+
+        .stat-card:nth-child(1) .stat-icon {
+            color: var(--warning);
+        }
+
+        .stat-card:nth-child(2) .stat-icon {
+            color: var(--destructive);
+        }
+
+        .stat-card:nth-child(3) .stat-icon {
+            color: var(--success);
+        }
+
+        .stat-card:hover .stat-icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .stat-icon i {
+            font-size: 2rem;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--muted-foreground);
+            margin-bottom: var(--spacing-2);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .stat-card:hover .stat-label {
+            color: var(--foreground);
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .stat-card:hover .stat-value {
+            transform: scale(1.1);
+        }
+
+        .continue-button {
+            transform: translateY(30px);
+            opacity: 0;
+            animation: buttonSlideIn 0.6s ease-out 3s forwards;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--primary), #1c8ce8);
+            border: none;
+            box-shadow: 0 8px 25px rgba(30, 157, 241, 0.4);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        @keyframes buttonSlideIn {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .continue-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .continue-button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 35px rgba(30, 157, 241, 0.6);
+        }
+
+        .continue-button:hover::before {
+            left: 100%;
+        }
+
+        .continue-button:active {
+            transform: translateY(-1px) scale(0.98);
+        }
+
+        /* Lesson Screen */
+        .lesson-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-8);
+        }
+
+        .lesson-info {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-4);
+        }
+
+        .back-button {
+            width: 2.5rem;
+            height: 2.5rem;
+            border: 1px solid var(--border);
+            background-color: var(--background);
+            color: var(--foreground);
+            border-radius: calc(var(--radius) - 10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.125rem;
+        }
+
+        .back-button:hover {
+            background-color: var(--accent);
+        }
+
+        .back-button i {
+            font-size: 1.125rem;
+        }
+
+        .lesson-progress {
+            margin-bottom: var(--spacing-8);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--spacing-4);
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: var(--spacing-4);
+                text-align: center;
+            }
+
+            .lesson-card {
+                min-width: 280px;
+                width: 280px;
+            }
+
+            .carousel-controls {
+                display: none;
+            }
+
+            .lessons-carousel-container {
+                margin: 0 calc(-1 * var(--spacing-4));
+                padding: var(--spacing-16) var(--spacing-8) var(--spacing-20) var(--spacing-8);
+                min-height: 550px;
+            }
+
+            .lessons-carousel {
+                padding: 0;
+                gap: var(--spacing-3);
+            }
+
+            .lesson-header {
+                flex-direction: column;
+                gap: var(--spacing-4);
+                align-items: stretch;
+            }
+
+            .lesson-info {
+                justify-content: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .question-options.grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .lesson-card {
+                min-width: 260px;
+                width: 260px;
+            }
+        }
+
+        /* Animações de confetti */
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-10px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Efeitos de progresso */
+        .lesson-progress .progress-indicator {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lesson-progress .progress-indicator::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: progressShimmer 2s infinite;
+        }
+
+        @keyframes progressShimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* Micro interação para corações */
+        .stat-badge {
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .stat-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .heart-lost {
+            animation: heartLoss 0.6s ease-out;
+        }
+
+        @keyframes heartLoss {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3) rotate(-10deg); color: var(--destructive); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        .streak-gained {
+            animation: streakGain 0.8s ease-out;
+        }
+
+        @keyframes streakGain {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); color: var(--warning); }
+            100% { transform: scale(1); }
+        }
+
+        /* Efeito para pontuação */
+        .score-popup {
+            position: absolute;
+            top: -30px;
+            right: 0;
+            background: var(--success);
+            color: var(--success-foreground);
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            animation: scoreFloat 2s ease-out forwards;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        @keyframes scoreFloat {
+            0% {
+                transform: translateY(0) scale(0);
+                opacity: 0;
+            }
+            20% {
+                transform: translateY(-10px) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-40px) scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        /* Animações especiais para confetti da conclusão */
+        @keyframes confettiExplode {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(
+                    calc(cos(var(--angle)) * var(--velocity)),
+                    calc(sin(var(--angle)) * var(--velocity) + 300px)
+                ) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* ==================== FLOATING DOCK MENU ==================== */
+        .floating-dock {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .dock-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.1),
+                0 4px 16px rgba(0, 0, 0, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.7);
+            pointer-events: auto;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .dark .dock-container {
+            background: rgba(23, 24, 28, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                0 4px 16px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .dark .dock-item {
+            color: #9ca3af; /* Cor mais clara para ícones no dark */
+        }
+
+        .dark .dock-item:hover {
+            color: var(--primary-foreground);
+        }
+
+        .dark .dock-item.active {
+            color: var(--primary-foreground);
+        }
+
+        .dock-item {
+            position: relative;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: scale(1);
+            color: var(--muted-foreground);
+        }
+
+        .dock-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--accent-foreground));
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: -1;
+        }
+
+        .dock-item:hover {
+            transform: scale(1.2) translateY(-8px);
+            color: var(--primary-foreground);
+        }
+
+        .dock-item:hover::before {
+            opacity: 1;
+        }
+
+        .dock-item:active {
+            transform: scale(1.1) translateY(-4px);
+        }
+
+        .dock-item.active {
+            color: var(--primary-foreground);
+            transform: scale(1.1);
+        }
+
+        .dock-item.active::before {
+            opacity: 1;
+        }
+
+        .dock-item i {
+            font-size: 24px;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+
+        .dock-item:hover i {
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
+
+        /* Tooltip para dock items */
+        .dock-item::after {
+            content: attr(title);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-8px);
+            background: var(--popover);
+            color: var(--popover-foreground);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1001;
+        }
+
+        .dock-item:hover::after {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-12px);
+        }
+
+        /* ==================== MOBILE FLOATING ACTION BUTTON ==================== */
+        .mobile-fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            display: none;
+        }
+
+        .fab-button {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--accent-foreground));
+            border: none;
+            box-shadow: 
+                0 8px 24px rgba(30, 157, 241, 0.4),
+                0 4px 12px rgba(0, 0, 0, 0.1);
+            color: var(--primary-foreground);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fab-button::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.2), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .fab-button:hover {
+            transform: scale(1.1) translateY(-4px);
+            box-shadow: 
+                0 12px 32px rgba(30, 157, 241, 0.5),
+                0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .fab-button:hover::before {
+            opacity: 1;
+        }
+
+        .fab-button:active {
+            transform: scale(1.05) translateY(-2px);
+        }
+
+        .fab-icon {
+            font-size: 28px;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .fab-button.active .fab-icon {
+            transform: rotate(45deg);
+        }
+
+        .fab-menu {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            opacity: 0;
+            transform: scale(0.8) translateY(20px);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            pointer-events: none;
+        }
+
+        .fab-menu.active {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            pointer-events: auto;
+        }
+
+        .fab-menu-item {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 
+                0 6px 20px rgba(0, 0, 0, 0.1),
+                0 3px 8px rgba(0, 0, 0, 0.05);
+            color: #374151; /* Cor escura para ícones no light theme */
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            transform: scale(0) translateX(20px);
+            animation-fill-mode: both;
+        }
+
+        .dark .fab-menu-item {
+            background: rgba(23, 24, 28, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 6px 20px rgba(0, 0, 0, 0.3),
+                0 3px 8px rgba(0, 0, 0, 0.2);
+            color: #9ca3af; /* Cor mais clara para ícones no dark */
+        }
+
+        .dark .fab-menu-item:hover {
+            background: rgba(55, 65, 81, 0.95); /* Background escuro mais visível */
+            color: #f3f4f6; /* Ícone mais claro no hover */
+            border-color: rgba(156, 163, 175, 0.3);
+        }
+
+        .dark .fab-button {
+            background: linear-gradient(135deg, var(--primary), #1c7ed6);
+            box-shadow: 
+                0 8px 24px rgba(30, 157, 241, 0.3),
+                0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .fab-menu.active .fab-menu-item {
+            animation: fabItemSlideIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        .fab-menu.active .fab-menu-item:nth-child(1) { animation-delay: 0.1s; }
+        .fab-menu.active .fab-menu-item:nth-child(2) { animation-delay: 0.15s; }
+        .fab-menu.active .fab-menu-item:nth-child(3) { animation-delay: 0.2s; }
+        .fab-menu.active .fab-menu-item:nth-child(4) { animation-delay: 0.25s; }
+        .fab-menu.active .fab-menu-item:nth-child(5) { animation-delay: 0.3s; }
+
+        @keyframes fabItemSlideIn {
+            to {
+                transform: scale(1) translateX(0);
+            }
+        }
+
+        .fab-menu-item::before {
+            content: attr(title);
+            position: absolute;
+            right: 60px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--popover);
+            color: var(--popover-foreground);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1001;
+        }
+
+        .fab-menu-item:hover::before {
+            opacity: 1;
+            transform: translateY(-50%) translateX(-8px);
+        }
+
+        .fab-menu-item:hover {
+            transform: scale(1.1);
+            background: var(--accent);
+            color: var(--accent-foreground);
+            box-shadow: 
+                0 8px 25px rgba(0, 0, 0, 0.15),
+                0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hover states específicos para light theme */
+        body:not(.dark) .fab-menu-item:hover {
+            background: var(--accent);
+            color: var(--accent-foreground);
+        }
+
+        .fab-menu-item:active {
+            transform: scale(1.05);
+        }
+
+        .fab-menu-item i {
+            font-size: 22px;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+
+        /* ==================== DOCK ANIMATIONS ==================== */
+        @keyframes dockBounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-8px); }
+        }
+
+        .floating-dock.bounce {
+            animation: dockBounce 0.6s ease-in-out;
+        }
+
+        /* Efeito de ondulação no dock */
+        .dock-container:hover .dock-item:not(:hover) {
+            transform: scale(0.95);
+            opacity: 0.7;
+        }
+
+        .dock-container .dock-item:hover ~ .dock-item:not(:hover) {
+            transform: scale(0.98);
+        }
+
+        /* ==================== RESPONSIVE DOCK ==================== */
+        @media (max-width: 768px) {
+            .floating-dock {
+                display: none;
+            }
+            
+            .mobile-fab {
+                display: block;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .mobile-fab {
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .fab-button {
+                width: 56px;
+                height: 56px;
+            }
+            
+            .fab-icon {
+                font-size: 24px;
+            }
+            
+            .fab-menu-item {
+                width: 48px;
+                height: 48px;
+            }
+            
+            .fab-menu-item i {
+                font-size: 20px;
+            }
+        }
+
+        /* Melhor contraste para tema dark */
+        .dark .fab-menu-item.active {
+            background: rgba(30, 157, 241, 0.2);
+            color: #60a5fa;
+            border-color: rgba(30, 157, 241, 0.4);
+        }
+
+        /* Tooltip no tema dark */
+        .dark .dock-item::after,
+        .dark .fab-menu-item::before {
+            background: rgba(17, 24, 39, 0.95);
+            color: #f9fafb;
+            border-color: rgba(75, 85, 99, 0.3);
+        }
+
+        /* Gradiente do botão no tema dark */
+        .dark .dock-item::before {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        }
+
+        /* Estados de foco melhorados */
+        .dark .fab-menu-item:focus,
+        .dark .dock-item:focus {
+            outline: 2px solid #60a5fa;
+            outline-offset: 2px;
+        }
+
+        /* PWA adjustments for dock */
+        .pwa-mode .floating-dock {
+            bottom: calc(30px + env(safe-area-inset-bottom));
+        }
+        
+        .pwa-mode .mobile-fab {
+            bottom: calc(30px + env(safe-area-inset-bottom));
+            right: calc(30px + env(safe-area-inset-right));
+        }
+
+        /* Dock entrada animada */
+        .floating-dock {
+            opacity: 0;
+            transform: translateX(-50%) translateY(100px);
+            animation: dockSlideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s forwards;
+        }
+
+        @keyframes dockSlideUp {
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        .mobile-fab {
+            opacity: 0;
+            transform: scale(0) rotate(-180deg);
+            animation: fabSlideIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.2s forwards;
+        }
+
+        @keyframes fabSlideIn {
+            to {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        /* Responsividade para tela de conclusão */
+        @media (max-width: 768px) {
+            .complete-card {
+                max-width: 90%;
+                margin: 0 auto;
+            }
+
+            .trophy-icon {
+                width: 5rem;
+                height: 5rem;
+                font-size: 2.5rem;
+            }
+
+            .trophy-icon i {
+                font-size: 2.5rem;
+            }
+
+            .complete-title {
+                font-size: 1.75rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-3);
+            }
+
+            .stat-card {
+                padding: var(--spacing-4);
+            }
+
+            .stat-icon {
+                font-size: 1.75rem;
+            }
+
+            .stat-value {
+                font-size: 1.25rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .complete-container {
+                min-height: 70vh;
+                padding: var(--spacing-4);
+            }
+
+            .trophy-icon {
+                width: 4rem;
+                height: 4rem;
+                font-size: 2rem;
+            }
+
+            .trophy-icon i {
+                font-size: 2rem;
+            }
+
+            .complete-title {
+                font-size: 1.5rem;
+                margin-bottom: var(--spacing-3);
+            }
+
+            .points-earned {
+                font-size: 1.5rem;
+            }
+
+            .continue-button {
+                font-size: 1rem;
+                padding: var(--spacing-3) var(--spacing-6);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <!-- Home Screen -->
+        <div id="home-screen" class="screen active">
+            <header class="header">
+                <div class="container">
+                    <div class="header-content">
+                        <a href="#" class="logo">DesignLingo</a>
+                        <div class="stats-container">
+                            <div class="stat-badge">
+                                <i class="ph-fill ph-fire"></i>
+                                <span id="streak-display">0</span>
+                            </div>
+                            <div class="stat-badge">
+                                <i class="ph-fill ph-heart"></i>
+                                <span id="hearts-display">5</span>
+                            </div>
+                            <div class="stat-badge">
+                                <i class="ph-fill ph-star"></i>
+                                <span id="score-display">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="main-content">
+                <div class="container">
+                    <!-- Progress Section -->
+                    <div class="card mb-8" style="position: relative; z-index: 1;">
+                        <div class="card-header">
+                            <h2 class="card-title">Seu Progresso</h2>
+                            <p class="card-description">
+                                <span id="completed-count">0</span> de <span id="total-lessons">3</span> lições concluídas
+                            </p>
+                        </div>
+                        <div class="card-content">
+                            <div class="progress">
+                                <div id="progress-fill" class="progress-indicator" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lessons Carousel -->
+                    <div class="carousel-nav">
+                        <h2>Suas Lições</h2>
+                        <div class="carousel-controls">
+                            <button class="carousel-btn" id="carousel-prev" onclick="scrollCarousel('prev')">
+                                <i class="ph ph-caret-left"></i>
+                            </button>
+                            <button class="carousel-btn" id="carousel-next" onclick="scrollCarousel('next')">
+                                <i class="ph ph-caret-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="lessons-carousel-container" id="lessons-container">
+                        <!-- Lessons will be populated by JavaScript -->
+                    </div>
+
+                    <div class="carousel-indicators" id="carousel-indicators">
+                        <!-- Indicators will be populated by JavaScript -->
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Lesson Screen -->
+        <div id="lesson-screen" class="screen">
+            <header class="header">
+                <div class="container">
+                    <div class="header-content">
+                        <div class="lesson-info">
+                            <button class="back-button" onclick="showHomeScreen()">
+                                <i class="ph ph-arrow-left"></i>
+                            </button>
+                            <div>
+                                <h1 id="current-lesson-title" class="text-lg font-semibold"></h1>
+                                <p id="question-counter" class="text-sm text-muted-foreground"></p>
+                            </div>
+                        </div>
+                        <div class="stat-badge">
+                            <i class="ph-fill ph-heart"></i>
+                            <span id="lesson-hearts-display">5</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="main-content">
+                <div class="container max-w-4xl">
+                    <!-- Progress Bar -->
+                    <div class="lesson-progress">
+                        <div class="progress">
+                            <div id="lesson-progress-fill" class="progress-indicator" style="width: 0%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Question Card -->
+                    <div class="card question-card">
+                        <div class="card-content">
+                            <div id="question-content">
+                                <!-- Question content will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feedback -->
+                    <div id="feedback" class="feedback hidden">
+                        <div class="feedback-header">
+                            <div id="feedback-icon" class="feedback-icon"></div>
+                            <h3 id="feedback-title" class="font-semibold"></h3>
+                        </div>
+                        <p id="feedback-explanation" class="text-sm text-muted-foreground"></p>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Complete Screen -->
+        <div id="complete-screen" class="screen">
+            <div class="complete-container">
+                <div class="container">
+                    <div class="complete-card">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="trophy-icon">
+                                    <i class="ph ph-trophy-fill"></i>
+                                </div>
+                                <h1 class="complete-title text-3xl font-bold mb-4">🎉 Lição Concluída!</h1>
+                                <div class="card points-card mb-6">
+                                    <div class="card-content p-4">
+                                        <p class="text-sm text-muted-foreground mb-2">Você ganhou</p>
+                                        <p id="points-earned" class="points-earned text-2xl font-bold">+30 pontos!</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="stats-grid">
+                                    <div class="stat-card">
+                                        <div class="stat-icon">
+                                            <i class="ph ph-star-fill"></i>
+                                        </div>
+                                        <div class="stat-label">Pontos Totais</div>
+                                        <div id="complete-score" class="stat-value">0</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-icon">
+                                            <i class="ph ph-fire"></i>
+                                        </div>
+                                        <div class="stat-label">Sequência Atual</div>
+                                        <div id="complete-streak" class="stat-value">0</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-icon">
+                                            <i class="ph ph-check-circle-fill"></i>
+                                        </div>
+                                        <div class="stat-label">Lições Concluídas</div>
+                                        <div id="complete-lessons" class="stat-value">0</div>
+                                    </div>
+                                </div>
+                                
+                                <button class="btn btn-primary w-full mt-6 continue-button" onclick="showHomeScreen()">
+                                    <i class="ph ph-rocket-launch mr-2"></i>
+                                    Continuar Jornada
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Dock Menu -->
+    <div id="floating-dock" class="floating-dock">
+        <div class="dock-container">
+            <div class="dock-item" data-action="home" title="Início">
+                <i class="ph ph-house"></i>
+            </div>
+            <div class="dock-item" data-action="lessons" title="Minhas Lições">
+                <i class="ph ph-graduation-cap"></i>
+            </div>
+            <div class="dock-item" data-action="progress" title="Progresso">
+                <i class="ph ph-chart-line-up"></i>
+            </div>
+            <div class="dock-item" data-action="achievements" title="Conquistas">
+                <i class="ph ph-trophy"></i>
+            </div>
+            <div class="dock-item" data-action="profile" title="Perfil">
+                <i class="ph ph-user-circle"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Floating Action Button -->
+    <div id="mobile-fab" class="mobile-fab">
+        <button class="fab-button" onclick="toggleMobileMenu()">
+            <i class="ph ph-plus fab-icon"></i>
+        </button>
+        <div class="fab-menu" id="fab-menu">
+            <div class="fab-menu-item" data-action="home" title="Início">
+                <i class="ph ph-house"></i>
+            </div>
+            <div class="fab-menu-item" data-action="lessons" title="Lições">
+                <i class="ph ph-graduation-cap"></i>
+            </div>
+            <div class="fab-menu-item" data-action="progress" title="Progresso">
+                <i class="ph ph-chart-line-up"></i>
+            </div>
+            <div class="fab-menu-item" data-action="achievements" title="Conquistas">
+                <i class="ph ph-trophy"></i>
+            </div>
+            <div class="fab-menu-item" data-action="profile" title="Perfil">
+                <i class="ph ph-user-circle"></i>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // ==================== TIPOS E INTERFACES ==================== 
+        /**
+         * @typedef {Object} Question
+         * @property {'multiple' | 'color_match'} type
+         * @property {string} question
+         * @property {string[]} options
+         * @property {number} correct
+         * @property {string} explanation
+         */
+
+        /**
+         * @typedef {Object} Lesson
+         * @property {number} id
+         * @property {string} title
+         * @property {string} icon
+         * @property {string} description
+         * @property {Question[]} questions
+         */
+
+        /**
+         * @typedef {Object} GameState
+         * @property {'home' | 'lesson' | 'complete'} currentScreen
+         * @property {number} currentLesson
+         * @property {number} currentQuestion
+         * @property {number} score
+         * @property {number} streak
+         * @property {number[]} completedLessons
+         * @property {number} hearts
+         * @property {boolean} showFeedback
+         * @property {Answer | null} lastAnswer
+         */
+
+        /**
+         * @typedef {Object} Answer
+         * @property {boolean} isCorrect
+         * @property {string} explanation
+         */
+
+        // ==================== DADOS E ESTADO ==================== 
+        /** @type {Lesson[]} */
+        const lessons = [
+            {
+                id: 0,
+                title: "Teoria das Cores",
+                icon: "ph ph-palette",
+                description: "Aprenda sobre cores primárias, secundárias e harmonias cromáticas para criar designs impactantes.",
+                questions: [
+                    {
+                        type: "multiple",
+                        question: "Quais são as cores primárias?",
+                        options: ["Vermelho, Azul, Amarelo", "Vermelho, Verde, Azul", "Azul, Verde, Amarelo", "Rosa, Roxo, Laranja"],
+                        correct: 0,
+                        explanation: "As cores primárias são vermelho, azul e amarelo - elas não podem ser criadas pela mistura de outras cores."
+                    },
+                    {
+                        type: "color_match",
+                        question: "Qual cor complementar do azul?",
+                        options: ["#FF6B00", "#00FF00", "#FF0000", "#FFFF00"],
+                        correct: 0,
+                        explanation: "Laranja é a cor complementar do azul no círculo cromático."
+                    },
+                    {
+                        type: "multiple",
+                        question: "O que é uma paleta monocromática?",
+                        options: ["Usa apenas uma cor", "Usa cores opostas", "Usa três cores", "Usa apenas cores quentes"],
+                        correct: 0,
+                        explanation: "Uma paleta monocromática usa variações (tons, matizes) de uma única cor."
+                    }
+                ]
+            },
+            {
+                id: 1,
+                title: "Tipografia",
+                icon: "ph ph-text-aa",
+                description: "Domine os fundamentos de fontes, hierarquia visual e legibilidade para textos profissionais.",
+                questions: [
+                    {
+                        type: "multiple",
+                        question: "Qual é a principal diferença entre serif e sans-serif?",
+                        options: ["Serif tem pequenos traços decorativos", "Sans-serif é mais colorido", "Serif é sempre maior", "Não há diferença"],
+                        correct: 0,
+                        explanation: "Fontes serif têm pequenos traços decorativos nas pontas das letras, enquanto sans-serif não têm."
+                    },
+                    {
+                        type: "multiple",
+                        question: "O que define uma boa hierarquia tipográfica?",
+                        options: ["Tamanhos claramente diferenciados", "Usar muitas fontes diferentes", "Tudo do mesmo tamanho", "Apenas cores diferentes"],
+                        correct: 0,
+                        explanation: "A hierarquia tipográfica usa tamanhos, pesos e espaçamentos diferenciados para guiar o olhar do usuário."
+                    }
+                ]
+            },
+            {
+                id: 2,
+                title: "Composição",
+                icon: "ph ph-layout",
+                description: "Entenda princípios de layout como regra dos terços, equilíbrio e alinhamento visual.",
+                questions: [
+                    {
+                        type: "multiple",
+                        question: "O que é a regra dos terços?",
+                        options: ["Dividir a imagem em 9 partes iguais", "Usar apenas 3 cores", "Ter 3 elementos", "Dividir em 3 colunas"],
+                        correct: 0,
+                        explanation: "A regra dos terços divide a composição em 9 partes iguais com duas linhas horizontais e duas verticais."
+                    }
+                ]
+            }
+        ];
+
+        // Estado da aplicação
+        /** @type {GameState} */
+        let gameState = {
+            currentScreen: 'home',
+            currentLesson: 0,
+            currentQuestion: 0,
+            score: parseInt(localStorage.getItem('designlingo_score') || '0') || 0,
+            streak: parseInt(localStorage.getItem('designlingo_streak') || '0') || 0,
+            completedLessons: JSON.parse(localStorage.getItem('designlingo_completed') || '[]') || [],
+            hearts: parseInt(localStorage.getItem('designlingo_hearts') || '5') || 5,
+            showFeedback: false,
+            lastAnswer: null
+        };
+
+        // ==================== FUNÇÕES UTILITÁRIAS ==================== 
+        function saveGameState() {
+            localStorage.setItem('designlingo_score', gameState.score.toString());
+            localStorage.setItem('designlingo_streak', gameState.streak.toString());
+            localStorage.setItem('designlingo_completed', JSON.stringify(gameState.completedLessons));
+            localStorage.setItem('designlingo_hearts', gameState.hearts.toString());
+        }
+
+        function updateUI() {
+            const scoreDisplay = document.getElementById('score-display');
+            const streakDisplay = document.getElementById('streak-display');
+            const heartsDisplay = document.getElementById('hearts-display');
+            const lessonHeartsDisplay = document.getElementById('lesson-hearts-display');
+            
+            // Verificar se os elementos existem antes de usar
+            if (!scoreDisplay || !streakDisplay || !heartsDisplay) {
+                console.warn('UI elements not found');
+                return;
+            }
+            
+            // Animação para mudanças de pontuação
+            const oldScore = parseInt(scoreDisplay.textContent) || 0;
+            const newScore = gameState.score;
+            if (newScore > oldScore) {
+                scoreDisplay.textContent = newScore.toString();
+                // Criar popup de pontos ganhos
+                const scorePopup = document.createElement('div');
+                scorePopup.className = 'score-popup';
+                scorePopup.textContent = `+${newScore - oldScore}`;
+                if (scoreDisplay.parentElement) {
+                    scoreDisplay.parentElement.style.position = 'relative';
+                    scoreDisplay.parentElement.appendChild(scorePopup);
+                    setTimeout(() => {
+                        if (scorePopup && scorePopup.parentNode) {
+                            scorePopup.remove();
+                        }
+                    }, 2000);
+                }
+            } else {
+                scoreDisplay.textContent = newScore.toString();
+            }
+            
+            // Animação para streak
+            const oldStreak = parseInt(streakDisplay.textContent) || 0;
+            if (gameState.streak > oldStreak && streakDisplay.parentElement) {
+                streakDisplay.parentElement.classList.add('streak-gained');
+                setTimeout(() => {
+                    if (streakDisplay.parentElement) {
+                        streakDisplay.parentElement.classList.remove('streak-gained');
+                    }
+                }, 800);
+            }
+            streakDisplay.textContent = gameState.streak.toString();
+            
+            // Animação para perda de corações
+            const oldHearts = parseInt(heartsDisplay.textContent) || 0;
+            if (gameState.hearts < oldHearts && heartsDisplay.parentElement) {
+                heartsDisplay.parentElement.classList.add('heart-lost');
+                setTimeout(() => {
+                    if (heartsDisplay.parentElement) {
+                        heartsDisplay.parentElement.classList.remove('heart-lost');
+                    }
+                }, 600);
+            }
+            heartsDisplay.textContent = gameState.hearts.toString();
+            if (lessonHeartsDisplay) {
+                lessonHeartsDisplay.textContent = gameState.hearts.toString();
+            }
+            
+            const progressPercent = (gameState.completedLessons.length / lessons.length) * 100;
+            const progressFill = document.getElementById('progress-fill');
+            const completedCount = document.getElementById('completed-count');
+            const totalLessons = document.getElementById('total-lessons');
+            
+            if (progressFill) {
+                progressFill.style.width = `${progressPercent}%`;
+            }
+            if (completedCount) {
+                completedCount.textContent = gameState.completedLessons.length.toString();
+            }
+            if (totalLessons) {
+                totalLessons.textContent = lessons.length.toString();
+            }
+        }
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach((screen) => {
+                screen.classList.remove('active');
+            });
+            const targetScreen = document.getElementById(screenId);
+            targetScreen.classList.add('active');
+            gameState.currentScreen = screenId;
+        }
+
+        // ==================== CARROSSEL DE LIÇÕES ==================== 
+        let currentCarouselIndex = 0;
+        let isCarouselDragging = false;
+        let carouselStartX = 0;
+        let carouselScrollLeft = 0;
+
+        function renderLessons() {
+            const container = document.getElementById('lessons-container');
+            const indicatorsContainer = document.getElementById('carousel-indicators');
+            
+            container.innerHTML = '';
+            indicatorsContainer.innerHTML = '';
+
+            lessons.forEach((lesson, index) => {
+                const isCompleted = gameState.completedLessons.includes(lesson.id);
+                const isLocked = index > 0 && !gameState.completedLessons.includes(index - 1);
+                
+                const lessonCard = document.createElement('div');
+                lessonCard.className = `lesson-card card ${isCompleted ? 'completed' : ''} ${isLocked ? 'locked' : ''}`;
+                
+                if (!isLocked) {
+                    lessonCard.onclick = () => startLesson(lesson.id);
+                }
+
+                lessonCard.innerHTML = `
+                    <div class="card-header lesson-card-header">
+                        <div class="lesson-icon">
+                            ${isLocked ? '<i class="ph ph-lock"></i>' : `<i class="${lesson.icon}"></i>`}
+                        </div>
+                        ${isCompleted ? '<div class="lesson-status"><i class="ph ph-check"></i></div>' : ''}
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title text-xl">${lesson.title}</h3>
+                        <p class="card-description mb-4">${lesson.description}</p>
+                        
+                        <div class="lesson-meta">
+                            <span class="badge badge-secondary">
+                                <i class="ph ph-${index === 0 ? 'trending-up' : index === 1 ? 'chart-line' : 'lightning'}"></i>
+                                ${index === 0 ? 'Iniciante' : index === 1 ? 'Intermediário' : 'Avançado'}
+                            </span>
+                            <span class="badge badge-outline">
+                                <i class="ph ph-clock"></i>
+                                ${lesson.questions.length * 2} min
+                            </span>
+                        </div>
+                        
+                        <div class="flex items-center justify-between mt-4">
+                            <div class="lesson-progress-dots">
+                                ${Array.from({length: 5}, (_, i) => 
+                                    `<div class="progress-dot ${i >= lesson.questions.length ? 'inactive' : ''}"></div>`
+                                ).join('')}
+                            </div>
+                            <span class="text-sm text-muted-foreground">
+                                <i class="ph ph-question"></i>
+                                ${lesson.questions.length}/5 questões
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="badge ${isCompleted ? 'badge-success' : isLocked ? 'badge-secondary' : 'badge-default'}">
+                            <i class="ph ph-${isCompleted ? 'check-circle' : isLocked ? 'lock' : 'play'}"></i>
+                            ${isCompleted ? 'Concluído' : isLocked ? 'Bloqueado' : 'Começar'}
+                        </span>
+                    </div>
+                `;
+
+                container.appendChild(lessonCard);
+
+                // Criar indicadores
+                const indicator = document.createElement('div');
+                indicator.className = `carousel-indicator ${index === currentCarouselIndex ? 'active' : ''}`;
+                indicator.onclick = () => goToCarouselSlide(index);
+                indicatorsContainer.appendChild(indicator);
+            });
+
+            setupCarouselDragAndScroll();
+            updateCarouselButtons();
+        }
+
+        function setupCarouselDragAndScroll() {
+            const container = document.getElementById('lessons-container');
+            
+            // Touch events para mobile - mais suave
+            container.addEventListener('touchstart', handleCarouselStart, { passive: false });
+            container.addEventListener('touchmove', handleCarouselMove, { passive: false });
+            container.addEventListener('touchend', handleCarouselEnd, { passive: false });
+            
+            // Mouse events para desktop
+            container.addEventListener('mousedown', handleCarouselStart);
+            document.addEventListener('mousemove', handleCarouselMove); // Movido para document para melhor tracking
+            document.addEventListener('mouseup', handleCarouselEnd);
+            
+            // Previne arrastar imagens e seleção
+            container.addEventListener('dragstart', (e) => e.preventDefault());
+            container.addEventListener('selectstart', (e) => e.preventDefault());
+            
+            // Scroll event para atualizar indicadores com throttle
+            let scrollTimeout;
+            container.addEventListener('scroll', () => {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(updateCarouselIndicators, 50);
+            });
+        }
+
+        function handleCarouselStart(e) {
+            isCarouselDragging = true;
+            const container = document.getElementById('lessons-container');
+            container.classList.add('dragging');
+            
+            const clientX = e.type === 'mousedown' ? e.clientX : e.touches[0].clientX;
+            carouselStartX = clientX;
+            carouselScrollLeft = container.scrollLeft;
+            
+            // Previne seleção de texto durante o drag
+            container.style.userSelect = 'none';
+            container.style.cursor = 'grabbing';
+        }
+
+        function handleCarouselMove(e) {
+            if (!isCarouselDragging) return;
+            e.preventDefault();
+            
+            const container = document.getElementById('lessons-container');
+            const clientX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
+            
+            // Movimento mais suave com multiplicador reduzido
+            const deltaX = clientX - carouselStartX;
+            const smoothDelta = deltaX * 1.2; // Reduzido de 2 para 1.2
+            
+            container.scrollLeft = carouselScrollLeft - smoothDelta;
+        }
+
+        function handleCarouselEnd() {
+            if (!isCarouselDragging) return;
+            isCarouselDragging = false;
+            
+            const container = document.getElementById('lessons-container');
+            container.classList.remove('dragging');
+            container.style.userSelect = '';
+            container.style.cursor = 'grab';
+            
+            // Adiciona momentum suave após soltar
+            addMomentumScroll(container);
+        }
+
+        function scrollCarousel(direction) {
+            const container = document.getElementById('lessons-container');
+            const cardWidth = 320 + 16; // width + gap
+            
+            if (direction === 'next') {
+                currentCarouselIndex = Math.min(currentCarouselIndex + 1, lessons.length - 1);
+            } else {
+                currentCarouselIndex = Math.max(currentCarouselIndex - 1, 0);
+            }
+            
+            container.scrollTo({
+                left: currentCarouselIndex * cardWidth,
+                behavior: 'smooth'
+            });
+            
+            updateCarouselButtons();
+            updateCarouselIndicators();
+        }
+
+        function goToCarouselSlide(index) {
+            const container = document.getElementById('lessons-container');
+            const cardWidth = 320 + 16; // width + gap
+            
+            currentCarouselIndex = index;
+            container.scrollTo({
+                left: index * cardWidth,
+                behavior: 'smooth'
+            });
+            
+            updateCarouselButtons();
+            updateCarouselIndicators();
+        }
+
+        function updateCarouselButtons() {
+            const prevBtn = document.getElementById('carousel-prev');
+            const nextBtn = document.getElementById('carousel-next');
+            
+            prevBtn.disabled = currentCarouselIndex === 0;
+            nextBtn.disabled = currentCarouselIndex === lessons.length - 1;
+        }
+
+        // Função para adicionar momentum após soltar o drag
+        function addMomentumScroll(container) {
+            const cardWidth = 320 + 16;
+            const currentScroll = container.scrollLeft;
+            const targetIndex = Math.round(currentScroll / cardWidth);
+            const targetScroll = targetIndex * cardWidth;
+            
+            // Só aplica snap se a diferença for significativa
+            if (Math.abs(currentScroll - targetScroll) > 5) {
+                container.scrollTo({
+                    left: targetScroll,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        function updateCarouselIndicators() {
+            const indicators = document.querySelectorAll('.carousel-indicator');
+            const container = document.getElementById('lessons-container');
+            const cardWidth = 320 + 16;
+            const newIndex = Math.round(container.scrollLeft / cardWidth);
+            
+            if (newIndex !== currentCarouselIndex) {
+                currentCarouselIndex = newIndex;
+                updateCarouselButtons();
+            }
+            
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentCarouselIndex);
+            });
+        }
+
+        function startLesson(lessonId) {
+            gameState.currentLesson = lessonId;
+            gameState.currentQuestion = 0;
+            gameState.showFeedback = false;
+            
+            const lesson = lessons[lessonId];
+            const lessonTitle = document.getElementById('current-lesson-title');
+            lessonTitle.textContent = lesson.title;
+            
+            showScreen('lesson-screen');
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const lesson = lessons[gameState.currentLesson];
+            const question = lesson.questions[gameState.currentQuestion];
+            const questionContent = document.getElementById('question-content');
+            
+            const questionCounter = document.getElementById('question-counter');
+            questionCounter.textContent = `Questão ${gameState.currentQuestion + 1} de ${lesson.questions.length}`;
+            
+            const progressPercent = ((gameState.currentQuestion + 1) / lesson.questions.length) * 100;
+            const lessonProgressFill = document.getElementById('lesson-progress-fill');
+            lessonProgressFill.style.width = `${progressPercent}%`;
+            
+            const feedback = document.getElementById('feedback');
+            feedback.classList.add('hidden');
+            
+            questionContent.innerHTML = `
+                <h2 class="question-title">${question.question}</h2>
+                <div class="question-options ${question.type === 'color_match' ? 'grid-2' : ''}">
+                    ${question.options.map((option, index) => {
+                        if (question.type === 'color_match') {
+                            return `<button class="color-option" style="background-color: ${option};" onclick="answerQuestion(${index})"></button>`;
+                        } else {
+                            return `
+                                <button class="question-option" onclick="answerQuestion(${index})">
+                                    <div class="option-letter">${String.fromCharCode(65 + index)}</div>
+                                    <span class="font-medium">${option}</span>
+                                </button>
+                            `;
+                        }
+                    }).join('')}
+                </div>
+            `;
+        }
+
+        function answerQuestion(answerIndex) {
+            const lesson = lessons[gameState.currentLesson];
+            const question = lesson.questions[gameState.currentQuestion];
+            const isCorrect = question.correct === answerIndex;
+            
+            // Desabilita todas as opções durante o feedback
+            const options = document.querySelectorAll('.question-option, .color-option');
+            options.forEach(option => {
+                option.classList.add('disabled');
+                option.style.pointerEvents = 'none';
+            });
+            
+            // Marca a opção selecionada
+            const selectedOption = options[answerIndex];
+            selectedOption.classList.add('selected');
+            
+            // Pequeno delay para mostrar a seleção antes do feedback
+            setTimeout(() => {
+                // Remove seleção e aplica feedback visual
+                selectedOption.classList.remove('selected');
+                
+                if (isCorrect) {
+                    selectedOption.classList.add('correct');
+                    // Efeito de confetti
+                    createConfetti();
+                    // Som de sucesso (se suportado)
+                    playSuccessSound();
+                } else {
+                    selectedOption.classList.add('incorrect');
+                    // Mostra a resposta correta
+                    options[question.correct].classList.add('correct');
+                    // Vibração no dispositivo (se suportado)
+                    triggerVibration();
+                }
+                
+                gameState.lastAnswer = { isCorrect, explanation: question.explanation };
+                gameState.showFeedback = true;
+                
+                if (isCorrect) {
+                    gameState.score += 10;
+                    gameState.streak += 1;
+                } else {
+                    gameState.hearts -= 1;
+                    gameState.streak = 0;
+                }
+                
+                saveGameState();
+                updateUI();
+                showFeedback(isCorrect, question.explanation);
+                
+                setTimeout(() => {
+                    const nextQuestion = gameState.currentQuestion + 1;
+                    if (nextQuestion < lesson.questions.length) {
+                        gameState.currentQuestion = nextQuestion;
+                        renderQuestion();
+                    } else {
+                        completeLesson();
+                    }
+                }, 3000); // Aumentado para 3 segundos para melhor absorção do feedback
+                
+            }, 500); // Delay de 500ms para mostrar a seleção
+        }
+
+        function showFeedback(isCorrect, explanation) {
+            const feedback = document.getElementById('feedback');
+            const feedbackIcon = document.getElementById('feedback-icon');
+            const feedbackTitle = document.getElementById('feedback-title');
+            const feedbackExplanation = document.getElementById('feedback-explanation');
+            
+            // Reset classes para nova animação
+            feedback.className = 'feedback hidden';
+            
+            setTimeout(() => {
+                feedback.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+                feedbackTitle.textContent = isCorrect ? 'Excelente!' : 'Ops! Não foi dessa vez';
+                feedbackExplanation.textContent = explanation;
+                
+                feedback.classList.remove('hidden');
+            }, 100);
+        }
+
+        // Função para criar efeito de confetti
+        function createConfetti() {
+            const colors = ['#1e9df1', '#17bf63', '#f7b928', '#e0245e'];
+            const confettiContainer = document.createElement('div');
+            confettiContainer.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                pointer-events: none;
+                z-index: 1000;
+            `;
+            document.body.appendChild(confettiContainer);
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.cssText = `
+                    position: absolute;
+                    width: 10px;
+                    height: 10px;
+                    background: ${colors[Math.floor(Math.random() * colors.length)]};
+                    left: ${Math.random() * 100}vw;
+                    top: -10px;
+                    transform: rotate(${Math.random() * 360}deg);
+                    animation: confettiFall ${2 + Math.random() * 3}s linear forwards;
+                `;
+                confettiContainer.appendChild(confetti);
+            }
+            
+            // Remove o container após a animação
+            setTimeout(() => {
+                document.body.removeChild(confettiContainer);
+            }, 5000);
+        }
+
+        // Função para tocar som de sucesso (quando possível)
+        function playSuccessSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                oscillator.frequency.setValueAtTime(1000, audioContext.currentTime + 0.1);
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.3);
+            } catch (e) {
+                // Silently fail if audio context is not supported
+            }
+        }
+
+        // Função para vibração no dispositivo
+        function triggerVibration() {
+            if (navigator.vibrate) {
+                navigator.vibrate([100, 50, 100]);
+            }
+        }
+
+        function completeLesson() {
+            const lesson = lessons[gameState.currentLesson];
+            
+            if (!gameState.completedLessons.includes(gameState.currentLesson)) {
+                gameState.completedLessons.push(gameState.currentLesson);
+            }
+            
+            saveGameState();
+            
+            // Trigger celebration effects
+            setTimeout(() => {
+                createLessonCompletionConfetti();
+                playLessonCompleteSound();
+                triggerVibrationPattern([200, 100, 200]);
+            }, 500);
+            
+            const pointsEarned = document.getElementById('points-earned');
+            const completeScore = document.getElementById('complete-score');
+            const completeStreak = document.getElementById('complete-streak');
+            const completeLessons = document.getElementById('complete-lessons');
+            
+            const earnedPoints = lesson.questions.length * 10;
+            pointsEarned.textContent = `+${earnedPoints} pontos!`;
+            
+            // Animação dos números com contagem progressiva
+            animateNumber(completeScore, 0, gameState.score, 2000, 2800);
+            animateNumber(completeStreak, 0, gameState.streak, 1500, 3000);
+            animateNumber(completeLessons, 0, gameState.completedLessons.length, 1000, 3200);
+            
+            showScreen('complete-screen');
+        }
+
+        // Função para animar números com contagem progressiva
+        function animateNumber(element, start, end, duration, delay) {
+            setTimeout(() => {
+                const startTime = Date.now();
+                const difference = end - start;
+                
+                function updateNumber() {
+                    const elapsed = Date.now() - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    
+                    // Easing function para suavizar a animação
+                    const easeOutCubic = 1 - Math.pow(1 - progress, 3);
+                    const currentValue = Math.floor(start + (difference * easeOutCubic));
+                    
+                    element.textContent = currentValue.toString();
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(updateNumber);
+                    } else {
+                        element.textContent = end.toString();
+                        // Pequeno efeito de destaque no final
+                        element.parentElement.style.transform = 'scale(1.1)';
+                        setTimeout(() => {
+                            element.parentElement.style.transform = 'scale(1)';
+                        }, 200);
+                    }
+                }
+                
+                updateNumber();
+            }, delay);
+        }
+
+        // Função para criar confetti especial de conclusão de lição
+        function createLessonCompletionConfetti() {
+            const colors = ['#f7b928', '#17bf63', '#1e9df1', '#f4212e', '#ffd700'];
+            const shapes = ['circle', 'star', 'diamond'];
+            const confettiContainer = document.createElement('div');
+            
+            confettiContainer.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                pointer-events: none;
+                z-index: 1000;
+            `;
+            document.body.appendChild(confettiContainer);
+            
+            // Mais confetti para celebração maior
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                const shape = shapes[Math.floor(Math.random() * shapes.length)];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const size = Math.random() * 12 + 8;
+                
+                let shapeStyle = '';
+                if (shape === 'circle') {
+                    shapeStyle = 'border-radius: 50%;';
+                } else if (shape === 'star') {
+                    shapeStyle = `
+                        clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+                    `;
+                } else if (shape === 'diamond') {
+                    shapeStyle = 'transform: rotate(45deg);';
+                }
+                
+                confetti.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    background: ${color};
+                    left: ${Math.random() * 100}vw;
+                    top: -20px;
+                    ${shapeStyle}
+                    animation: confettiFall ${3 + Math.random() * 4}s linear forwards;
+                `;
+                confettiContainer.appendChild(confetti);
+            }
+            
+            // Explosão de confetti do centro
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                const angle = (Math.PI * 2 * i) / 50;
+                const velocity = Math.random() * 300 + 200;
+                
+                confetti.style.cssText = `
+                    position: absolute;
+                    width: 8px;
+                    height: 8px;
+                    background: ${colors[Math.floor(Math.random() * colors.length)]};
+                    left: 50vw;
+                    top: 50vh;
+                    border-radius: 50%;
+                    animation: confettiExplode 2s ease-out forwards;
+                    --angle: ${angle};
+                    --velocity: ${velocity}px;
+                `;
+                confettiContainer.appendChild(confetti);
+            }
+            
+            // Remove o container após a animação
+            setTimeout(() => {
+                document.body.removeChild(confettiContainer);
+            }, 8000);
+        }
+
+        // Função para tocar som de conclusão de lição
+        function playLessonCompleteSound() {
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // Sequência musical de celebração
+                const notes = [440, 554, 659, 880]; // A4, C#5, E5, A5
+                const noteDuration = 0.3;
+                
+                notes.forEach((frequency, index) => {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime + index * noteDuration);
+                    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime + index * noteDuration);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + (index + 1) * noteDuration);
+                    
+                    oscillator.start(audioContext.currentTime + index * noteDuration);
+                    oscillator.stop(audioContext.currentTime + (index + 1) * noteDuration);
+                });
+            } catch (e) {
+                // Silently fail if audio context is not supported
+            }
+        }
+
+        // Função para vibração com padrão personalizado
+        function triggerVibrationPattern(pattern) {
+            if (navigator.vibrate) {
+                navigator.vibrate(pattern);
+            }
+        }
+
+        function showHomeScreen() {
+            updateUI();
+            renderLessons();
+            showScreen('home-screen');
+        }
+
+        // ==================== FLOATING DOCK FUNCTIONALITY ==================== 
+        let isMobileMenuOpen = false;
+
+        function initializeFloatingDock() {
+            // Initialize dock items
+            const dockItems = document.querySelectorAll('.dock-item, .fab-menu-item');
+            if (dockItems.length > 0) {
+                dockItems.forEach(item => {
+                    item.addEventListener('click', handleDockAction);
+                });
+            }
+
+            // Set initial active state
+            updateDockActiveState('home');
+        }
+
+        function handleDockAction(e) {
+            const action = e.currentTarget.getAttribute('data-action');
+            
+            // Add click animation
+            if (e.currentTarget) {
+                e.currentTarget.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    if (e.currentTarget) {
+                        e.currentTarget.style.transform = '';
+                    }
+                }, 150);
+            }
+
+            // Handle action
+            switch (action) {
+                case 'home':
+                    showHomeScreen();
+                    updateDockActiveState('home');
+                    break;
+                case 'lessons':
+                    if (gameState.currentScreen !== 'home') {
+                        showHomeScreen();
+                    }
+                    scrollToLessons();
+                    updateDockActiveState('lessons');
+                    break;
+                case 'progress':
+                    if (gameState.currentScreen !== 'home') {
+                        showHomeScreen();
+                    }
+                    scrollToProgress();
+                    updateDockActiveState('progress');
+                    break;
+                case 'achievements':
+                    showAchievements();
+                    updateDockActiveState('achievements');
+                    break;
+                case 'profile':
+                    showProfile();
+                    updateDockActiveState('profile');
+                    break;
+            }
+
+            // Close mobile menu if open
+            if (isMobileMenuOpen) {
+                toggleMobileMenu();
+            }
+
+            // Dock bounce effect
+            const dock = document.querySelector('.floating-dock');
+            if (dock) {
+                dock.classList.add('bounce');
+                setTimeout(() => dock.classList.remove('bounce'), 600);
+            }
+        }
+
+        function updateDockActiveState(activeAction) {
+            // Remove active state from all items
+            document.querySelectorAll('.dock-item, .fab-menu-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Add active state to current action
+            document.querySelectorAll(`[data-action="${activeAction}"]`).forEach(item => {
+                item.classList.add('active');
+            });
+        }
+
+        function toggleMobileMenu() {
+            isMobileMenuOpen = !isMobileMenuOpen;
+            const fabButton = document.querySelector('.fab-button');
+            const fabMenu = document.querySelector('.fab-menu');
+            
+            fabButton.classList.toggle('active', isMobileMenuOpen);
+            fabMenu.classList.toggle('active', isMobileMenuOpen);
+
+            // Trigger haptic feedback if available
+            if (navigator.vibrate) {
+                navigator.vibrate(50);
+            }
+        }
+
+        function scrollToLessons() {
+            const lessonsSection = document.querySelector('.lessons-carousel-container');
+            if (lessonsSection) {
+                lessonsSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+                
+                // Add highlight effect
+                lessonsSection.style.boxShadow = '0 0 0 4px rgba(30, 157, 241, 0.3)';
+                setTimeout(() => {
+                    lessonsSection.style.boxShadow = '';
+                }, 2000);
+            }
+        }
+
+        function scrollToProgress() {
+            const progressSection = document.querySelector('.card');
+            if (progressSection) {
+                progressSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+                
+                // Add highlight effect
+                progressSection.style.transform = 'scale(1.02)';
+                progressSection.style.boxShadow = '0 0 0 4px rgba(30, 157, 241, 0.3)';
+                setTimeout(() => {
+                    progressSection.style.transform = '';
+                    progressSection.style.boxShadow = '';
+                }, 2000);
+            }
+        }
+
+        function showAchievements() {
+            // Create achievements modal
+            const achievementsModal = document.createElement('div');
+            achievementsModal.className = 'achievements-modal';
+            achievementsModal.innerHTML = `
+                <div class="modal-overlay" onclick="closeAchievements()"></div>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="text-2xl font-bold">🏆 Suas Conquistas</h2>
+                        <button onclick="closeAchievements()" class="btn btn-ghost btn-icon">
+                            <i class="ph ph-x"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="achievements-grid">
+                            <div class="achievement-card ${gameState.completedLessons.length > 0 ? 'unlocked' : 'locked'}">
+                                <div class="achievement-icon">🎯</div>
+                                <h3>Primeira Lição</h3>
+                                <p>Complete sua primeira lição</p>
+                                ${gameState.completedLessons.length > 0 ? '<div class="achievement-badge">Desbloqueado!</div>' : ''}
+                            </div>
+                            <div class="achievement-card ${gameState.streak >= 3 ? 'unlocked' : 'locked'}">
+                                <div class="achievement-icon">🔥</div>
+                                <h3>Sequência de Fogo</h3>
+                                <p>Mantenha uma sequência de 3 dias</p>
+                                ${gameState.streak >= 3 ? '<div class="achievement-badge">Desbloqueado!</div>' : ''}
+                            </div>
+                            <div class="achievement-card ${gameState.score >= 100 ? 'unlocked' : 'locked'}">
+                                <div class="achievement-icon">⭐</div>
+                                <h3>Colecionador de Estrelas</h3>
+                                <p>Alcance 100 pontos</p>
+                                ${gameState.score >= 100 ? '<div class="achievement-badge">Desbloqueado!</div>' : ''}
+                            </div>
+                            <div class="achievement-card ${gameState.completedLessons.length === lessons.length ? 'unlocked' : 'locked'}">
+                                <div class="achievement-icon">🎓</div>
+                                <h3>Mestre do Design</h3>
+                                <p>Complete todas as lições</p>
+                                ${gameState.completedLessons.length === lessons.length ? '<div class="achievement-badge">Desbloqueado!</div>' : ''}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            achievementsModal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 1100;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                animation: modalFadeIn 0.3s ease-out;
+            `;
+
+            document.body.appendChild(achievementsModal);
+        }
+
+        function showProfile() {
+            // Create profile modal
+            const profileModal = document.createElement('div');
+            profileModal.className = 'profile-modal';
+            profileModal.innerHTML = `
+                <div class="modal-overlay" onclick="closeProfile()"></div>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="text-2xl font-bold">👤 Meu Perfil</h2>
+                        <button onclick="closeProfile()" class="btn btn-ghost btn-icon">
+                            <i class="ph ph-x"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="profile-stats">
+                            <div class="profile-avatar">
+                                <div class="avatar avatar-lg">DL</div>
+                                <h3 class="text-xl font-semibold mt-4">Designer em Formação</h3>
+                            </div>
+                            <div class="stats-row">
+                                <div class="stat-item">
+                                    <div class="stat-number">${gameState.score}</div>
+                                    <div class="stat-label">Pontos Totais</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">${gameState.streak}</div>
+                                    <div class="stat-label">Sequência Atual</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">${gameState.completedLessons.length}</div>
+                                    <div class="stat-label">Lições Concluídas</div>
+                                </div>
+                            </div>
+                            <div class="profile-actions">
+                                <button class="btn btn-outline w-full" onclick="resetProgress()">
+                                    <i class="ph ph-arrow-clockwise mr-2"></i>
+                                    Resetar Progresso
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            profileModal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 1100;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                animation: modalFadeIn 0.3s ease-out;
+            `;
+
+            document.body.appendChild(profileModal);
+        }
+
+        function closeAchievements() {
+            const modal = document.querySelector('.achievements-modal');
+            if (modal) {
+                modal.style.animation = 'modalFadeOut 0.3s ease-out';
+                setTimeout(() => modal.remove(), 300);
+            }
+        }
+
+        function closeProfile() {
+            const modal = document.querySelector('.profile-modal');
+            if (modal) {
+                modal.style.animation = 'modalFadeOut 0.3s ease-out';
+                setTimeout(() => modal.remove(), 300);
+            }
+        }
+
+        function resetProgress() {
+            if (confirm('Tem certeza que deseja resetar todo o seu progresso? Esta ação não pode ser desfeita.')) {
+                // Reset game state
+                gameState.score = 0;
+                gameState.streak = 0;
+                gameState.completedLessons = [];
+                gameState.hearts = 5;
+                
+                // Clear localStorage
+                localStorage.removeItem('designlingo_score');
+                localStorage.removeItem('designlingo_streak');
+                localStorage.removeItem('designlingo_completed');
+                localStorage.removeItem('designlingo_hearts');
+                
+                // Update UI
+                updateUI();
+                renderLessons();
+                
+                // Close modal
+                closeProfile();
+                
+                // Show confirmation
+                showNotification('Progresso resetado com sucesso!', 'success');
+            }
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <i class="ph ph-${type === 'success' ? 'check-circle' : 'info'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 1200;
+                background: var(--${type === 'success' ? 'success' : 'primary'});
+                color: var(--${type === 'success' ? 'success' : 'primary'}-foreground);
+                padding: 12px 20px;
+                border-radius: 12px;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+                animation: notificationSlideIn 0.3s ease-out;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-weight: 500;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'notificationSlideOut 0.3s ease-out';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // ==================== FUNÇÕES GLOBAIS ==================== 
+        window.startLesson = startLesson;
+        window.answerQuestion = answerQuestion;
+        window.showHomeScreen = showHomeScreen;
+        window.scrollCarousel = scrollCarousel;
+        window.goToCarouselSlide = goToCarouselSlide;
+        window.toggleMobileMenu = toggleMobileMenu;
+        window.closeAchievements = closeAchievements;
+        window.closeProfile = closeProfile;
+        window.resetProgress = resetProgress;
+        window.dismissMobileInstallBanner = dismissMobileInstallBanner;
+        window.handleMobileInstall = handleMobileInstall;
+        window.closeIOSInstructions = closeIOSInstructions;
+
+        // ==================== PWA SERVICE WORKER ==================== 
+        // Service Worker para funcionamento offline
+        const SW_VERSION = 'v1.0.0';
+        const CACHE_NAME = `designlingo-${SW_VERSION}`;
+        const OFFLINE_URLS = [
+            '/',
+            '/offline.html',
+            'https://unpkg.com/@phosphor-icons/web@2.0.3'
+        ];
+
+        // Registrar Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', async () => {
+                try {
+                    // Criar Service Worker inline
+                    const swCode = `
+                        const CACHE_NAME = '${CACHE_NAME}';
+                        const urlsToCache = ${JSON.stringify(OFFLINE_URLS)};
+
+                        self.addEventListener('install', (event) => {
+                            event.waitUntil(
+                                caches.open(CACHE_NAME)
+                                    .then((cache) => cache.addAll(urlsToCache))
+                                    .then(() => self.skipWaiting())
+                            );
+                        });
+
+                        self.addEventListener('activate', (event) => {
+                            event.waitUntil(
+                                caches.keys().then((cacheNames) => {
+                                    return Promise.all(
+                                        cacheNames.map((cacheName) => {
+                                            if (cacheName !== CACHE_NAME) {
+                                                return caches.delete(cacheName);
+                                            }
+                                        })
+                                    );
+                                }).then(() => self.clients.claim())
+                            );
+                        });
+
+                        self.addEventListener('fetch', (event) => {
+                            event.respondWith(
+                                caches.match(event.request)
+                                    .then((response) => {
+                                        if (response) {
+                                            return response;
+                                        }
+                                        return fetch(event.request).catch(() => {
+                                            if (event.request.mode === 'navigate') {
+                                                return caches.match('/offline.html');
+                                            }
+                                        });
+                                    })
+                            );
+                        });
+
+                        // Background Sync para dados offline
+                        self.addEventListener('sync', (event) => {
+                            if (event.tag === 'background-sync') {
+                                event.waitUntil(
+                                    // Sincronizar dados quando voltar online
+                                    syncOfflineData()
+                                );
+                            }
+                        });
+
+                        async function syncOfflineData() {
+                            // Implementar sincronização de progresso offline
+                            console.log('Sincronizando dados offline...');
+                        }
+                    `;
+
+                    const swBlob = new Blob([swCode], { type: 'application/javascript' });
+                    const swUrl = URL.createObjectURL(swBlob);
+                    
+                    const registration = await navigator.serviceWorker.register(swUrl);
+                    console.log('✅ Service Worker registrado:', registration);
+                    
+                    // Cleanup URL object
+                    URL.revokeObjectURL(swUrl);
+                } catch (error) {
+                    console.log('❌ Falha ao registrar Service Worker:', error);
+                }
+            });
+        }
+
+        // ==================== MOBILE DETECTION ==================== 
+        function isMobileDevice() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+                   (window.matchMedia && window.matchMedia("(max-width: 768px)").matches) ||
+                   ('ontouchstart' in window) ||
+                   (navigator.maxTouchPoints > 0);
+        }
+
+        function isIOS() {
+            return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        }
+
+        function isAndroid() {
+            return /Android/.test(navigator.userAgent);
+        }
+
+        function isInStandaloneMode() {
+            return window.matchMedia('(display-mode: standalone)').matches ||
+                   window.navigator.standalone === true ||
+                   document.referrer.includes('android-app://');
+        }
+
+        // ==================== PWA INSTALLATION ==================== 
+        let deferredPrompt;
+        let installButton;
+        let mobileInstallBanner;
+
+        // Detectar evento de instalação
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            if (isMobileDevice()) {
+                showMobileInstallBanner();
+            } else {
+                showInstallButton();
+            }
+        });
+
+        function showMobileInstallBanner() {
+            // Não mostrar se já estiver instalado ou já foi descartado
+            if (isInStandaloneMode() || localStorage.getItem('pwa-banner-dismissed')) {
+                return;
+            }
+
+            // Criar banner de instalação mobile
+            mobileInstallBanner = document.createElement('div');
+            mobileInstallBanner.className = 'mobile-install-banner';
+            
+            const deviceText = isIOS() ? 'Adicionar à Tela Inicial' : 'Instalar App';
+            const deviceIcon = isIOS() ? 'ph-export' : 'ph-download-simple';
+            
+            mobileInstallBanner.innerHTML = `
+                <div class="banner-content">
+                    <div class="banner-info">
+                        <div class="banner-icon">
+                            <i class="ph ph-device-mobile"></i>
+                        </div>
+                        <div class="banner-text">
+                            <h3>DesignLingo App</h3>
+                            <p>${isIOS() ? 'Adicione à tela inicial para acesso rápido' : 'Instale o app para melhor experiência'}</p>
+                        </div>
+                    </div>
+                    <div class="banner-actions">
+                        <button class="btn btn-ghost btn-sm banner-dismiss" onclick="dismissMobileInstallBanner()">
+                            <i class="ph ph-x"></i>
+                        </button>
+                        <button class="btn btn-primary btn-sm banner-install" onclick="handleMobileInstall()">
+                            <i class="${deviceIcon}"></i>
+                            <span>${deviceText}</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            mobileInstallBanner.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1001;
+                background: linear-gradient(135deg, var(--card), rgba(30, 157, 241, 0.05));
+                border-bottom: 1px solid var(--border);
+                backdrop-filter: blur(20px);
+                transform: translateY(-100%);
+                transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            `;
+
+            document.body.appendChild(mobileInstallBanner);
+
+            // Animar entrada do banner
+            setTimeout(() => {
+                mobileInstallBanner.style.transform = 'translateY(0)';
+            }, 500);
+
+            // Auto-hide após 10 segundos se não interagir
+            setTimeout(() => {
+                if (mobileInstallBanner && !mobileInstallBanner.classList.contains('user-interacted')) {
+                    dismissMobileInstallBanner();
+                }
+            }, 10000);
+        }
+
+        function handleMobileInstall() {
+            if (mobileInstallBanner) {
+                mobileInstallBanner.classList.add('user-interacted');
+            }
+
+            if (isIOS()) {
+                showIOSInstallInstructions();
+            } else if (deferredPrompt) {
+                installPWA();
+            } else {
+                showGenericInstallInstructions();
+            }
+        }
+
+        function showIOSInstallInstructions() {
+            const modal = document.createElement('div');
+            modal.className = 'ios-install-modal';
+            modal.innerHTML = `
+                <div class="modal-overlay" onclick="closeIOSInstructions()"></div>
+                <div class="modal-content ios-instructions">
+                    <div class="modal-header">
+                        <h2 class="text-xl font-bold">📱 Instalar DesignLingo</h2>
+                        <button onclick="closeIOSInstructions()" class="btn btn-ghost btn-icon">
+                            <i class="ph ph-x"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="instruction-steps">
+                            <div class="instruction-step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h4>Toque no botão Compartilhar</h4>
+                                    <p>Procure pelo ícone <i class="ph ph-export"></i> na barra inferior do Safari</p>
+                                </div>
+                            </div>
+                            <div class="instruction-step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h4>Selecione "Adicionar à Tela Inicial"</h4>
+                                    <p>Role para baixo e toque em "Adicionar à Tela Inicial"</p>
+                                </div>
+                            </div>
+                            <div class="instruction-step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h4>Confirme a instalação</h4>
+                                    <p>Toque em "Adicionar" no canto superior direito</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="instruction-note">
+                            <i class="ph ph-info"></i>
+                            <span>O app aparecerá na sua tela inicial como um aplicativo nativo!</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 1100;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                animation: modalFadeIn 0.3s ease-out;
+            `;
+
+            document.body.appendChild(modal);
+            dismissMobileInstallBanner();
+        }
+
+        function showGenericInstallInstructions() {
+            showNotification('Use o menu do seu navegador para "Adicionar à tela inicial"', 'info');
+            dismissMobileInstallBanner();
+        }
+
+        function closeIOSInstructions() {
+            const modal = document.querySelector('.ios-install-modal');
+            if (modal) {
+                modal.style.animation = 'modalFadeOut 0.3s ease-out';
+                setTimeout(() => modal.remove(), 300);
+            }
+        }
+
+        function dismissMobileInstallBanner() {
+            if (mobileInstallBanner) {
+                mobileInstallBanner.style.transform = 'translateY(-100%)';
+                setTimeout(() => {
+                    if (mobileInstallBanner && mobileInstallBanner.parentNode) {
+                        mobileInstallBanner.parentNode.removeChild(mobileInstallBanner);
+                        mobileInstallBanner = null;
+                    }
+                }, 400);
+                
+                // Salvar preferência do usuário
+                localStorage.setItem('pwa-banner-dismissed', 'true');
+                
+                // Resetar após 7 dias
+                setTimeout(() => {
+                    localStorage.removeItem('pwa-banner-dismissed');
+                }, 7 * 24 * 60 * 60 * 1000);
+            }
+        }
+
+        function showInstallButton() {
+            // Botão desktop (código original)
+            if (!installButton) {
+                installButton = document.createElement('button');
+                installButton.innerHTML = `
+                    <i class="ph ph-download-simple mr-2"></i>
+                    Instalar App
+                `;
+                installButton.className = 'btn btn-primary install-btn';
+                installButton.style.cssText = `
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    z-index: 1000;
+                    border-radius: 50px;
+                    padding: 12px 20px;
+                    box-shadow: 0 8px 25px rgba(30, 157, 241, 0.4);
+                    animation: installPulse 2s infinite;
+                `;
+                
+                installButton.onclick = installPWA;
+                document.body.appendChild(installButton);
+                
+                // CSS para animação do botão
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes installPulse {
+                        0%, 100% { transform: scale(1); }
+                        50% { transform: scale(1.05); }
+                    }
+                    .install-btn {
+                        transition: all 0.3s ease;
+                    }
+                    .install-btn:hover {
+                        transform: translateY(-3px) !important;
+                        box-shadow: 0 12px 35px rgba(30, 157, 241, 0.6) !important;
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+
+        async function installPWA() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                
+                if (outcome === 'accepted') {
+                    console.log('✅ PWA instalada pelo usuário');
+                    hideInstallButton();
+                } else {
+                    console.log('❌ Usuário cancelou a instalação');
+                }
+                
+                deferredPrompt = null;
+            }
+        }
+
+        function hideInstallButton() {
+            if (installButton) {
+                installButton.style.animation = 'none';
+                installButton.style.transform = 'scale(0)';
+                installButton.style.opacity = '0';
+                setTimeout(() => {
+                    if (installButton && installButton.parentNode) {
+                        installButton.parentNode.removeChild(installButton);
+                    }
+                }, 300);
+            }
+            
+            // Esconder banner mobile também
+            dismissMobileInstallBanner();
+        }
+
+        // Detectar quando a PWA foi instalada
+        window.addEventListener('appinstalled', () => {
+            console.log('✅ DesignLingo PWA foi instalada!');
+            hideInstallButton();
+            
+            // Mostrar notificação de sucesso
+            showInstallationSuccess();
+        });
+
+        function showInstallationSuccess() {
+            const notification = document.createElement('div');
+            notification.innerHTML = `
+                <div style="
+                    position: fixed;
+                    top: 20px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: linear-gradient(135deg, var(--success), #20d570);
+                    color: white;
+                    padding: 16px 24px;
+                    border-radius: 12px;
+                    box-shadow: 0 8px 25px rgba(23, 191, 99, 0.4);
+                    z-index: 1001;
+                    animation: notificationSlide 0.5s ease-out;
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    font-weight: 600;
+                ">
+                    <i class="ph ph-check-circle" style="font-size: 24px;"></i>
+                    <span>DesignLingo instalado com sucesso! 🎉</span>
+                </div>
+            `;
+            
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes notificationSlide {
+                    from { transform: translateX(-50%) translateY(-100px); opacity: 0; }
+                    to { transform: translateX(-50%) translateY(0); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'notificationSlide 0.5s ease-out reverse';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                    document.head.removeChild(style);
+                }, 500);
+            }, 3000);
+        }
+
+        // ==================== PWA FEATURES ==================== 
+        
+        // Detectar se está rodando como PWA
+        function isPWA() {
+            return window.matchMedia('(display-mode: standalone)').matches ||
+                   window.navigator.standalone === true ||
+                   document.referrer.includes('android-app://');
+        }
+
+        // Ajustar interface para PWA
+        function setupPWAInterface() {
+            if (isPWA()) {
+                document.body.classList.add('pwa-mode');
+                
+                // Adicionar padding-top para status bar em dispositivos móveis
+                const style = document.createElement('style');
+                style.textContent = `
+                    .pwa-mode {
+                        padding-top: env(safe-area-inset-top);
+                        padding-bottom: env(safe-area-inset-bottom);
+                        padding-left: env(safe-area-inset-left);
+                        padding-right: env(safe-area-inset-right);
+                    }
+                    
+                    .pwa-mode .header {
+                        padding-top: calc(var(--spacing-4) + env(safe-area-inset-top));
+                    }
+                    
+                    /* Prevenir zoom em inputs */
+                    .pwa-mode input, .pwa-mode select, .pwa-mode textarea {
+                        font-size: 16px !important;
+                    }
+                    
+                    /* Melhorar área de toque */
+                    .pwa-mode .btn, .pwa-mode .lesson-card, .pwa-mode .question-option {
+                        min-height: 44px;
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                console.log('✅ Interface PWA configurada');
+            }
+        }
+
+        // Gerenciar estado offline/online
+        function setupOfflineHandling() {
+            function updateOnlineStatus() {
+                const onlineStatus = navigator.onLine ? 'online' : 'offline';
+                document.body.setAttribute('data-connection', onlineStatus);
+                
+                if (!navigator.onLine) {
+                    showOfflineNotification();
+                } else {
+                    hideOfflineNotification();
+                    // Tentar sincronizar dados quando voltar online
+                    if ('serviceWorker' in navigator && 'sync' in window.ServiceWorkerRegistration.prototype) {
+                        navigator.serviceWorker.ready.then((registration) => {
+                            registration.sync.register('background-sync');
+                        });
+                    }
+                }
+            }
+            
+            window.addEventListener('online', updateOnlineStatus);
+            window.addEventListener('offline', updateOnlineStatus);
+            updateOnlineStatus();
+        }
+
+        let offlineNotification;
+
+        function showOfflineNotification() {
+            if (offlineNotification) return;
+            
+            offlineNotification = document.createElement('div');
+            offlineNotification.innerHTML = `
+                <div style="
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    background: linear-gradient(135deg, var(--warning), #f39c12);
+                    color: var(--warning-foreground);
+                    padding: 12px 20px;
+                    text-align: center;
+                    z-index: 1002;
+                    animation: slideDown 0.3s ease-out;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 8px;
+                    font-weight: 500;
+                ">
+                    <i class="ph ph-wifi-slash"></i>
+                    <span>Modo Offline - Suas aulas estão salvas localmente</span>
+                </div>
+            `;
+            
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideDown {
+                    from { transform: translateY(-100%); }
+                    to { transform: translateY(0); }
+                }
+            `;
+            document.head.appendChild(style);
+            document.body.appendChild(offlineNotification);
+        }
+
+        function hideOfflineNotification() {
+            if (offlineNotification) {
+                offlineNotification.style.animation = 'slideDown 0.3s ease-out reverse';
+                setTimeout(() => {
+                    if (offlineNotification && offlineNotification.parentNode) {
+                        offlineNotification.parentNode.removeChild(offlineNotification);
+                        offlineNotification = null;
+                    }
+                }, 300);
+            }
+        }
+
+        // Adicionar suporte a Push Notifications (futuro)
+        function setupPushNotifications() {
+            if ('Notification' in window && 'serviceWorker' in navigator) {
+                // Implementação futura de notificações push para lembretes de estudo
+                console.log('📱 Push Notifications disponíveis');
+            }
+        }
+
+        // Add modal and mobile install styles
+        const modalStyles = document.createElement('style');
+        modalStyles.textContent = `
+            /* ==================== MOBILE INSTALL BANNER ==================== */
+            .mobile-install-banner {
+                padding: 16px 20px;
+            }
+            
+            .banner-content {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                max-width: 100%;
+                gap: 16px;
+            }
+            
+            .banner-info {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                flex: 1;
+                min-width: 0;
+            }
+            
+            .banner-icon {
+                width: 48px;
+                height: 48px;
+                background: linear-gradient(135deg, var(--primary), var(--accent-foreground));
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--primary-foreground);
+                font-size: 24px;
+                flex-shrink: 0;
+                box-shadow: 0 4px 12px rgba(30, 157, 241, 0.3);
+            }
+            
+            .banner-text {
+                flex: 1;
+                min-width: 0;
+            }
+            
+            .banner-text h3 {
+                font-size: 16px;
+                font-weight: 600;
+                margin: 0 0 4px 0;
+                color: var(--foreground);
+            }
+            
+            .banner-text p {
+                font-size: 14px;
+                color: var(--muted-foreground);
+                margin: 0;
+                line-height: 1.4;
+            }
+            
+            .banner-actions {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                flex-shrink: 0;
+            }
+            
+            .banner-dismiss {
+                width: 32px;
+                height: 32px;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .banner-install {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                padding: 8px 12px;
+                font-size: 14px;
+                white-space: nowrap;
+                box-shadow: 0 4px 12px rgba(30, 157, 241, 0.3);
+            }
+            
+            .banner-install:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 16px rgba(30, 157, 241, 0.4);
+            }
+            
+            /* ==================== IOS INSTALL INSTRUCTIONS ==================== */
+            .ios-instructions {
+                max-width: 420px;
+                width: 90vw;
+            }
+            
+            .instruction-steps {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                margin-bottom: 24px;
+            }
+            
+            .instruction-step {
+                display: flex;
+                gap: 16px;
+                align-items: flex-start;
+            }
+            
+            .step-number {
+                width: 32px;
+                height: 32px;
+                background: linear-gradient(135deg, var(--primary), var(--accent-foreground));
+                color: var(--primary-foreground);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 600;
+                font-size: 14px;
+                flex-shrink: 0;
+                box-shadow: 0 4px 12px rgba(30, 157, 241, 0.3);
+            }
+            
+            .step-content {
+                flex: 1;
+            }
+            
+            .step-content h4 {
+                font-size: 16px;
+                font-weight: 600;
+                margin: 0 0 6px 0;
+                color: var(--foreground);
+            }
+            
+            .step-content p {
+                font-size: 14px;
+                color: var(--muted-foreground);
+                margin: 0;
+                line-height: 1.5;
+            }
+            
+            .step-content i {
+                color: var(--primary);
+                font-weight: 600;
+            }
+            
+            .instruction-note {
+                background: linear-gradient(135deg, rgba(30, 157, 241, 0.1), rgba(30, 157, 241, 0.05));
+                border: 1px solid rgba(30, 157, 241, 0.2);
+                border-radius: 12px;
+                padding: 16px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                font-size: 14px;
+                color: var(--foreground);
+            }
+            
+            .instruction-note i {
+                color: var(--primary);
+                font-size: 20px;
+                flex-shrink: 0;
+            }
+            
+            /* ==================== RESPONSIVE MOBILE BANNER ==================== */
+            @media (max-width: 480px) {
+                .mobile-install-banner {
+                    padding: 12px 16px;
+                }
+                
+                .banner-content {
+                    gap: 12px;
+                }
+                
+                .banner-icon {
+                    width: 40px;
+                    height: 40px;
+                    font-size: 20px;
+                }
+                
+                .banner-text h3 {
+                    font-size: 15px;
+                }
+                
+                .banner-text p {
+                    font-size: 13px;
+                }
+                
+                .banner-install {
+                    padding: 6px 10px;
+                    font-size: 13px;
+                }
+                
+                .banner-install span {
+                    display: none;
+                }
+                
+                .ios-instructions {
+                    width: 95vw;
+                    max-width: none;
+                }
+                
+                .instruction-step {
+                    gap: 12px;
+                }
+                
+                .step-number {
+                    width: 28px;
+                    height: 28px;
+                    font-size: 13px;
+                }
+                
+                .step-content h4 {
+                    font-size: 15px;
+                }
+                
+                .step-content p {
+                    font-size: 13px;
+                }
+                
+                .instruction-note {
+                    padding: 12px;
+                    font-size: 13px;
+                }
+            }
+            
+            /* ==================== BANNER ANIMATIONS ==================== */
+            @keyframes bannerSlideDown {
+                from {
+                    transform: translateY(-100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes bannerPulse {
+                0%, 100% {
+                    box-shadow: 0 4px 12px rgba(30, 157, 241, 0.3);
+                }
+                50% {
+                    box-shadow: 0 6px 20px rgba(30, 157, 241, 0.5);
+                }
+            }
+            
+            .banner-install {
+                animation: bannerPulse 3s infinite;
+            }
+            
+            /* ==================== EXISTING MODAL STYLES ==================== */
+            @keyframes modalFadeIn {
+                from { opacity: 0; transform: scale(0.9); }
+                to { opacity: 1; transform: scale(1); }
+            }
+            
+            @keyframes modalFadeOut {
+                from { opacity: 1; transform: scale(1); }
+                to { opacity: 0; transform: scale(0.9); }
+            }
+            
+            @keyframes notificationSlideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            
+            @keyframes notificationSlideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+            
+            .modal-overlay {
+                position: absolute;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(4px);
+            }
+            
+            .modal-content {
+                background: var(--card);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                max-width: 90vw;
+                max-height: 90vh;
+                overflow: hidden;
+                position: relative;
+                z-index: 1;
+            }
+            
+            .modal-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: var(--spacing-6);
+                border-bottom: 1px solid var(--border);
+            }
+            
+            .modal-body {
+                padding: var(--spacing-6);
+                max-height: 60vh;
+                overflow-y: auto;
+            }
+            
+            .achievements-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: var(--spacing-4);
+            }
+            
+            .achievement-card {
+                padding: var(--spacing-4);
+                border: 2px solid var(--border);
+                border-radius: calc(var(--radius) - 4px);
+                text-align: center;
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+            }
+            
+            .achievement-card.unlocked {
+                border-color: var(--success);
+                background: linear-gradient(135deg, rgba(23, 191, 99, 0.1), transparent);
+            }
+            
+            .achievement-card.locked {
+                opacity: 0.5;
+                filter: grayscale(1);
+            }
+            
+            .achievement-icon {
+                font-size: 2.5rem;
+                margin-bottom: var(--spacing-2);
+            }
+            
+            .achievement-badge {
+                position: absolute;
+                top: 8px;
+                right: 8px;
+                background: var(--success);
+                color: var(--success-foreground);
+                padding: 2px 8px;
+                border-radius: 12px;
+                font-size: 0.75rem;
+                font-weight: 600;
+            }
+            
+            .profile-avatar {
+                text-align: center;
+                margin-bottom: var(--spacing-6);
+            }
+            
+            .stats-row {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: var(--spacing-4);
+                margin-bottom: var(--spacing-6);
+            }
+            
+            .stat-item {
+                text-align: center;
+                padding: var(--spacing-4);
+                border: 1px solid var(--border);
+                border-radius: calc(var(--radius) - 8px);
+            }
+            
+            .stat-number {
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: var(--primary);
+            }
+            
+            .stat-label {
+                font-size: 0.875rem;
+                color: var(--muted-foreground);
+                margin-top: var(--spacing-1);
+            }
+            
+            .notification-content {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+        `;
+        document.head.appendChild(modalStyles);
+
+        // ==================== INICIALIZAÇÃO PWA ==================== 
+        document.addEventListener('DOMContentLoaded', () => {
+            // Aguardar um pequeno delay para garantir que todos os elementos estejam renderizados
+            setTimeout(() => {
+                updateUI();
+                renderLessons();
+                initializeFloatingDock();
+                
+                // Configurar funcionalidades PWA
+                setupPWAInterface();
+                setupOfflineHandling();
+                setupPushNotifications();
+                
+                // Verificar se deve mostrar banner de instalação para mobile
+                checkMobileInstallPrompt();
+                
+                console.log('🚀 DesignLingo PWA inicializado!');
+            }, 100);
+        });
+
+        // Verificar se deve mostrar prompt de instalação para mobile
+        function checkMobileInstallPrompt() {
+            // Aguardar um pouco para não ser muito intrusivo
+            setTimeout(() => {
+                if (isMobileDevice() && 
+                    !isInStandaloneMode() && 
+                    !localStorage.getItem('pwa-banner-dismissed') &&
+                    !deferredPrompt) {
+                    
+                    // Se não tiver o evento beforeinstallprompt, mostrar banner manual
+                    showMobileInstallBanner();
+                }
+            }, 3000); // Aguardar 3 segundos após o carregamento
+        }
+    </script>
+</body>
+</html>
