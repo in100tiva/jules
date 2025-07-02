@@ -922,8 +922,12 @@
             -ms-overflow-style: none;
             cursor: grab;
             transition: scroll-behavior 0.1s ease;
-            /* Importante: permitir que eventos passem para o parent quando necessário */
             touch-action: pan-x pinch-zoom;
+            /* Performance optimizations */
+            will-change: scroll-position;
+            transform: translateZ(0); /* Hardware acceleration */
+            backface-visibility: hidden;
+            perspective: 1000px;
         }
 
         /* Scrollbar do carrossel - mobile invisível, desktop customizada */
@@ -937,6 +941,20 @@
             scroll-behavior: auto;
             scroll-snap-type: none;
             cursor: grabbing;
+            /* Otimizações durante o drag */
+            pointer-events: none; /* Evita eventos desnecessários nos cards */
+        }
+
+        .lessons-carousel-container.dragging .lesson-card {
+            /* Desabilitar transições durante o drag para melhor performance */
+            transition: none !important;
+            pointer-events: none;
+        }
+
+        .lessons-carousel-container.dragging .lesson-card:hover {
+            /* Evitar efeitos hover durante o drag */
+            transform: none !important;
+            box-shadow: none !important;
         }
 
         .lessons-carousel-container:active {
@@ -957,6 +975,11 @@
             -moz-user-select: none;
             -ms-user-select: none;
             z-index: 1;
+            /* Performance optimizations */
+            will-change: transform;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            contain: layout style paint;
         }
 
         .lesson-card:hover {
@@ -3213,16 +3236,42 @@
 
         function setupCarouselDragAndScroll() {
             const container = document.getElementById('lessons-container');
+            if (!container) return;
             
-            // Touch events para mobile - NÃO passivo para poder prevenir quando necessário
+            // Touch events para mobile com throttling
+            let touchMoveThrottle;
+            
             container.addEventListener('touchstart', handleCarouselStart, { passive: true });
-            container.addEventListener('touchmove', handleCarouselMove, { passive: false }); // Não passivo para poder usar preventDefault
+            
+            container.addEventListener('touchmove', (e) => {
+                // Throttle touchmove para melhor performance
+                if (!touchMoveThrottle) {
+                    touchMoveThrottle = requestAnimationFrame(() => {
+                        handleCarouselMove(e);
+                        touchMoveThrottle = null;
+                    });
+                }
+            }, { passive: false });
+            
             container.addEventListener('touchend', handleCarouselEnd, { passive: true });
+            container.addEventListener('touchcancel', handleCarouselEnd, { passive: true });
             
             // Mouse events para desktop
             container.addEventListener('mousedown', handleCarouselStart);
-            document.addEventListener('mousemove', handleCarouselMove);
+            
+            // Mouse move com throttling
+            let mouseMoveThrottle;
+            document.addEventListener('mousemove', (e) => {
+                if (isCarouselDragging && !mouseMoveThrottle) {
+                    mouseMoveThrottle = requestAnimationFrame(() => {
+                        handleCarouselMove(e);
+                        mouseMoveThrottle = null;
+                    });
+                }
+            });
+            
             document.addEventListener('mouseup', handleCarouselEnd);
+            document.addEventListener('mouseleave', handleCarouselEnd);
             
             // Previne arrastar imagens apenas no desktop
             if (!isMobileDevice()) {
@@ -3230,46 +3279,79 @@
                 container.addEventListener('selectstart', (e) => e.preventDefault());
             }
             
-            // Scroll event para atualizar indicadores com throttle
+            // Scroll event para atualizar indicadores com throttle otimizado
             let scrollTimeout;
+            let isScrolling = false;
+            
             container.addEventListener('scroll', () => {
-                clearTimeout(scrollTimeout);
-                scrollTimeout = setTimeout(updateCarouselIndicators, 50);
+                if (!isScrolling) {
+                    isScrolling = true;
+                    requestAnimationFrame(() => {
+                        clearTimeout(scrollTimeout);
+                        scrollTimeout = setTimeout(() => {
+                            updateCarouselIndicators();
+                            isScrolling = false;
+                        }, 16); // ~60fps
+                    });
+                }
             }, { passive: true });
             
             // Configurações específicas para mobile
             if (isMobileDevice()) {
-                // Permitir pan horizontal e zoom, mas detectar direção dinamicamente
                 container.style.touchAction = 'pan-x pan-y pinch-zoom';
                 container.style.overflowX = 'scroll';
                 container.style.scrollSnapType = 'x mandatory';
-                
-                // Melhorar o scroll snap
                 container.style.scrollPadding = '0 20px';
+                
+                // Melhorar suavidade no iOS
+                if (isIOS()) {
+                    container.style.webkitOverflowScrolling = 'touch';
+                    container.style.scrollSnapStop = 'always';
+                }
             }
+            
+            console.log('🎯 Carrossel touch melhorado configurado');
         }
 
+        // Touch tracking variables
         let touchStartY = 0;
         let touchStartX = 0;
+        let lastTouchX = 0;
+        let lastTouchY = 0;
+        let touchVelocityX = 0;
+        let touchVelocityY = 0;
+        let touchTime = 0;
         let isVerticalScroll = false;
         let isHorizontalScroll = false;
         let scrollDirection = null;
+        let isDragReady = false;
 
         function handleCarouselStart(e) {
             const container = document.getElementById('lessons-container');
             
             if (e.type.startsWith('touch')) {
-                // Mobile: detectar direção do movimento
-                touchStartX = e.touches[0].clientX;
-                touchStartY = e.touches[0].clientY;
+                // Mobile: configuração inicial do touch
+                const touch = e.touches[0];
+                touchStartX = touch.clientX;
+                touchStartY = touch.clientY;
+                lastTouchX = touch.clientX;
+                lastTouchY = touch.clientY;
+                touchTime = Date.now();
+                
+                // Reset das variáveis
                 isVerticalScroll = false;
                 isHorizontalScroll = false;
                 scrollDirection = null;
+                isDragReady = false;
+                touchVelocityX = 0;
+                touchVelocityY = 0;
                 
-                // Não iniciar dragging imediatamente no mobile
+                // Aplicar CSS para suavizar o scroll
+                container.style.scrollBehavior = 'auto';
+                
                 return;
             } else {
-                // Desktop: comportamento normal
+                // Desktop: comportamento normal aprimorado
                 isCarouselDragging = true;
                 container.classList.add('dragging');
                 
@@ -3278,28 +3360,49 @@
                 
                 container.style.userSelect = 'none';
                 container.style.cursor = 'grabbing';
+                container.style.scrollBehavior = 'auto';
             }
         }
 
         function handleCarouselMove(e) {
             if (e.type.startsWith('touch')) {
-                // Mobile: detectar direção do movimento
-                const currentX = e.touches[0].clientX;
-                const currentY = e.touches[0].clientY;
-                const deltaX = Math.abs(currentX - touchStartX);
-                const deltaY = Math.abs(currentY - touchStartY);
+                const touch = e.touches[0];
+                const currentX = touch.clientX;
+                const currentY = touch.clientY;
+                const currentTime = Date.now();
                 
-                // Só determinar direção após movimento mínimo
-                if (deltaX > 10 || deltaY > 10) {
+                // Calcular deltas e velocidade
+                const deltaX = currentX - touchStartX;
+                const deltaY = currentY - touchStartY;
+                const timeDelta = currentTime - touchTime;
+                
+                if (timeDelta > 0) {
+                    touchVelocityX = (currentX - lastTouchX) / timeDelta;
+                    touchVelocityY = (currentY - lastTouchY) / timeDelta;
+                }
+                
+                lastTouchX = currentX;
+                lastTouchY = currentY;
+                touchTime = currentTime;
+                
+                const absDeltaX = Math.abs(deltaX);
+                const absDeltaY = Math.abs(deltaY);
+                
+                // Detecção de direção mais inteligente
+                if (absDeltaX > 5 || absDeltaY > 5) {
                     if (scrollDirection === null) {
-                        // Determinar direção principal do movimento
-                        if (deltaX > deltaY * 1.2) {
-                            // Movimento predominantemente horizontal (threshold menor para melhor detecção)
+                        // Usar velocidade e distância para determinar direção
+                        const velocityRatio = Math.abs(touchVelocityX) / Math.abs(touchVelocityY);
+                        const deltaRatio = absDeltaX / absDeltaY;
+                        
+                        if ((deltaRatio > 0.8 && absDeltaX > 15) || velocityRatio > 1.5) {
+                            // Movimento horizontal
                             scrollDirection = 'horizontal';
                             isHorizontalScroll = true;
                             isVerticalScroll = false;
+                            isDragReady = true;
                             
-                            // Iniciar carrossel drag apenas se for movimento horizontal
+                            // Iniciar dragging do carrossel
                             if (!isCarouselDragging) {
                                 isCarouselDragging = true;
                                 const container = document.getElementById('lessons-container');
@@ -3307,48 +3410,56 @@
                                 carouselStartX = touchStartX;
                                 carouselScrollLeft = container.scrollLeft;
                             }
-                        } else if (deltaY > deltaX * 1.2) {
-                            // Movimento predominantemente vertical - permitir scroll da página
+                        } else if ((deltaRatio < 0.6 && absDeltaY > 15) || velocityRatio < 0.5) {
+                            // Movimento vertical
                             scrollDirection = 'vertical';
                             isVerticalScroll = true;
                             isHorizontalScroll = false;
                             
-                            // IMPORTANTE: Garantir que não interfira no scroll vertical
+                            // Garantir que carrossel não interfira
                             const container = document.getElementById('lessons-container');
                             container.classList.remove('dragging');
                             isCarouselDragging = false;
                             
-                            return; // Permitir scroll vertical normal
-                        } else {
-                            // Movimento diagonal/indefinido - aguardar mais movimento para decidir
-                            return;
+                            return; // Permitir scroll vertical
                         }
                     }
                     
-                    // Se for scroll horizontal, mover carrossel
-                    if (isHorizontalScroll && isCarouselDragging) {
-                        e.preventDefault(); // Prevenir scroll vertical apenas no movimento horizontal
+                    // Aplicar movimento horizontal suave
+                    if (isHorizontalScroll && isCarouselDragging && isDragReady) {
+                        e.preventDefault();
                         
                         const container = document.getElementById('lessons-container');
-                        const deltaX = currentX - carouselStartX;
-                        const smoothDelta = deltaX * 1.2;
                         
-                        container.scrollLeft = carouselScrollLeft - smoothDelta;
+                        // Aplicar easing para suavidade
+                        const easedDelta = deltaX * 0.85; // Reduzir sensibilidade para mais controle
+                        const newScrollLeft = carouselScrollLeft - easedDelta;
+                        
+                        // Aplicar limites suaves
+                        const maxScroll = container.scrollWidth - container.clientWidth;
+                        const clampedScroll = Math.max(0, Math.min(newScrollLeft, maxScroll));
+                        
+                        container.scrollLeft = clampedScroll;
                     }
                 }
                 
                 return;
             } else {
-                // Desktop: comportamento normal
+                // Desktop: movimento aprimorado
                 if (!isCarouselDragging) return;
                 
                 e.preventDefault();
                 
                 const container = document.getElementById('lessons-container');
                 const deltaX = e.clientX - carouselStartX;
-                const smoothDelta = deltaX * 1.2;
                 
-                container.scrollLeft = carouselScrollLeft - smoothDelta;
+                // Aplicar easing e limites
+                const easedDelta = deltaX * 0.9;
+                const newScrollLeft = carouselScrollLeft - easedDelta;
+                const maxScroll = container.scrollWidth - container.clientWidth;
+                const clampedScroll = Math.max(0, Math.min(newScrollLeft, maxScroll));
+                
+                container.scrollLeft = clampedScroll;
             }
         }
 
@@ -3359,24 +3470,33 @@
             const container = document.getElementById('lessons-container');
             container.classList.remove('dragging');
             
+            // Restaurar scroll behavior
+            container.style.scrollBehavior = 'smooth';
+            
             if (!isMobileDevice()) {
                 container.style.userSelect = '';
                 container.style.cursor = 'grab';
-                // Adiciona momentum suave após soltar apenas no desktop
                 addMomentumScroll(container);
             } else {
-                // Mobile: aplicar snap se houve movimento horizontal significativo
-                if (isHorizontalScroll) {
+                // Mobile: aplicar momentum inteligente
+                if (isHorizontalScroll && Math.abs(touchVelocityX) > 0.1) {
+                    addIntelligentMomentumScroll(container, touchVelocityX);
+                } else if (isHorizontalScroll) {
                     addMomentumScroll(container);
                 }
             }
             
-            // Reset das variáveis de controle
+            // Reset das variáveis
             touchStartX = 0;
             touchStartY = 0;
+            lastTouchX = 0;
+            lastTouchY = 0;
+            touchVelocityX = 0;
+            touchVelocityY = 0;
             isVerticalScroll = false;
             isHorizontalScroll = false;
             scrollDirection = null;
+            isDragReady = false;
         }
 
         function scrollCarousel(direction) {
@@ -3422,18 +3542,61 @@
 
         // Função para adicionar momentum após soltar o drag
         function addMomentumScroll(container) {
-            const cardWidth = 320 + 16;
+            const cardWidth = 320 + 16; // width + gap
             const currentScroll = container.scrollLeft;
             const targetIndex = Math.round(currentScroll / cardWidth);
-            const targetScroll = targetIndex * cardWidth;
+            const targetScroll = Math.max(0, Math.min(targetIndex * cardWidth, container.scrollWidth - container.clientWidth));
             
-            // Só aplica snap se a diferença for significativa
-            if (Math.abs(currentScroll - targetScroll) > 5) {
-                container.scrollTo({
-                    left: targetScroll,
-                    behavior: 'smooth'
-                });
+            // Aplicar snap suave sempre
+            container.scrollTo({
+                left: targetScroll,
+                behavior: 'smooth'
+            });
+            
+            // Atualizar indicadores
+            setTimeout(() => {
+                updateCarouselIndicators();
+            }, 300);
+        }
+
+        // Função de momentum inteligente baseada na velocidade do touch
+        function addIntelligentMomentumScroll(container, velocity) {
+            const cardWidth = 320 + 16;
+            const currentScroll = container.scrollLeft;
+            const currentIndex = Math.round(currentScroll / cardWidth);
+            
+            // Calcular direção e intensidade baseado na velocidade
+            let targetIndex = currentIndex;
+            const velocityThreshold = 0.3;
+            const strongVelocityThreshold = 0.8;
+            
+            if (Math.abs(velocity) > velocityThreshold) {
+                if (velocity > 0) {
+                    // Swipe para direita (voltar)
+                    targetIndex = Math.max(0, currentIndex - (velocity > strongVelocityThreshold ? 2 : 1));
+                } else {
+                    // Swipe para esquerda (avançar)
+                    const maxIndex = Math.floor((container.scrollWidth - container.clientWidth) / cardWidth);
+                    targetIndex = Math.min(maxIndex, currentIndex + (Math.abs(velocity) > strongVelocityThreshold ? 2 : 1));
+                }
             }
+            
+            // Calcular scroll final
+            const targetScroll = Math.max(0, Math.min(targetIndex * cardWidth, container.scrollWidth - container.clientWidth));
+            
+            // Aplicar animação suave com duração baseada na distância
+            const distance = Math.abs(targetScroll - currentScroll);
+            const duration = Math.min(800, Math.max(300, distance * 1.5));
+            
+            // Usar animação CSS personalizada para suavidade extra
+            container.style.transition = `scroll-left ${duration}ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`;
+            container.scrollLeft = targetScroll;
+            
+            // Remover transição depois da animação
+            setTimeout(() => {
+                container.style.transition = '';
+                updateCarouselIndicators();
+            }, duration);
         }
 
         function updateCarouselIndicators() {
