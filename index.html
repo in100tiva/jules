@@ -101,19 +101,22 @@
 
         /* PWA Specific Styles */
         .pwa-mode {
+            height: 100vh;
+            height: 100dvh;
             overflow: hidden;
         }
         
         .pwa-mode .app {
             height: 100vh;
             height: 100dvh; /* Dynamic viewport height for mobile */
-            overflow: hidden;
         }
         
         .pwa-mode .screen {
             height: 100%;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
+            /* Importante: permitir scroll nas telas em PWA */
+            position: relative;
         }
         
         /* Better touch targets for PWA */
@@ -160,6 +163,23 @@
         @keyframes connectionPulse {
             0%, 100% { opacity: 0.6; }
             50% { opacity: 1; }
+        }
+
+        /* ==================== BROWSER DARK MODE OVERRIDES ==================== */
+        /* Detectar quando o navegador força dark mode automaticamente */
+        @media (prefers-color-scheme: dark) {
+            /* Sobrescrever apenas quando necessário */
+            html {
+                color-scheme: light !important;
+            }
+            
+            /* Forçar cores específicas apenas nos elementos problemáticos */
+            .question-option,
+            .question-option span,
+            .color-option {
+                forced-color-adjust: none !important;
+                color-scheme: none !important;
+            }
         }
 
         /* Dark Theme - Default */
@@ -214,6 +234,117 @@
             --success-foreground: #ffffff;
             --warning: #f7b928;
             --warning-foreground: #000000;
+        }
+
+        /* Dark Theme Scrollbars (Desktop) */
+        @media (min-width: 769px) {
+            .dark ::-webkit-scrollbar-track {
+                background: var(--card);
+            }
+
+            .dark ::-webkit-scrollbar-thumb {
+                background: var(--border);
+                border-color: var(--card);
+            }
+
+            .dark ::-webkit-scrollbar-thumb:hover {
+                background: var(--accent-foreground);
+                border-color: var(--accent);
+            }
+
+            .dark ::-webkit-scrollbar-thumb:active {
+                background: var(--primary);
+            }
+
+            .dark ::-webkit-scrollbar-corner {
+                background: var(--card);
+            }
+
+            /* Dark theme carousel scrollbar */
+            .dark .lessons-carousel-container::-webkit-scrollbar-track {
+                background: rgba(255, 255, 255, 0.1);
+            }
+
+            .dark .lessons-carousel-container::-webkit-scrollbar-thumb {
+                background: linear-gradient(90deg, var(--primary), var(--accent-foreground));
+            }
+
+            /* Dark theme modal scrollbar */
+            .dark .modal-body::-webkit-scrollbar-track {
+                background: var(--card);
+            }
+
+            .dark .modal-body::-webkit-scrollbar-thumb {
+                background: var(--border);
+                border-color: var(--card);
+            }
+
+            .dark .modal-body::-webkit-scrollbar-thumb:hover {
+                background: var(--primary);
+            }
+
+            /* Firefox dark theme */
+            .dark * {
+                scrollbar-color: var(--border) var(--card);
+            }
+        }
+
+        /* ==================== SCROLLBAR ANIMATIONS ==================== */
+        @media (min-width: 769px) {
+            /* Efeito de fade in/out das scrollbars */
+            ::-webkit-scrollbar {
+                opacity: 0.6;
+                transition: opacity 0.3s ease;
+            }
+
+            *:hover::-webkit-scrollbar {
+                opacity: 1;
+            }
+
+            /* Scrollbar com gradiente especial para progress */
+            .lesson-progress .progress::-webkit-scrollbar-thumb {
+                background: linear-gradient(45deg, var(--primary), var(--success));
+                border-radius: 4px;
+            }
+
+            /* Scrollbar ultra-thin para stats */
+            .stats-grid::-webkit-scrollbar {
+                width: 4px;
+            }
+
+            .stats-grid::-webkit-scrollbar-thumb {
+                background: var(--accent-foreground);
+                border-radius: 2px;
+            }
+
+            /* Efeito glow na scrollbar do carrossel quando ativo */
+            .lessons-carousel-container:hover::-webkit-scrollbar-thumb {
+                box-shadow: 0 0 8px rgba(30, 157, 241, 0.4);
+            }
+
+            .dark .lessons-carousel-container:hover::-webkit-scrollbar-thumb {
+                box-shadow: 0 0 8px rgba(241, 30, 61, 0.4);
+            }
+        }
+
+        /* ==================== SCROLL BEHAVIOR IMPROVEMENTS ==================== */
+        /* Smooth scrolling para todos os elementos scrolláveis */
+        .screen,
+        .lessons-carousel-container,
+        .modal-body,
+        .achievements-grid,
+        .profile-stats {
+            scroll-behavior: smooth;
+        }
+
+        /* Melhor momentum no iOS */
+        @supports (-webkit-overflow-scrolling: touch) {
+            .screen,
+            .lessons-carousel-container,
+            .modal-body {
+                -webkit-overflow-scrolling: touch;
+                transform: translateZ(0); /* Hardware acceleration */
+            }
         }
 
         @theme inline {
@@ -276,46 +407,115 @@
             box-sizing: border-box;
         }
 
+
+
         html {
             font-family: var(--font-sans);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            scrollbar-width: none !important;
-            -ms-overflow-style: none !important;
-        }
-
-        html::-webkit-scrollbar {
-            display: none !important;
-            width: 0 !important;
-            height: 0 !important;
+            height: 100%;
+            overflow: hidden; /* Previne scroll duplo */
         }
 
         body {
             background-color: var(--background);
             color: var(--foreground);
             line-height: 1.5;
-            min-height: 100vh;
-            overflow-x: hidden;
-            scrollbar-width: none !important;
-            -ms-overflow-style: none !important;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Body não deve ter scroll */
+            position: fixed; /* Importante para iOS */
+            width: 100%;
+            -webkit-overflow-scrolling: touch;
         }
 
-        body::-webkit-scrollbar {
-            display: none !important;
-            width: 0 !important;
-            height: 0 !important;
+        /* ==================== CUSTOM SCROLLBARS ==================== */
+        /* Desktop: Scrollbars customizadas */
+        @media (min-width: 769px) {
+            /* Webkit browsers (Chrome, Safari, Edge) */
+            ::-webkit-scrollbar {
+                width: 8px;
+                height: 8px;
+            }
+
+            ::-webkit-scrollbar-track {
+                background: var(--muted);
+                border-radius: 4px;
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background: var(--border);
+                border-radius: 4px;
+                border: 1px solid var(--muted);
+                transition: all 0.2s ease;
+            }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background: var(--accent-foreground);
+                border-color: var(--accent);
+            }
+
+            ::-webkit-scrollbar-thumb:active {
+                background: var(--primary);
+            }
+
+            ::-webkit-scrollbar-corner {
+                background: var(--muted);
+            }
+
+            /* Firefox */
+            * {
+                scrollbar-width: thin;
+                scrollbar-color: var(--border) var(--muted);
+            }
         }
 
-        /* Aplicar remoção de scrollbar globalmente */
-        * {
-            scrollbar-width: none !important;
-            -ms-overflow-style: none !important;
+        /* Mobile: Scrollbars invisíveis */
+        @media (max-width: 768px) {
+            /* Webkit browsers */
+            ::-webkit-scrollbar {
+                display: none;
+                width: 0 !important;
+                height: 0 !important;
+            }
+
+            /* Firefox */
+            * {
+                scrollbar-width: none !important;
+                -ms-overflow-style: none !important;
+            }
+
+            /* Manter funcionalidade de scroll */
+            .screen,
+            .lessons-carousel-container,
+            .modal-body {
+                -webkit-overflow-scrolling: touch;
+                overflow-scrolling: touch;
+            }
         }
 
-        *::-webkit-scrollbar {
-            display: none !important;
-            width: 0 !important;
-            height: 0 !important;
+        /* Scrollbars especiais para carrossel no desktop */
+        @media (min-width: 769px) {
+            .lessons-carousel-container::-webkit-scrollbar {
+                height: 6px;
+            }
+
+            .lessons-carousel-container::-webkit-scrollbar-track {
+                background: rgba(0, 0, 0, 0.1);
+                border-radius: 3px;
+                margin: 0 20px;
+            }
+
+            .lessons-carousel-container::-webkit-scrollbar-thumb {
+                background: linear-gradient(90deg, var(--primary), var(--accent-foreground));
+                border-radius: 3px;
+                border: none;
+            }
+
+            .lessons-carousel-container::-webkit-scrollbar-thumb:hover {
+                background: linear-gradient(90deg, var(--accent-foreground), var(--primary));
+            }
         }
 
         /* ==================== UTILITY CLASSES ==================== */
@@ -628,45 +828,27 @@
         }
 
         .app {
-            min-height: 100vh;
-            overflow-x: hidden;
-            overflow-y: auto;
-            scrollbar-width: none !important;
-            -ms-overflow-style: none !important;
-        }
-
-        .app::-webkit-scrollbar {
-            display: none !important;
-            width: 0 !important;
-            height: 0 !important;
+            height: 100vh;
+            height: 100dvh; /* Dynamic viewport height */
+            overflow: hidden;
+            position: relative;
         }
 
         .screen {
             display: none;
+            height: 100%;
             overflow-x: hidden;
             overflow-y: auto;
-            scrollbar-width: none !important;
-            -ms-overflow-style: none !important;
-        }
-
-        .screen::-webkit-scrollbar {
-            display: none !important;
-            width: 0 !important;
-            height: 0 !important;
+            -webkit-overflow-scrolling: touch;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
         }
 
         .screen.active {
             display: block;
-            overflow-x: hidden;
-            overflow-y: auto;
-            scrollbar-width: none !important;
-            -ms-overflow-style: none !important;
-        }
-
-        .screen.active::-webkit-scrollbar {
-            display: none !important;
-            width: 0 !important;
-            height: 0 !important;
         }
 
         /* ==================== SPECIFIC COMPONENTS ==================== */
@@ -717,23 +899,13 @@
 
         .main-content {
             padding: var(--spacing-8) 0 var(--spacing-20) 0;
-            overflow-x: hidden;
-            overflow-y: visible;
-            min-height: 100vh;
-            scrollbar-width: none !important;
-            -ms-overflow-style: none !important;
-        }
-
-        .main-content::-webkit-scrollbar {
-            display: none !important;
-            width: 0 !important;
-            height: 0 !important;
+            min-height: calc(100vh - 80px); /* Altura mínima considerando header */
+            overflow: visible;
         }
 
         /* Lessons Carousel */
         .lessons-carousel-container {
             position: relative;
-            overflow: visible;
             border-radius: calc(var(--radius) - 2px);
             margin: 0 calc(-1 * var(--spacing-4));
             padding: var(--spacing-20) var(--spacing-10) var(--spacing-20) var(--spacing-10);
@@ -746,32 +918,18 @@
             overflow-x: auto;
             overflow-y: visible;
             -webkit-overflow-scrolling: touch;
-            scrollbar-width: none !important;
-            -ms-overflow-style: none !important;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
             cursor: grab;
             transition: scroll-behavior 0.1s ease;
+            /* Remove scroll visual mas mantém funcionalidade */
         }
 
-        .lessons-carousel-container::-webkit-scrollbar {
-            display: none !important;
-            width: 0 !important;
-            height: 0 !important;
-            background: transparent !important;
-        }
-
-        .lessons-carousel-container::-webkit-scrollbar-track {
-            display: none !important;
-            background: transparent !important;
-        }
-
-        .lessons-carousel-container::-webkit-scrollbar-thumb {
-            display: none !important;
-            background: transparent !important;
-        }
-
-        .lessons-carousel-container::-webkit-scrollbar-corner {
-            display: none !important;
-            background: transparent !important;
+        /* Scrollbar do carrossel - mobile invisível, desktop customizada */
+        @media (max-width: 768px) {
+            .lessons-carousel-container::-webkit-scrollbar {
+                display: none;
+            }
         }
 
         .lessons-carousel-container.dragging {
@@ -1042,6 +1200,7 @@
             border: 2px solid var(--border);
             border-radius: calc(var(--radius) - 8px);
             background-color: var(--card);
+            color: var(--card-foreground);
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             text-align: left;
@@ -1065,8 +1224,14 @@
         .question-option:hover {
             border-color: var(--primary);
             background-color: var(--accent);
+            color: var(--accent-foreground);
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-option:hover .option-letter {
+            background-color: var(--primary);
+            color: var(--primary-foreground);
         }
 
         .question-option:hover::before {
@@ -1770,8 +1935,31 @@
             margin-bottom: var(--spacing-8);
         }
 
-        /* Responsive */
+        /* Responsive Mobile Fixes */
         @media (max-width: 768px) {
+            /* Garantir que o body é fixo no mobile */
+            body {
+                position: fixed;
+                height: 100%;
+                width: 100%;
+                overflow: hidden;
+            }
+            
+            .app {
+                height: 100vh;
+                height: 100dvh;
+                touch-action: pan-y; /* Permite scroll vertical */
+            }
+            
+            .screen {
+                height: 100vh;
+                height: 100dvh;
+                overflow-y: scroll;
+                -webkit-overflow-scrolling: touch;
+                /* iOS Safari bounce effect */
+                overscroll-behavior: contain;
+            }
+
             .container {
                 padding: 0 var(--spacing-4);
             }
@@ -1785,6 +1973,8 @@
             .lesson-card {
                 min-width: 280px;
                 width: 280px;
+                /* Melhorar touch no mobile */
+                touch-action: manipulation;
             }
 
             .carousel-controls {
@@ -1795,11 +1985,8 @@
                 margin: 0 calc(-1 * var(--spacing-4));
                 padding: var(--spacing-16) var(--spacing-8) var(--spacing-20) var(--spacing-8);
                 min-height: 550px;
-            }
-
-            .lessons-carousel {
-                padding: 0;
-                gap: var(--spacing-3);
+                /* Touch horizontal scroll */
+                touch-action: pan-x;
             }
 
             .lesson-header {
@@ -1819,12 +2006,45 @@
             .question-options.grid-2 {
                 grid-template-columns: 1fr;
             }
+            
+            /* Botões e elementos interativos maiores no mobile */
+            .btn, .question-option, .color-option {
+                min-height: 48px;
+                touch-action: manipulation;
+            }
         }
 
         @media (max-width: 480px) {
             .lesson-card {
                 min-width: 260px;
                 width: 260px;
+            }
+            
+            /* Usar altura real do viewport no mobile */
+            .app {
+                height: calc(var(--vh, 1vh) * 100);
+            }
+            
+            .screen {
+                height: calc(var(--vh, 1vh) * 100);
+            }
+            
+            .pwa-mode .app,
+            .pwa-mode .screen {
+                height: calc(var(--vh, 1vh) * 100);
+            }
+        }
+        
+        /* Correções adicionais para Android */
+        @media (max-width: 768px) and (orientation: portrait) {
+            .app, .screen {
+                height: calc(var(--vh, 1vh) * 100);
+                min-height: calc(var(--vh, 1vh) * 100);
+            }
+            
+            .main-content {
+                min-height: calc(var(--vh, 1vh) * 100 - 80px);
+                padding-bottom: calc(var(--spacing-20) + env(safe-area-inset-bottom, 0px));
             }
         }
 
@@ -2973,29 +3193,43 @@
         function setupCarouselDragAndScroll() {
             const container = document.getElementById('lessons-container');
             
-            // Touch events para mobile - mais suave
-            container.addEventListener('touchstart', handleCarouselStart, { passive: false });
-            container.addEventListener('touchmove', handleCarouselMove, { passive: false });
-            container.addEventListener('touchend', handleCarouselEnd, { passive: false });
+            // Touch events para mobile - passivo para melhor performance
+            container.addEventListener('touchstart', handleCarouselStart, { passive: true });
+            container.addEventListener('touchmove', handleCarouselMove, { passive: true });
+            container.addEventListener('touchend', handleCarouselEnd, { passive: true });
             
             // Mouse events para desktop
             container.addEventListener('mousedown', handleCarouselStart);
-            document.addEventListener('mousemove', handleCarouselMove); // Movido para document para melhor tracking
+            document.addEventListener('mousemove', handleCarouselMove);
             document.addEventListener('mouseup', handleCarouselEnd);
             
-            // Previne arrastar imagens e seleção
-            container.addEventListener('dragstart', (e) => e.preventDefault());
-            container.addEventListener('selectstart', (e) => e.preventDefault());
+            // Previne arrastar imagens apenas no desktop
+            if (!isMobileDevice()) {
+                container.addEventListener('dragstart', (e) => e.preventDefault());
+                container.addEventListener('selectstart', (e) => e.preventDefault());
+            }
             
             // Scroll event para atualizar indicadores com throttle
             let scrollTimeout;
             container.addEventListener('scroll', () => {
                 clearTimeout(scrollTimeout);
                 scrollTimeout = setTimeout(updateCarouselIndicators, 50);
-            });
+            }, { passive: true });
+            
+            // Permitir scroll nativo no mobile
+            if (isMobileDevice()) {
+                container.style.touchAction = 'pan-x';
+                container.style.overflowX = 'scroll';
+                container.style.scrollSnapType = 'x mandatory';
+            }
         }
 
         function handleCarouselStart(e) {
+            // No mobile, deixar o scroll nativo funcionar
+            if (isMobileDevice() && e.type.startsWith('touch')) {
+                return;
+            }
+            
             isCarouselDragging = true;
             const container = document.getElementById('lessons-container');
             container.classList.add('dragging');
@@ -3004,21 +3238,27 @@
             carouselStartX = clientX;
             carouselScrollLeft = container.scrollLeft;
             
-            // Previne seleção de texto durante o drag
-            container.style.userSelect = 'none';
-            container.style.cursor = 'grabbing';
+            // Previne seleção de texto durante o drag apenas no desktop
+            if (!isMobileDevice()) {
+                container.style.userSelect = 'none';
+                container.style.cursor = 'grabbing';
+            }
         }
 
         function handleCarouselMove(e) {
-            if (!isCarouselDragging) return;
-            e.preventDefault();
+            if (!isCarouselDragging || (isMobileDevice() && e.type.startsWith('touch'))) return;
+            
+            // Só prevenir default no desktop
+            if (!isMobileDevice()) {
+                e.preventDefault();
+            }
             
             const container = document.getElementById('lessons-container');
             const clientX = e.type === 'mousemove' ? e.clientX : e.touches[0].clientX;
             
             // Movimento mais suave com multiplicador reduzido
             const deltaX = clientX - carouselStartX;
-            const smoothDelta = deltaX * 1.2; // Reduzido de 2 para 1.2
+            const smoothDelta = deltaX * 1.2;
             
             container.scrollLeft = carouselScrollLeft - smoothDelta;
         }
@@ -3029,11 +3269,13 @@
             
             const container = document.getElementById('lessons-container');
             container.classList.remove('dragging');
-            container.style.userSelect = '';
-            container.style.cursor = 'grab';
             
-            // Adiciona momentum suave após soltar
-            addMomentumScroll(container);
+            if (!isMobileDevice()) {
+                container.style.userSelect = '';
+                container.style.cursor = 'grab';
+                // Adiciona momentum suave após soltar apenas no desktop
+                addMomentumScroll(container);
+            }
         }
 
         function scrollCarousel(direction) {
@@ -3186,7 +3428,8 @@
                 } else {
                     selectedOption.classList.add('incorrect');
                     // Mostra a resposta correta
-                    options[question.correct].classList.add('correct');
+                    const correctOption = options[question.correct];
+                    correctOption.classList.add('correct');
                     // Vibração no dispositivo (se suportado)
                     triggerVibration();
                 }
@@ -4266,10 +4509,28 @@
         function setupPWAInterface() {
             if (isPWA()) {
                 document.body.classList.add('pwa-mode');
-                
-                // Adicionar padding-top para status bar em dispositivos móveis
+            }
+            
+            // Sempre aplicar melhorias para mobile, PWA ou não
+            if (isMobileDevice()) {
                 const style = document.createElement('style');
                 style.textContent = `
+                    /* Mobile-specific improvements */
+                    .mobile-optimized {
+                        touch-action: manipulation;
+                        -webkit-touch-callout: none;
+                        -webkit-user-select: none;
+                        user-select: none;
+                    }
+                    
+                    /* Melhor scroll no iOS */
+                    .screen {
+                        -webkit-overflow-scrolling: touch;
+                        overflow-scrolling: touch;
+                        scroll-behavior: smooth;
+                    }
+                    
+                    /* Safe areas para PWA */
                     .pwa-mode {
                         padding-top: env(safe-area-inset-top);
                         padding-bottom: env(safe-area-inset-bottom);
@@ -4282,17 +4543,51 @@
                     }
                     
                     /* Prevenir zoom em inputs */
-                    .pwa-mode input, .pwa-mode select, .pwa-mode textarea {
+                    input, select, textarea {
                         font-size: 16px !important;
+                        -webkit-appearance: none;
+                        border-radius: 0;
                     }
                     
                     /* Melhorar área de toque */
-                    .pwa-mode .btn, .pwa-mode .lesson-card, .pwa-mode .question-option {
+                    .btn, .lesson-card, .question-option, .color-option {
                         min-height: 44px;
+                        touch-action: manipulation;
+                    }
+                    
+                    /* Corrigir bounce effect no iOS */
+                    .screen {
+                        overscroll-behavior: contain;
+                        -webkit-overflow-scrolling: touch;
+                    }
+                    
+                    /* Carrossel mobile específico */
+                    @media (max-width: 768px) {
+                        .lessons-carousel-container {
+                            scroll-snap-type: x mandatory;
+                            -webkit-overflow-scrolling: touch;
+                            overscroll-behavior-x: contain;
+                            scroll-padding: 0;
+                        }
+                        
+                        .lesson-card {
+                            scroll-snap-align: start;
+                            touch-action: manipulation;
+                        }
                     }
                 `;
                 document.head.appendChild(style);
                 
+                // Adicionar classe mobile-optimized aos elementos interativos
+                document.addEventListener('DOMContentLoaded', () => {
+                    const interactiveElements = document.querySelectorAll('.btn, .lesson-card, .question-option, .color-option, .dock-item, .fab-menu-item');
+                    interactiveElements.forEach(el => el.classList.add('mobile-optimized'));
+                });
+                
+                console.log('📱 Interface mobile configurada');
+            }
+            
+            if (isPWA()) {
                 console.log('✅ Interface PWA configurada');
             }
         }
@@ -4684,6 +4979,28 @@
                 max-height: 60vh;
                 overflow-y: auto;
             }
+
+            /* Scrollbars customizadas para modais no desktop */
+            @media (min-width: 769px) {
+                .modal-body::-webkit-scrollbar {
+                    width: 6px;
+                }
+
+                .modal-body::-webkit-scrollbar-track {
+                    background: var(--card);
+                    border-radius: 3px;
+                }
+
+                .modal-body::-webkit-scrollbar-thumb {
+                    background: var(--accent-foreground);
+                    border-radius: 3px;
+                    border: 1px solid var(--card);
+                }
+
+                .modal-body::-webkit-scrollbar-thumb:hover {
+                    background: var(--primary);
+                }
+            }
             
             .achievements-grid {
                 display: grid;
@@ -4767,6 +5084,104 @@
         `;
         document.head.appendChild(modalStyles);
 
+        // ==================== BROWSER THEME OVERRIDE FIXES ==================== 
+        function fixBrowserThemeOverrides() {
+            // Detectar se o navegador está forçando dark mode nas questões
+            const isDarkModeForced = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (isDarkModeForced) {
+                console.log('🎨 Navegador tentando forçar dark mode - aplicando correções mínimas');
+                
+                // CSS mínimo para corrigir apenas textos das questões
+                const forceStyleSheet = document.createElement('style');
+                forceStyleSheet.textContent = `
+                    /* Corrigir apenas elementos problemáticos específicos */
+                    @media (prefers-color-scheme: dark) {
+                        .question-option {
+                            forced-color-adjust: none !important;
+                        }
+                        
+                        .question-option span {
+                            color: inherit !important;
+                        }
+                        
+                        /* Manter comportamento normal para outros elementos */
+                        .question-option.selected span {
+                            color: var(--primary-foreground) !important;
+                        }
+                        
+                        .question-option.correct span {
+                            color: var(--success-foreground) !important;
+                        }
+                        
+                        .question-option.incorrect span {
+                            color: var(--destructive-foreground) !important;
+                        }
+                    }
+                `;
+                document.head.appendChild(forceStyleSheet);
+            }
+        }
+        
+        function applyCorrectColors(element) {
+            // Função simplificada - apenas garante que textos sejam visíveis
+            if (!element || !element.classList.contains('question-option')) return;
+            
+            const span = element.querySelector('span');
+            if (!span) return;
+            
+            // Apenas remover qualquer estilo inline que possa estar interferindo
+            span.style.removeProperty('color');
+            span.style.removeProperty('-webkit-text-fill-color');
+        }
+
+        // ==================== MOBILE SCROLL FIXES ==================== 
+        function fixMobileScrolling() {
+            if (!isMobileDevice()) return;
+            
+            // Prevenir bounce scroll indesejado
+            document.addEventListener('touchstart', function(e) {
+                // Permitir scroll apenas em elementos scrollable
+                const target = e.target.closest('.screen, .lessons-carousel-container, .modal-body');
+                if (!target) {
+                    return;
+                }
+            }, { passive: true });
+            
+            // Prevenir zoom duplo toque
+            let lastTouchEnd = 0;
+            document.addEventListener('touchend', function(event) {
+                const now = (new Date()).getTime();
+                if (now - lastTouchEnd <= 300) {
+                    event.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
+            
+            // Melhorar scroll momentum no iOS
+            if (isIOS()) {
+                const screens = document.querySelectorAll('.screen');
+                screens.forEach(screen => {
+                    screen.style.webkitOverflowScrolling = 'touch';
+                    screen.style.transform = 'translateZ(0)'; // Hardware acceleration
+                });
+            }
+            
+            // Fix para viewport height em mobile
+            function setVH() {
+                const vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
+            }
+            
+            setVH();
+            window.addEventListener('resize', setVH);
+            window.addEventListener('orientationchange', () => {
+                setTimeout(setVH, 100);
+            });
+            
+            console.log('📱 Mobile scrolling fixes aplicados');
+        }
+
         // ==================== INICIALIZAÇÃO PWA ==================== 
         document.addEventListener('DOMContentLoaded', () => {
             // Aguardar um pequeno delay para garantir que todos os elementos estejam renderizados
@@ -4779,6 +5194,12 @@
                 setupPWAInterface();
                 setupOfflineHandling();
                 setupPushNotifications();
+                
+                // Aplicar correções específicas para mobile
+                fixMobileScrolling();
+                
+                // Aplicar correções para temas forçados pelo navegador
+                fixBrowserThemeOverrides();
                 
                 // Verificar se deve mostrar banner de instalação para mobile
                 checkMobileInstallPrompt();
